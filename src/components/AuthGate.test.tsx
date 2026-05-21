@@ -94,6 +94,30 @@ describe('AuthGate', () => {
     ).toBeInTheDocument();
     expect(onUnlock).not.toHaveBeenCalled();
   });
+
+  it('shows an error when browser password hashing fails', async () => {
+    const passwordHash = await sha256Hex('demo');
+    const onUnlock = vi.fn();
+
+    Object.defineProperty(globalThis, 'crypto', {
+      configurable: true,
+      value: {
+        subtle: {
+          digest: vi.fn().mockRejectedValue(new Error('digest failed')),
+        },
+      },
+    });
+
+    render(<AuthGate passwordHash={passwordHash} onUnlock={onUnlock} />);
+
+    await userEvent.type(screen.getByLabelText('Temporary password'), 'demo');
+    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+
+    expect(
+      await screen.findByText('Password hashing failed in this browser.'),
+    ).toBeInTheDocument();
+    expect(onUnlock).not.toHaveBeenCalled();
+  });
 });
 
 describe('App', () => {

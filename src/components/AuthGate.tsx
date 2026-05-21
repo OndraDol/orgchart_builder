@@ -39,7 +39,14 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
         return;
       }
 
-      const enteredHash = await sha256Hex(password);
+      let enteredHash: string;
+
+      try {
+        enteredHash = await sha256Hex(password);
+      } catch {
+        setError('Password hashing failed in this browser.');
+        return;
+      }
 
       if (enteredHash === passwordHash) {
         try {
