@@ -45,6 +45,8 @@ export const createInitialChartState = (chart: OrgChartDocument): ChartState => 
 
 const warningFromError = (error: unknown): string => (error instanceof Error ? error.message : String(error));
 
+const clearWarning = (state: ChartState): ChartState => ({ ...state, warning: '' });
+
 const withPushedChart = (state: ChartState, chart: OrgChartDocument): ChartState => ({
   ...state,
   history: pushHistory(state.history, chart),
@@ -79,32 +81,55 @@ const ensureGeneratedNodeIdHasSuffix = (chart: OrgChartDocument, nodeId: string 
 export const chartReducer = (state: ChartState, action: ChartAction): ChartState => {
   switch (action.type) {
     case 'select':
-      return { ...state, selectedNodeId: action.nodeId };
+      return { ...state, selectedNodeId: action.nodeId, warning: '' };
 
     case 'set-search':
-      return { ...state, search: action.search };
+      return { ...state, search: action.search, warning: '' };
 
     case 'set-orientation':
-      return { ...state, orientation: action.orientation };
+      return { ...state, orientation: action.orientation, warning: '' };
 
     case 'add-child': {
-      const addedChart = addChildNode(state.history.current, action.parentId);
-      const originalAddedNodeId = findAddedNodeId(state.history.current, addedChart);
-      const nextChart = ensureGeneratedNodeIdHasSuffix(addedChart, originalAddedNodeId);
-      const selectedNodeId = findAddedNodeId(state.history.current, nextChart);
+      try {
+        const addedChart = addChildNode(state.history.current, action.parentId);
+        const originalAddedNodeId = findAddedNodeId(state.history.current, addedChart);
+        const nextChart = ensureGeneratedNodeIdHasSuffix(addedChart, originalAddedNodeId);
+        const selectedNodeId = findAddedNodeId(state.history.current, nextChart);
 
-      return {
-        ...withPushedChart(state, nextChart),
-        selectedNodeId,
-      };
+        return {
+          ...withPushedChart(state, nextChart),
+          selectedNodeId,
+        };
+      } catch (error) {
+        return { ...state, warning: warningFromError(error) };
+      }
     }
 
     case 'update-selected': {
       if (!state.selectedNodeId) {
-        return state;
+        return clearWarning(state);
       }
 
-      return withPushedChart(state, updateNode(state.history.current, state.selectedNodeId, action.patch));
+      const selectedNode = state.history.current.nodes.find((node) => node.id === state.selectedNodeId);
+
+      if (!selectedNode) {
+        return { ...state, warning: `Node not found: ${state.selectedNodeId}` };
+      }
+
+      const patchEntries = Object.entries(action.patch) as [
+        keyof SelectedNodePatch,
+        SelectedNodePatch[keyof SelectedNodePatch],
+      ][];
+
+      if (patchEntries.every(([key, value]) => selectedNode[key] === value)) {
+        return clearWarning(state);
+      }
+
+      try {
+        return withPushedChart(state, updateNode(state.history.current, state.selectedNodeId, action.patch));
+      } catch (error) {
+        return { ...state, warning: warningFromError(error) };
+      }
     }
 
     case 'delete':
@@ -112,16 +137,17 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
         return {
           ...withPushedChart(state, deleteNodeAndDescendants(state.history.current, action.nodeId)),
           selectedNodeId: null,
+          movingNodeId: null,
         };
       } catch (error) {
         return { ...state, warning: warningFromError(error) };
       }
 
     case 'start-move':
-      return { ...state, movingNodeId: action.nodeId };
+      return { ...state, movingNodeId: action.nodeId, warning: '' };
 
     case 'cancel-move':
-      return { ...state, movingNodeId: null };
+      return { ...state, movingNodeId: null, warning: '' };
 
     case 'move-as-child': {
       if (!state.movingNodeId) {
@@ -162,6 +188,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
         history: undoHistory(state.history),
         selectedNodeId: null,
         movingNodeId: null,
+        warning: '',
       };
 
     case 'replace-chart':
