@@ -8,6 +8,8 @@ import { SOURCE_ORGCHART } from './data/sourceOrgchart';
 import { chartReducer, createInitialChartState } from './state/chartReducer';
 import { loadLocalChart, saveLocalChart } from './state/storage';
 
+const SAVE_FAILURE_WARNING = 'Changes could not be saved in this browser.';
+
 type ViteImportMeta = ImportMeta & {
   env?: {
     VITE_APP_PASSWORD_HASH?: string;
@@ -50,7 +52,7 @@ export function App() {
     } catch {
       dispatch({
         type: 'set-warning',
-        warning: 'Changes could not be saved in this browser.',
+        warning: SAVE_FAILURE_WARNING,
       });
     }
   }, [currentChart, isUnlocked]);
@@ -84,13 +86,13 @@ export function App() {
           onExport={() =>
             dispatch({
               type: 'set-warning',
-              warning: 'Export will be available after canvas integration.',
+              warning: 'JSON import/export will be available in the import/export task.',
             })
           }
           onImport={() =>
             dispatch({
               type: 'set-warning',
-              warning: 'Import will be available after canvas integration.',
+              warning: 'JSON import/export will be available in the import/export task.',
             })
           }
           onFitView={() =>
@@ -109,13 +111,21 @@ export function App() {
           node={selectedNode}
           movingNodeId={state.movingNodeId}
           onChange={(patch) => dispatch({ type: 'update-selected', patch })}
-          onDelete={(nodeId) => dispatch({ type: 'delete', nodeId })}
+          onDelete={(nodeId) => {
+            if (window.confirm('Delete this card and all child cards?')) {
+              dispatch({ type: 'delete', nodeId });
+            }
+          }}
           onStartMove={(nodeId) => dispatch({ type: 'start-move', nodeId })}
           onCancelMove={() => dispatch({ type: 'cancel-move' })}
           onClose={() => dispatch({ type: 'select', nodeId: null })}
         />
 
-        <StatusBar nodeCount={currentChart.nodes.length} warning={state.warning} />
+        <StatusBar
+          nodeCount={currentChart.nodes.length}
+          warning={state.warning}
+          saveState={state.warning === SAVE_FAILURE_WARNING ? 'failed' : 'saved'}
+        />
       </div>
     </main>
   );
