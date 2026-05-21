@@ -49,8 +49,10 @@ src/
 - Plně česká lokalizace + plurály
 - Drag & drop:
   - inflated rect intersection (60 px tolerance)
-  - center → child, levá/pravá hrana → sibling left/right
-  - re-fit viewport po dropu
+  - center → child (indigo ring + **bottom bar** ukazující kam se podřízený zařadí)
+  - levá / pravá hrana → sibling left/right (vertikální bar na hraně)
+  - tažená karta = grayscale ghost s subtle scale-down + glow pulse když je nad valid drop místem
+  - **viewport zůstává na stejném místě po dropu** (žádný auto-fit; user může kliknout „Přizpůsobit pohled" v toolbaru)
 - Draft flow pro novou kartu (dashed, NOVÁ badge, Uložit)
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch

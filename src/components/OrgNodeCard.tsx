@@ -14,6 +14,7 @@ interface OrgNodeCardProps {
   draft: boolean;
   dropTarget: boolean;
   dropMode: DropMode | null;
+  dropAllowed: boolean;
   onSelect: (nodeId: string) => void;
   onAddChild: (nodeId: string) => void;
 }
@@ -26,6 +27,7 @@ export function OrgNodeCard({
   draft,
   dropTarget,
   dropMode,
+  dropAllowed,
   onSelect,
   onAddChild,
 }: OrgNodeCardProps) {
@@ -41,6 +43,7 @@ export function OrgNodeCard({
         'search-match': searchMatch,
         moving,
         draft,
+        'drop-allowed': dropAllowed,
         'drop-target': dropTarget && dropMode === 'child',
         'drop-sibling-left': dropTarget && dropMode === 'sibling-left',
         'drop-sibling-right': dropTarget && dropMode === 'sibling-right',
@@ -54,6 +57,7 @@ export function OrgNodeCard({
       }}
       onClick={() => onSelect(node.id)}
     >
+      <span className="org-card-level-stripe" aria-hidden="true" />
       <div className="org-card-content">
         <h3 className="org-card-title">{node.title}</h3>
         <p className="org-card-person">{personDisplay}</p>

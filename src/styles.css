@@ -552,17 +552,54 @@ button:disabled {
 
 .chart-canvas .react-flow__node.dragging .org-card,
 .org-card.dragging {
-  opacity: 0.7;
+  opacity: 0.55;
+  filter: grayscale(0.4) brightness(0.96);
   cursor: grabbing;
-  box-shadow: var(--shadow-lg);
+  transform: scale(0.97);
+  box-shadow:
+    var(--shadow-xl),
+    0 0 0 2px var(--accent-soft);
+}
+
+@keyframes dropPulse {
+  0%, 100% {
+    box-shadow:
+      var(--shadow-xl),
+      0 0 0 3px var(--accent-soft);
+  }
+  50% {
+    box-shadow:
+      var(--shadow-xl),
+      0 0 0 8px var(--accent-soft);
+  }
+}
+
+.org-card.dragging.drop-allowed {
+  opacity: 0.7;
+  filter: grayscale(0.2);
+  animation: dropPulse 0.85s ease-in-out infinite;
 }
 
 .org-card.drop-target {
   border-color: var(--accent) !important;
   box-shadow:
-    0 0 0 5px var(--accent-soft),
+    0 0 0 3px var(--accent-soft),
     var(--shadow-lg) !important;
-  transform: scale(1.04);
+  transform: scale(1.03);
+}
+
+.org-card.drop-target::before {
+  /* Horizontal bar below the card showing where new child will attach */
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -14px;
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--accent-soft), 0 6px 22px rgba(79, 70, 229, 0.55);
+  z-index: 1;
 }
 
 .org-card.drop-sibling-left::after,
@@ -590,8 +627,7 @@ button:disabled {
   opacity: 0.85;
 }
 
-.org-card::before {
-  content: '';
+.org-card-level-stripe {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -599,6 +635,7 @@ button:disabled {
   width: 4px;
   border-radius: var(--radius-md) 0 0 var(--radius-md);
   background: var(--level-stripe, transparent);
+  pointer-events: none;
 }
 
 .org-card.level-b0 { --level-stripe: #4f46e5; }

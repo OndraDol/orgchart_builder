@@ -45,6 +45,7 @@ interface OrgFlowNodeData extends Record<string, unknown> {
   draft: boolean;
   dropTarget: boolean;
   dropMode: DropMode | null;
+  dropAllowed: boolean;
   onSelect: (nodeId: string) => void;
   onAddChild: (nodeId: string) => void;
 }
@@ -66,6 +67,7 @@ function OrgFlowCard({ data }: NodeProps<OrgFlowNode>) {
         draft={data.draft}
         dropTarget={data.dropTarget}
         dropMode={data.dropMode}
+        dropAllowed={data.dropAllowed}
         onSelect={data.onSelect}
         onAddChild={data.onAddChild}
       />
@@ -127,6 +129,7 @@ function OrgChartFlow({
           draft: draftNodeId === id,
           dropTarget: dropTargetId === id && draggedNodeId !== null && draggedNodeId !== id,
           dropMode: dropTargetId === id && draggedNodeId !== null && draggedNodeId !== id ? dropMode : null,
+          dropAllowed: draggedNodeId === id && dropTargetId !== null,
           onSelect: (nodeId) => onSelect(nodeId),
           onAddChild,
         },
@@ -245,8 +248,6 @@ function OrgChartFlow({
       setDropTargetId(null);
       setDropMode(null);
       if (!targetId || targetId === sourceId) {
-        // Žádný target — re-fit aby se karta vrátila na původní layout pozici
-        setTimeout(() => fitView({ padding: 0.2, duration: 240 }), 0);
         return;
       }
       if (mode === 'sibling-left') {
@@ -256,10 +257,10 @@ function OrgChartFlow({
       } else {
         onDropAsChild(sourceId, targetId);
       }
-      // Po dispatchi (asyncronně) re-fit, aby se nový layout vykreslil čistě
-      setTimeout(() => fitView({ padding: 0.2, duration: 320 }), 50);
+      // Bez fitView: viewport zůstane na stejném místě po uživatelově přání.
+      // Uživatel může kdykoli kliknout „Přizpůsobit pohled" v toolbaru pro refit.
     },
-    [dropTargetId, dropMode, onDropAsChild, onDropAsSibling, fitView],
+    [dropTargetId, dropMode, onDropAsChild, onDropAsSibling],
   );
 
   return (

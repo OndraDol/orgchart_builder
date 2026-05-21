@@ -10,9 +10,11 @@ Interaktivní webový editor organizační struktury **Aures Holdings** (118 kar
 
 - **Vizualizace** stromu org. struktury (React Flow + d3-hierarchy)
 - **Drag & drop reorganizace** — chytni kartu, pusť nad jinou pro:
-  - **Center** → karta se stane podřízenou (child)
-  - **Levá / pravá hrana** → karta se stane sourozencem (sibling left/right)
+  - **Center** → karta se stane podřízenou (indigo ring + bottom-bar pod cílovou kartou)
+  - **Levá / pravá hrana** → sibling reorder (svislý bar na hraně cíle)
   - Inflated rect intersection ±60 px — drop nemusí být přesný overlap
+  - Tažená karta vypadá jako šedý poloprůhledný ghost; pulzuje accent glow když je nad valid drop místem
+  - Po dropu **viewport zůstává na stejné pozici** (user klepne „Přizpůsobit pohled" pro refit)
 - **Editor karty** v pravém panelu (název, osoba, B-úroveň, země, region, barva, status)
 - **Přidání nové karty** přes „+" tlačítko → karta jako draft (dashed border, NOVÁ badge), vyplň detaily a klikni Uložit
 - **Import / Export JSON** pro zálohu a obnovu
