@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import { AuthGate } from './components/AuthGate';
+import { EditorPanel } from './components/EditorPanel';
+import { StatusBar } from './components/StatusBar';
+import { Toolbar } from './components/Toolbar';
+import { SOURCE_ORGCHART } from './data/sourceOrgchart';
+import { chartReducer, createInitialChartState } from './state/chartReducer';
+import { loadLocalChart, saveLocalChart } from './state/storage';
 
 type ViteImportMeta = ImportMeta & {
   env?: {
@@ -16,10 +22,38 @@ function readStoredUnlockState(): boolean {
   }
 }
 
+function readInitialChart() {
+  return loadLocalChart() ?? SOURCE_ORGCHART;
+}
+
 export function App() {
   const [isUnlocked, setIsUnlocked] = useState(readStoredUnlockState);
+  const [initialChart] = useState(readInitialChart);
+  const [state, dispatch] = useReducer(
+    chartReducer,
+    initialChart,
+    createInitialChartState,
+  );
   const passwordHash =
     (import.meta as ViteImportMeta).env?.VITE_APP_PASSWORD_HASH ?? '';
+  const currentChart = state.history.current;
+  const selectedNode =
+    currentChart.nodes.find((node) => node.id === state.selectedNodeId) ?? null;
+
+  useEffect(() => {
+    if (!isUnlocked) {
+      return;
+    }
+
+    try {
+      saveLocalChart(currentChart);
+    } catch {
+      dispatch({
+        type: 'set-warning',
+        warning: 'Changes could not be saved in this browser.',
+      });
+    }
+  }, [currentChart, isUnlocked]);
 
   if (!isUnlocked) {
     return (
@@ -32,10 +66,57 @@ export function App() {
 
   return (
     <main className="workspace">
-      <section className="empty-workspace">
-        <h1>Orgchart Builder</h1>
-        <p>Editor workspace loads in the next task.</p>
-      </section>
+      <div className="app-grid">
+        <Toolbar
+          search={state.search}
+          orientation={state.orientation}
+          canUndo={state.history.past.length > 0}
+          onSearchChange={(search) => dispatch({ type: 'set-search', search })}
+          onOrientationChange={(orientation) =>
+            dispatch({ type: 'set-orientation', orientation })
+          }
+          onUndo={() => dispatch({ type: 'undo' })}
+          onReset={() => {
+            if (window.confirm('Reset the chart to the source orgchart?')) {
+              dispatch({ type: 'replace-chart', chart: SOURCE_ORGCHART });
+            }
+          }}
+          onExport={() =>
+            dispatch({
+              type: 'set-warning',
+              warning: 'Export will be available after canvas integration.',
+            })
+          }
+          onImport={() =>
+            dispatch({
+              type: 'set-warning',
+              warning: 'Import will be available after canvas integration.',
+            })
+          }
+          onFitView={() =>
+            dispatch({
+              type: 'set-warning',
+              warning: 'Fit view will be available after canvas integration.',
+            })
+          }
+        />
+
+        <section className="chart-placeholder">
+          Chart canvas loads in Task 9.
+        </section>
+
+        <EditorPanel
+          node={selectedNode}
+          movingNodeId={state.movingNodeId}
+          onChange={(patch) => dispatch({ type: 'update-selected', patch })}
+          onDelete={(nodeId) => dispatch({ type: 'delete', nodeId })}
+          onStartMove={(nodeId) => dispatch({ type: 'start-move', nodeId })}
+          onCancelMove={() => dispatch({ type: 'cancel-move' })}
+          onClose={() => dispatch({ type: 'select', nodeId: null })}
+        />
+
+        <StatusBar nodeCount={currentChart.nodes.length} warning={state.warning} />
+      </div>
     </main>
   );
 }
