@@ -89,6 +89,10 @@ describe('chartOperations', () => {
     expect(result.nodes.map((node) => node.id)).toEqual(['root', 'child-b']);
   });
 
+  it('blocks deleting the root node', () => {
+    expect(() => deleteNodeAndDescendants(baseChart(), 'root')).toThrow('Cannot delete the root node.');
+  });
+
   it('moves a node as child of target', () => {
     const result = moveNodeAsChild(baseChart(), 'child-b', 'child-a');
 
@@ -101,6 +105,17 @@ describe('chartOperations', () => {
     );
   });
 
+  it('detects cycles while traversing descendants', () => {
+    const cyclicChart = baseChart();
+    cyclicChart.nodes = cyclicChart.nodes.map((node) =>
+      node.id === 'child-a' ? { ...node, parentId: 'grandchild' } : node,
+    );
+
+    expect(() => moveNodeAsChild(cyclicChart, 'child-a', 'root')).toThrow(
+      'Cycle detected while traversing descendants.',
+    );
+  });
+
   it('moves a node beside target on the right', () => {
     const result = moveNodeAsSibling(baseChart(), 'child-a', 'child-b', 'right');
     const childA = result.nodes.find((node) => node.id === 'child-a');
@@ -108,5 +123,11 @@ describe('chartOperations', () => {
 
     expect(childA?.parentId).toBe('root');
     expect(childA!.order).toBeGreaterThan(childB!.order);
+  });
+
+  it('blocks moving a node beside the root', () => {
+    expect(() => moveNodeAsSibling(baseChart(), 'child-a', 'root', 'right')).toThrow(
+      'Cannot move a node beside the root.',
+    );
   });
 });

@@ -59,6 +59,7 @@ const createUniqueId = (nodes: OrgNode[], label: string): string => {
 
 const getDescendantIds = (nodes: OrgNode[], nodeId: string): Set<string> => {
   const descendantIds = new Set<string>();
+  const visitedIds = new Set([nodeId]);
   const queue = [nodeId];
 
   while (queue.length > 0) {
@@ -66,6 +67,11 @@ const getDescendantIds = (nodes: OrgNode[], nodeId: string): Set<string> => {
     const children = nodes.filter((node) => node.parentId === currentId);
 
     for (const child of children) {
+      if (visitedIds.has(child.id)) {
+        throw new Error('Cycle detected while traversing descendants.');
+      }
+
+      visitedIds.add(child.id);
       descendantIds.add(child.id);
       queue.push(child.id);
     }
@@ -127,7 +133,11 @@ export const updateNode = (
 };
 
 export const deleteNodeAndDescendants = (chart: OrgChartDocument, nodeId: string): OrgChartDocument => {
-  findNode(chart, nodeId);
+  const node = findNode(chart, nodeId);
+
+  if (node.parentId === null) {
+    throw new Error('Cannot delete the root node.');
+  }
 
   const idsToDelete = getDescendantIds(chart.nodes, nodeId);
   idsToDelete.add(nodeId);
@@ -171,6 +181,10 @@ export const moveNodeAsSibling = (
 
   if (sourceId === targetId) {
     throw new Error('Cannot move a node beside itself.');
+  }
+
+  if (target.parentId === null) {
+    throw new Error('Cannot move a node beside the root.');
   }
 
   if (getDescendantIds(chart.nodes, sourceId).has(targetId)) {
