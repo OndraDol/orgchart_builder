@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { SOURCE_ORGCHART } from './data/sourceOrgchart';
+import { messages, pluralizeCards } from './i18n/messages';
 
 vi.mock('./components/EditorPanel', () => ({
   EditorPanel: ({ onDelete }: { onDelete: (nodeId: string) => void }) => (
@@ -31,9 +32,9 @@ describe('App editor actions', () => {
 
     await userEvent.click(screen.getByRole('button', { name: 'Mock delete' }));
 
-    expect(confirm).toHaveBeenCalledWith('Delete this card and all child cards?');
+    expect(confirm).toHaveBeenCalledWith(messages.editor.confirmDelete);
     expect(
-      screen.getByText(`${SOURCE_ORGCHART.nodes.length} cards`),
+      screen.getByText(pluralizeCards(SOURCE_ORGCHART.nodes.length)),
     ).toBeInTheDocument();
   });
 });

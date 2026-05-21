@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { App } from '../App';
+import { messages } from '../i18n/messages';
 import { AuthGate } from './AuthGate';
 
 const originalCrypto = globalThis.crypto;
@@ -41,8 +42,8 @@ describe('AuthGate', () => {
 
     render(<AuthGate passwordHash={hashHex} onUnlock={onUnlock} />);
 
-    await userEvent.type(screen.getByLabelText('Temporary password'), password);
-    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+    await userEvent.type(screen.getByLabelText(messages.auth.passwordLabel), password);
+    await userEvent.click(screen.getByRole('button', { name: messages.auth.submit }));
 
     expect(onUnlock).toHaveBeenCalled();
   });
@@ -53,10 +54,10 @@ describe('AuthGate', () => {
 
     render(<AuthGate passwordHash={passwordHash} onUnlock={onUnlock} />);
 
-    await userEvent.type(screen.getByLabelText('Temporary password'), 'wrong');
-    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+    await userEvent.type(screen.getByLabelText(messages.auth.passwordLabel), 'wrong');
+    await userEvent.click(screen.getByRole('button', { name: messages.auth.submit }));
 
-    expect(await screen.findByText('Password does not match.')).toBeInTheDocument();
+    expect(await screen.findByText(messages.auth.errors.mismatch)).toBeInTheDocument();
     expect(onUnlock).not.toHaveBeenCalled();
   });
 
@@ -70,8 +71,8 @@ describe('AuthGate', () => {
 
     render(<AuthGate passwordHash={hashHex} onUnlock={onUnlock} />);
 
-    await userEvent.type(screen.getByLabelText('Temporary password'), password);
-    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+    await userEvent.type(screen.getByLabelText(messages.auth.passwordLabel), password);
+    await userEvent.click(screen.getByRole('button', { name: messages.auth.submit }));
 
     expect(onUnlock).toHaveBeenCalled();
   });
@@ -86,11 +87,11 @@ describe('AuthGate', () => {
 
     render(<AuthGate passwordHash={await sha256Hex('demo')} onUnlock={onUnlock} />);
 
-    await userEvent.type(screen.getByLabelText('Temporary password'), 'demo');
-    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+    await userEvent.type(screen.getByLabelText(messages.auth.passwordLabel), 'demo');
+    await userEvent.click(screen.getByRole('button', { name: messages.auth.submit }));
 
     expect(
-      await screen.findByText('Password hashing is not available in this browser.'),
+      await screen.findByText(messages.auth.errors.unsupported),
     ).toBeInTheDocument();
     expect(onUnlock).not.toHaveBeenCalled();
   });
@@ -110,11 +111,11 @@ describe('AuthGate', () => {
 
     render(<AuthGate passwordHash={passwordHash} onUnlock={onUnlock} />);
 
-    await userEvent.type(screen.getByLabelText('Temporary password'), 'demo');
-    await userEvent.click(screen.getByRole('button', { name: 'Unlock editor' }));
+    await userEvent.type(screen.getByLabelText(messages.auth.passwordLabel), 'demo');
+    await userEvent.click(screen.getByRole('button', { name: messages.auth.submit }));
 
     expect(
-      await screen.findByText('Password hashing failed in this browser.'),
+      await screen.findByText(messages.auth.errors.failed),
     ).toBeInTheDocument();
     expect(onUnlock).not.toHaveBeenCalled();
   });
@@ -132,6 +133,6 @@ describe('App', () => {
     });
 
     expect(() => render(<App />)).not.toThrow();
-    expect(screen.getByLabelText('Temporary password')).toBeInTheDocument();
+    expect(screen.getByLabelText(messages.auth.passwordLabel)).toBeInTheDocument();
   });
 });

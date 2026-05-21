@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { messages } from '../i18n/messages';
 import { Toolbar } from './Toolbar';
 
 describe('Toolbar', () => {
@@ -23,9 +24,9 @@ describe('Toolbar', () => {
   it('renders core editor controls', () => {
     render(<Toolbar {...defaultProps} />);
 
-    expect(screen.getByLabelText('Search roles and people')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Export JSON' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Reset' })).toBeInTheDocument();
+    expect(screen.getByLabelText(messages.toolbar.searchLabel)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: messages.toolbar.exportJson })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: messages.toolbar.reset })).toBeInTheDocument();
   });
 
   it('calls onSearchChange when search text changes', async () => {
@@ -48,7 +49,7 @@ describe('Toolbar', () => {
 
     render(<StatefulToolbar />);
 
-    await userEvent.type(screen.getByLabelText('Search roles and people'), 'sales');
+    await userEvent.type(screen.getByLabelText(messages.toolbar.searchLabel), 'sales');
 
     expect(onSearchChange).toHaveBeenLastCalledWith('sales');
   });

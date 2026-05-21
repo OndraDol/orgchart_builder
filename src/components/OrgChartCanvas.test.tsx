@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { SOURCE_ORGCHART } from '../data/sourceOrgchart';
+import { messages } from '../i18n/messages';
 import { OrgChartCanvas } from './OrgChartCanvas';
 
 describe('OrgChartCanvas', () => {
@@ -14,6 +15,7 @@ describe('OrgChartCanvas', () => {
         selectedNodeId={null}
         movingNodeId={null}
         search=""
+        fitViewToken={0}
         onSelect={vi.fn()}
         onAddChild={vi.fn()}
         onMoveAsChild={vi.fn()}
@@ -35,6 +37,7 @@ describe('OrgChartCanvas', () => {
         selectedNodeId={null}
         movingNodeId={null}
         search=""
+        fitViewToken={0}
         onSelect={vi.fn()}
         onAddChild={onAddChild}
         onMoveAsChild={vi.fn()}
@@ -42,7 +45,7 @@ describe('OrgChartCanvas', () => {
       />,
     );
 
-    await user.click(screen.getByLabelText('Add child under Chief HR Officer'));
+    await user.click(screen.getByLabelText(messages.editor.addChildAria('Chief HR Officer')));
 
     expect(onAddChild).toHaveBeenCalledWith('chief-hr-officer-marie-vorsilkova');
   });

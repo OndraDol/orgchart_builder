@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState, type ChangeEvent } from 'react';
 
 import { AuthGate } from './components/AuthGate';
 import { EditorPanel } from './components/EditorPanel';
@@ -6,10 +6,11 @@ import { OrgChartCanvas } from './components/OrgChartCanvas';
 import { StatusBar } from './components/StatusBar';
 import { Toolbar } from './components/Toolbar';
 import { SOURCE_ORGCHART } from './data/sourceOrgchart';
+import { parseChartDocument } from './domain/chartValidation';
+import { messages } from './i18n/messages';
 import { chartReducer, createInitialChartState } from './state/chartReducer';
 import { loadLocalChart, saveLocalChart } from './state/storage';
-
-const SAVE_FAILURE_WARNING = 'Changes could not be saved in this browser.';
+import { downloadJson, formatExportFilename } from './utils/download';
 
 type ViteImportMeta = ImportMeta & {
   env?: {
@@ -37,6 +38,8 @@ export function App() {
     initialChart,
     createInitialChartState,
   );
+  const [fitViewToken, setFitViewToken] = useState(0);
+  const importInputRef = useRef<HTMLInputElement | null>(null);
   const passwordHash =
     (import.meta as ViteImportMeta).env?.VITE_APP_PASSWORD_HASH ?? '';
   const currentChart = state.history.current;
@@ -50,13 +53,59 @@ export function App() {
 
     try {
       saveLocalChart(currentChart);
+      dispatch({ type: 'set-save-state', saveState: 'saved' });
     } catch {
-      dispatch({
-        type: 'set-warning',
-        warning: SAVE_FAILURE_WARNING,
-      });
+      dispatch({ type: 'set-save-state', saveState: 'failed' });
     }
   }, [currentChart, isUnlocked]);
+
+  function handleExport() {
+    try {
+      downloadJson(formatExportFilename(currentChart.name || 'orgchart'), currentChart);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      dispatch({ type: 'set-warning', warning: messages.errors.importFailed(detail) });
+    }
+  }
+
+  function handleImportClick() {
+    importInputRef.current?.click();
+  }
+
+  async function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.currentTarget.files?.[0];
+    event.currentTarget.value = '';
+    if (!file) {
+      return;
+    }
+
+    if (!window.confirm(messages.confirm.importOverwrite)) {
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const chart = parseChartDocument(text);
+      dispatch({ type: 'replace-chart', chart });
+      setFitViewToken((token) => token + 1);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      dispatch({ type: 'set-warning', warning: detail });
+    }
+  }
+
+  function handleReset() {
+    if (window.confirm(messages.confirm.reset)) {
+      dispatch({ type: 'replace-chart', chart: SOURCE_ORGCHART });
+      setFitViewToken((token) => token + 1);
+    }
+  }
+
+  function handleDelete(nodeId: string) {
+    if (window.confirm(messages.editor.confirmDelete)) {
+      dispatch({ type: 'delete', nodeId });
+    }
+  }
 
   if (!isUnlocked) {
     return (
@@ -79,29 +128,20 @@ export function App() {
             dispatch({ type: 'set-orientation', orientation })
           }
           onUndo={() => dispatch({ type: 'undo' })}
-          onReset={() => {
-            if (window.confirm('Reset the chart to the source orgchart?')) {
-              dispatch({ type: 'replace-chart', chart: SOURCE_ORGCHART });
-            }
-          }}
-          onExport={() =>
-            dispatch({
-              type: 'set-warning',
-              warning: 'JSON import/export will be available in the import/export task.',
-            })
-          }
-          onImport={() =>
-            dispatch({
-              type: 'set-warning',
-              warning: 'JSON import/export will be available in the import/export task.',
-            })
-          }
-          onFitView={() =>
-            dispatch({
-              type: 'set-warning',
-              warning: 'Fit view will be available after canvas integration.',
-            })
-          }
+          onReset={handleReset}
+          onExport={handleExport}
+          onImport={handleImportClick}
+          onFitView={() => setFitViewToken((token) => token + 1)}
+        />
+
+        <input
+          ref={importInputRef}
+          type="file"
+          accept="application/json,.json"
+          style={{ display: 'none' }}
+          onChange={handleImportFile}
+          aria-hidden="true"
+          tabIndex={-1}
         />
 
         <OrgChartCanvas
@@ -110,6 +150,7 @@ export function App() {
           selectedNodeId={state.selectedNodeId}
           movingNodeId={state.movingNodeId}
           search={state.search}
+          fitViewToken={fitViewToken}
           onSelect={(nodeId) => dispatch({ type: 'select', nodeId })}
           onAddChild={(parentId) => dispatch({ type: 'add-child', parentId })}
           onMoveAsChild={(targetParentId) => dispatch({ type: 'move-as-child', targetParentId })}
@@ -120,11 +161,7 @@ export function App() {
           node={selectedNode}
           movingNodeId={state.movingNodeId}
           onChange={(patch) => dispatch({ type: 'update-selected', patch })}
-          onDelete={(nodeId) => {
-            if (window.confirm('Delete this card and all child cards?')) {
-              dispatch({ type: 'delete', nodeId });
-            }
-          }}
+          onDelete={handleDelete}
           onStartMove={(nodeId) => dispatch({ type: 'start-move', nodeId })}
           onCancelMove={() => dispatch({ type: 'cancel-move' })}
           onClose={() => dispatch({ type: 'select', nodeId: null })}
@@ -133,7 +170,7 @@ export function App() {
         <StatusBar
           nodeCount={currentChart.nodes.length}
           warning={state.warning}
-          saveState={state.warning === SAVE_FAILURE_WARNING ? 'failed' : 'saved'}
+          saveState={state.saveState}
         />
       </div>
     </main>

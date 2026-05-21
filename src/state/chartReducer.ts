@@ -10,6 +10,8 @@ import type { ChartOrientation, OrgChartDocument, SelectedNodePatch } from '../d
 
 type SiblingSide = 'left' | 'right';
 
+export type SaveState = 'idle' | 'saved' | 'failed';
+
 export interface ChartState {
   history: ChartHistory;
   selectedNodeId: string | null;
@@ -17,6 +19,7 @@ export interface ChartState {
   orientation: ChartOrientation;
   search: string;
   warning: string;
+  saveState: SaveState;
 }
 
 export type ChartAction =
@@ -32,7 +35,8 @@ export type ChartAction =
   | { type: 'move-as-sibling'; targetId: string; side: SiblingSide }
   | { type: 'undo' }
   | { type: 'replace-chart'; chart: OrgChartDocument }
-  | { type: 'set-warning'; warning: string };
+  | { type: 'set-warning'; warning: string }
+  | { type: 'set-save-state'; saveState: SaveState };
 
 export const createInitialChartState = (chart: OrgChartDocument): ChartState => ({
   history: createHistory(chart),
@@ -41,6 +45,7 @@ export const createInitialChartState = (chart: OrgChartDocument): ChartState => 
   orientation: 'vertical',
   search: '',
   warning: '',
+  saveState: 'idle',
 });
 
 const warningFromError = (error: unknown): string => (error instanceof Error ? error.message : String(error));
@@ -196,5 +201,8 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
 
     case 'set-warning':
       return { ...state, warning: action.warning };
+
+    case 'set-save-state':
+      return { ...state, saveState: action.saveState };
   }
 };

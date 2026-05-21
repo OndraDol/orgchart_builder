@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { LockKeyhole } from 'lucide-react';
 
+import { messages } from '../i18n/messages';
+
 type AuthGateProps = {
   passwordHash: string;
   onUnlock: () => void;
@@ -26,7 +28,7 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
     event.preventDefault();
 
     if (!passwordHash) {
-      setError('Password hash is not configured for this build.');
+      setError(messages.auth.errors.notConfigured);
       return;
     }
 
@@ -35,7 +37,7 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
 
     try {
       if (!globalThis.crypto?.subtle?.digest) {
-        setError('Password hashing is not available in this browser.');
+        setError(messages.auth.errors.unsupported);
         return;
       }
 
@@ -44,7 +46,7 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
       try {
         enteredHash = await sha256Hex(password);
       } catch {
-        setError('Password hashing failed in this browser.');
+        setError(messages.auth.errors.failed);
         return;
       }
 
@@ -52,13 +54,13 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
         try {
           sessionStorage.setItem('orgchart-builder.unlocked', 'true');
         } catch {
-          // Continue with the in-memory unlock state when browser storage is unavailable.
+          // Pokračujeme s in-memory odemčením, pokud úložiště prohlížeče není k dispozici.
         }
         onUnlock();
         return;
       }
 
-      setError('Password does not match.');
+      setError(messages.auth.errors.mismatch);
     } finally {
       setIsChecking(false);
     }
@@ -68,20 +70,16 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
     <main className="auth-shell">
       <section className="auth-panel" aria-labelledby="auth-title">
         <div className="auth-icon" aria-hidden="true">
-          <LockKeyhole size={24} strokeWidth={2.2} />
+          <LockKeyhole size={22} strokeWidth={2.2} />
         </div>
         <div className="auth-copy">
-          <p className="eyebrow">Private workspace</p>
-          <h1 id="auth-title">Orgchart Builder</h1>
-          <p>
-            Enter the temporary password to open the editor workspace. This is a
-            temporary frontend gate for early access, not server-side
-            authentication.
-          </p>
+          <p className="eyebrow">{messages.auth.eyebrow}</p>
+          <h1 id="auth-title">{messages.auth.heading}</h1>
+          <p>{messages.auth.description}</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label htmlFor="temporary-password">Temporary password</label>
+          <label htmlFor="temporary-password">{messages.auth.passwordLabel}</label>
           <input
             autoComplete="current-password"
             id="temporary-password"
@@ -96,7 +94,7 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
             </p>
           ) : null}
           <button disabled={isChecking} type="submit">
-            {isChecking ? 'Checking...' : 'Unlock editor'}
+            {isChecking ? messages.auth.submitting : messages.auth.submit}
           </button>
         </form>
       </section>

@@ -15,6 +15,7 @@ import '@xyflow/react/dist/style.css';
 
 import { layoutChart } from '../domain/chartLayout';
 import type { ChartOrientation, OrgChartDocument, OrgNode } from '../domain/orgchart';
+import { messages } from '../i18n/messages';
 import { OrgNodeCard } from './OrgNodeCard';
 
 interface OrgChartCanvasProps {
@@ -23,6 +24,7 @@ interface OrgChartCanvasProps {
   selectedNodeId: string | null;
   movingNodeId: string | null;
   search: string;
+  fitViewToken: number;
   onSelect: (nodeId: string | null) => void;
   onAddChild: (nodeId: string) => void;
   onMoveAsChild: (targetParentId: string) => void;
@@ -74,6 +76,7 @@ function OrgChartFlow({
   selectedNodeId,
   movingNodeId,
   search,
+  fitViewToken,
   onSelect,
   onAddChild,
   onMoveAsChild,
@@ -127,6 +130,12 @@ function OrgChartFlow({
     fitView({ padding: 0.2, duration: 0 });
   }, [fitView, orientation, chart.nodes.length]);
 
+  useEffect(() => {
+    if (fitViewToken > 0) {
+      fitView({ padding: 0.2, duration: 320 });
+    }
+  }, [fitView, fitViewToken]);
+
   return (
     <ReactFlow
       nodes={nodes}
@@ -140,7 +149,7 @@ function OrgChartFlow({
       nodesConnectable={false}
       onPaneClick={() => onSelect(null)}
     >
-      <Background color="#cbd5d0" gap={28} size={1} />
+      <Background color="#cbd5e1" gap={28} size={1} />
       <Controls showInteractive={false} />
     </ReactFlow>
   );
@@ -148,7 +157,7 @@ function OrgChartFlow({
 
 export function OrgChartCanvas(props: OrgChartCanvasProps) {
   return (
-    <section className="chart-canvas" aria-label="Org chart canvas">
+    <section className="chart-canvas" aria-label={messages.canvas.label}>
       <ReactFlowProvider>
         <OrgChartFlow {...props} />
       </ReactFlowProvider>

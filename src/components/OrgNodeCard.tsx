@@ -2,6 +2,7 @@ import { Plus } from 'lucide-react';
 import clsx from 'clsx';
 
 import { CARD_COLOR_TOKENS, type OrgNode } from '../domain/orgchart';
+import { levelLabel, messages, statusLabel } from '../i18n/messages';
 
 interface OrgNodeCardProps {
   node: OrgNode;
@@ -21,7 +22,7 @@ export function OrgNodeCard({
   onAddChild,
 }: OrgNodeCardProps) {
   const colorToken = CARD_COLOR_TOKENS.find((token) => token.id === node.color) ?? CARD_COLOR_TOKENS[2];
-  const metadata = [node.levelType, node.country, node.regio].filter(Boolean);
+  const metadata = [levelLabel(node.levelType), node.country, node.regio].filter(Boolean);
 
   return (
     <article
@@ -41,8 +42,8 @@ export function OrgNodeCard({
     >
       <div className="org-card-content">
         <h3 className="org-card-title">{node.title}</h3>
-        <p className="org-card-person">{node.person || node.status}</p>
-        <div className="org-card-meta" aria-label="Card metadata">
+        <p className="org-card-person">{node.person || statusLabel(node.status)}</p>
+        <div className="org-card-meta" aria-label={messages.editor.cardMetadataAria}>
           {metadata.map((item) => (
             <span key={item}>{item}</span>
           ))}
@@ -51,13 +52,14 @@ export function OrgNodeCard({
       <button
         className="add-child-button nodrag nopan"
         type="button"
-        aria-label={`Add child under ${node.title}`}
+        aria-label={messages.editor.addChildAria(node.title)}
+        title={messages.editor.addChildAria(node.title)}
         onClick={(event) => {
           event.stopPropagation();
           onAddChild(node.id);
         }}
       >
-        <Plus size={15} strokeWidth={2.4} aria-hidden="true" />
+        <Plus size={14} strokeWidth={2.4} aria-hidden="true" />
       </button>
     </article>
   );
