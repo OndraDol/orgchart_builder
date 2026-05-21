@@ -1,7 +1,7 @@
 import type { OrgChartDocument } from '../domain/orgchart';
 
 export const SOURCE_ORGCHART: OrgChartDocument = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   name: 'Aures Holdings — organizační struktura',
   updatedAt: '2026-04-01T00:00:00.000Z',
   nodes: [

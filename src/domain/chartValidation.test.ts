@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { isChartDocument, parseChartDocument, validateChartDocument } from './chartValidation';
 
 const validChart = (): OrgChartDocument => ({
-  schemaVersion: 2,
+  schemaVersion: 3,
   name: 'Test',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [

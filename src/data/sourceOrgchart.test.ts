@@ -5,7 +5,7 @@ import { SOURCE_ORGCHART } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
   it('uses schema version 2 and contains the full org chart', () => {
-    expect(SOURCE_ORGCHART.schemaVersion).toBe(2);
+    expect(SOURCE_ORGCHART.schemaVersion).toBe(3);
     expect(SOURCE_ORGCHART.nodes.length).toBeGreaterThanOrEqual(100);
   });
 

@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { layoutChart } from './chartLayout';
 
 const chart: OrgChartDocument = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   name: 'Layout',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [

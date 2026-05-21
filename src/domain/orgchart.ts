@@ -84,7 +84,7 @@ export interface OrgNode {
 }
 
 export interface OrgChartDocument {
-  schemaVersion: 2;
+  schemaVersion: 3;
   name: string;
   updatedAt: string;
   nodes: OrgNode[];

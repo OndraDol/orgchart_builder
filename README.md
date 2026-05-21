@@ -1,64 +1,78 @@
 # Orgchart Builder
 
-Temporary static prototype for editing a holding orgchart in the browser.
+Interaktivní webový editor organizační struktury **Aures Holdings** (118 karet, B-0 až B-4 úrovně, drag & drop reorganizace).
 
-## Security Note
+**Live deploy:** https://ondradol.github.io/orgchart_builder/
 
-This app uses a frontend password gate only. It is not real authentication. The static bundle and embedded orgchart data can be inspected by anyone with access to the published GitHub Pages files. Use this only as a temporary prototype.
+---
 
-## Current Status
+## Co projekt umí
 
-Implementation is in progress. The project currently has:
-- Vite + React + TypeScript scaffold;
-- frontend password gate;
-- orgchart domain model, validation, history, storage, reducer, and layout engine;
-- editor shell with toolbar, side panel, status bar;
-- initial React Flow orgchart canvas and cards.
+- **Vizualizace** stromu org. struktury (React Flow + d3-hierarchy)
+- **Drag & drop reorganizace** — chytni kartu, pusť nad jinou pro:
+  - **Center** → karta se stane podřízenou (child)
+  - **Levá / pravá hrana** → karta se stane sourozencem (sibling left/right)
+  - Inflated rect intersection ±60 px — drop nemusí být přesný overlap
+- **Editor karty** v pravém panelu (název, osoba, B-úroveň, země, region, barva, status)
+- **Přidání nové karty** přes „+" tlačítko → karta jako draft (dashed border, NOVÁ badge), vyplň detaily a klikni Uložit
+- **Import / Export JSON** pro zálohu a obnovu
+- **Reset** — vrátí dataset na zdrojový SOURCE_ORGCHART (z PDF/Visio)
+- **Undo** historie změn
+- **Vyhledávání** v rolích a osobách
+- **Vertikální / horizontální orientace** stromu
+- **Frontend password gate** (SHA-256 hash heslo, ne real auth)
+- **B-úroveň color stripe** vlevo na kartě + badge v meta řádce
+- **Plně česká lokalizace** UI
 
-Continue from [docs/HANDOFF.md](docs/HANDOFF.md). The detailed implementation plan is in [docs/superpowers/plans/2026-05-21-orgchart-builder-implementation.md](docs/superpowers/plans/2026-05-21-orgchart-builder-implementation.md).
+## Známé limitace
 
-## Local Development
+- **Single root** — celý strom má jeden kořen (`holding-aures`). Nelze mít více samostatných stromů.
+- **Bez cyklů** — karta nemůže být ve svém vlastním podstromu (validace v `moveNodeAsChild`).
+- **Drag & drop jen v rámci jednoho stromu** — žádný cross-tree přesun.
+- **localStorage cache** — pokud upravíš strom, uloží se. Při změně schemaVersion (např. 2 → 3) se cache invaliduje a načte se fresh SOURCE_ORGCHART.
+- **Multi-select drag** zatím není.
+
+## Quick start
 
 ```bash
+git clone https://github.com/OndraDol/orgchart_builder.git
+cd orgchart_builder
 npm install
+# heslo `AURES12345`:
+export VITE_APP_PASSWORD_HASH=48cb56cba31a213f55426b3d1bbc7cb555ac7a8c4b69f3450ea0f0cd7f8c7b75
 npm run dev
 ```
 
-For local password testing, set `VITE_APP_PASSWORD_HASH` before starting Vite.
+## Skripty
 
-PowerShell example for password `secret`:
+| Skript | Co dělá |
+|---|---|
+| `npm run dev` | Vite dev server |
+| `npm run build` | Production build (typecheck + vite build) |
+| `npm run preview` | Preview production buildu |
+| `npm run test` | Vitest interactive |
+| `npm run test:run` | Vitest run (CI mode) |
+| `npm run typecheck` | TS check bez výstupu |
 
-```powershell
-$env:VITE_APP_PASSWORD_HASH='2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b'
-npm run dev -- --host 127.0.0.1 --port 5173
-```
+## Technologie
 
-## Password Hash
+- **Vite 4** + **React 19** + **TypeScript 5**
+- **@xyflow/react 12** (React Flow) pro canvas + node drag
+- **d3-hierarchy 3** pro tree layout
+- **lucide-react** pro ikony
+- **clsx** pro conditional classnames
+- **Vitest** pro testy + React Testing Library
 
-Set `VITE_APP_PASSWORD_HASH` to a SHA-256 hex hash of the temporary password.
+## Deploy
 
-PowerShell hash example:
+GitHub Pages přes Actions (`.github/workflows/deploy-pages.yml`). Po push na `master` se workflow automaticky spustí, vybuilduje a deploy nahraje. Build vyžaduje secret `VITE_APP_PASSWORD_HASH` v GitHub repo settings.
 
-```powershell
-$password = "change-me"
-$bytes = [System.Text.Encoding]::UTF8.GetBytes($password)
-$hash = [System.Security.Cryptography.SHA256]::HashData($bytes)
-($hash | ForEach-Object { $_.ToString("x2") }) -join ""
-```
+## Dokumentace
 
-## Verification
+- [`docs/HANDOFF.md`](docs/HANDOFF.md) — aktuální stav, co je hotovo, co dál
+- [`docs/DATA-MODEL.md`](docs/DATA-MODEL.md) — schema `OrgChartDocument`, `OrgNode`, ID konvence
+- [`docs/SOURCE-FILES.md`](docs/SOURCE-FILES.md) — zdrojové soubory (PDF/VSD/SVG/JPG) a jak byly použity
 
-```bash
-npm run test:run
-npm run typecheck
-npm run build
-```
+## Security note
 
-## GitHub Pages
-
-The deployment workflow expects repository secret `VITE_APP_PASSWORD_HASH`.
-
-After pushing:
-1. add the secret in GitHub repository settings;
-2. enable GitHub Pages with GitHub Actions as the source;
-3. run the Pages workflow.
+App používá pouze **frontend password gate**. Static bundle a embedded data jsou inspectable. Použít jen jako **dočasný prototyp**, ne pro produkční ochranu citlivých dat.

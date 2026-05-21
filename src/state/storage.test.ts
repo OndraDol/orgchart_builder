@@ -4,7 +4,7 @@ import type { OrgChartDocument } from '../domain/orgchart';
 import { clearLocalChart, loadLocalChart, saveLocalChart } from './storage';
 
 const validChart = (): OrgChartDocument => ({
-  schemaVersion: 2,
+  schemaVersion: 3,
   name: 'Stored chart',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
