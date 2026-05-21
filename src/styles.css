@@ -326,17 +326,164 @@ button:disabled {
   color: #7d2818;
 }
 
-.chart-placeholder {
-  display: grid;
+.chart-canvas {
+  position: relative;
   min-width: 0;
   min-height: 0;
-  place-items: center;
-  border: 1px dashed #aeb8b1;
+  overflow: hidden;
+  border: 1px solid #c7cec5;
   border-radius: 8px;
-  color: #5a6562;
-  background: rgba(255, 255, 255, 0.78);
-  font-weight: 700;
-  text-align: center;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+
+.chart-canvas .react-flow {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+.chart-canvas .react-flow__node {
+  width: 220px;
+}
+
+.chart-canvas .react-flow__node:focus,
+.chart-canvas .react-flow__node:focus-visible {
+  outline: none;
+}
+
+.org-node-handle {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #ffffff;
+  background: #52625e;
+  opacity: 0.75;
+}
+
+.org-card {
+  display: flex;
+  width: 220px;
+  height: 96px;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 9px 10px 12px;
+  border: 2px solid;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(42, 50, 47, 0.12);
+  transition:
+    border-color 0.14s ease,
+    box-shadow 0.14s ease,
+    transform 0.14s ease;
+}
+
+.org-card:hover {
+  box-shadow: 0 12px 24px rgba(42, 50, 47, 0.16);
+  transform: translateY(-1px);
+}
+
+.org-card.selected {
+  box-shadow:
+    0 0 0 3px rgba(46, 102, 115, 0.2),
+    0 12px 24px rgba(42, 50, 47, 0.16);
+}
+
+.org-card.search-match {
+  box-shadow:
+    0 0 0 3px rgba(217, 119, 6, 0.28),
+    0 12px 24px rgba(42, 50, 47, 0.14);
+}
+
+.org-card.planned {
+  border-style: dashed;
+}
+
+.org-card.vacant .org-card-person {
+  color: #8a4b11;
+  font-style: italic;
+}
+
+.org-card.moving {
+  opacity: 0.58;
+  transform: scale(0.98);
+}
+
+.org-card-content {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: minmax(0, auto) 18px 22px;
+  align-content: start;
+  gap: 4px;
+}
+
+.org-card-title {
+  display: -webkit-box;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.88rem;
+  font-weight: 780;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.org-card-person {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #43504d;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.org-card-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.org-card-meta span {
+  max-width: 70px;
+  min-height: 19px;
+  overflow: hidden;
+  padding: 2px 6px;
+  border: 1px solid rgba(47, 61, 66, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  color: #3c4a47;
+  font-size: 0.68rem;
+  font-weight: 760;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-child-button {
+  display: inline-grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  align-self: start;
+  border: 1px solid rgba(31, 42, 46, 0.18);
+  border-radius: 6px;
+  color: #172326;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.add-child-button:hover,
+.add-child-button:focus-visible {
+  border-color: #2e6673;
+  color: #102c32;
+  background: #ffffff;
+  outline: none;
 }
 
 .editor-panel {

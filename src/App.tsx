@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 
 import { AuthGate } from './components/AuthGate';
 import { EditorPanel } from './components/EditorPanel';
+import { OrgChartCanvas } from './components/OrgChartCanvas';
 import { StatusBar } from './components/StatusBar';
 import { Toolbar } from './components/Toolbar';
 import { SOURCE_ORGCHART } from './data/sourceOrgchart';
@@ -103,9 +104,17 @@ export function App() {
           }
         />
 
-        <section className="chart-placeholder">
-          Chart canvas loads in Task 9.
-        </section>
+        <OrgChartCanvas
+          chart={currentChart}
+          orientation={state.orientation}
+          selectedNodeId={state.selectedNodeId}
+          movingNodeId={state.movingNodeId}
+          search={state.search}
+          onSelect={(nodeId) => dispatch({ type: 'select', nodeId })}
+          onAddChild={(parentId) => dispatch({ type: 'add-child', parentId })}
+          onMoveAsChild={(targetParentId) => dispatch({ type: 'move-as-child', targetParentId })}
+          onMoveAsSibling={(targetId, side) => dispatch({ type: 'move-as-sibling', targetId, side })}
+        />
 
         <EditorPanel
           node={selectedNode}
