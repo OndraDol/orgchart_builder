@@ -1,7 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { OrgChartDocument } from '../domain/orgchart';
-import { clearLocalChart, loadLocalChart, saveLocalChart } from './storage';
+import {
+  clearLocalChart,
+  loadLocalChart,
+  loadLocalLayoutMode,
+  saveLocalChart,
+  saveLocalLayoutMode,
+} from './storage';
 
 const validChart = (): OrgChartDocument => ({
   schemaVersion: 5,
@@ -63,5 +69,19 @@ describe('storage', () => {
     clearLocalChart();
 
     expect(loadLocalChart()).toBeNull();
+  });
+
+  it('saves and loads a remembered layout mode', () => {
+    saveLocalLayoutMode('source');
+
+    expect(loadLocalLayoutMode()).toBe('source');
+  });
+
+  it('falls back to Auto strom when remembered layout mode is missing or invalid', () => {
+    expect(loadLocalLayoutMode()).toBe('tree');
+
+    localStorage.setItem('orgchart-builder.layout-mode.v1', 'invalid');
+
+    expect(loadLocalLayoutMode()).toBe('tree');
   });
 });

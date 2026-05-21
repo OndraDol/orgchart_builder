@@ -1,7 +1,8 @@
-import type { OrgChartDocument } from '../domain/orgchart';
+import type { ChartLayoutMode, OrgChartDocument } from '../domain/orgchart';
 import { parseChartDocument } from '../domain/chartValidation';
 
 const STORAGE_KEY = 'orgchart-builder.chart.v1';
+const LAYOUT_MODE_STORAGE_KEY = 'orgchart-builder.layout-mode.v1';
 
 export const chartToJson = (chart: OrgChartDocument): string => JSON.stringify(chart, null, 2);
 
@@ -31,4 +32,17 @@ export const saveLocalChart = (chart: OrgChartDocument): void => {
 
 export const clearLocalChart = (): void => {
   localStorage.removeItem(STORAGE_KEY);
+};
+
+export const loadLocalLayoutMode = (): ChartLayoutMode => {
+  try {
+    const value = localStorage.getItem(LAYOUT_MODE_STORAGE_KEY);
+    return value === 'source' || value === 'tree' ? value : 'tree';
+  } catch {
+    return 'tree';
+  }
+};
+
+export const saveLocalLayoutMode = (layoutMode: ChartLayoutMode): void => {
+  localStorage.setItem(LAYOUT_MODE_STORAGE_KEY, layoutMode);
 };

@@ -9,7 +9,7 @@ import { SOURCE_ORGCHART } from './data/sourceOrgchart';
 import { parseChartDocument } from './domain/chartValidation';
 import { messages } from './i18n/messages';
 import { chartReducer, createInitialChartState } from './state/chartReducer';
-import { loadLocalChart, saveLocalChart } from './state/storage';
+import { loadLocalChart, loadLocalLayoutMode, saveLocalChart, saveLocalLayoutMode } from './state/storage';
 import { downloadJson, formatExportFilename } from './utils/download';
 
 type ViteImportMeta = ImportMeta & {
@@ -33,10 +33,11 @@ function readInitialChart() {
 export function App() {
   const [isUnlocked, setIsUnlocked] = useState(readStoredUnlockState);
   const [initialChart] = useState(readInitialChart);
+  const [initialLayoutMode] = useState(loadLocalLayoutMode);
   const [state, dispatch] = useReducer(
     chartReducer,
-    initialChart,
-    createInitialChartState,
+    { chart: initialChart, layoutMode: initialLayoutMode },
+    ({ chart, layoutMode }) => createInitialChartState(chart, layoutMode),
   );
   const [fitViewToken, setFitViewToken] = useState(0);
   const importInputRef = useRef<HTMLInputElement | null>(null);
@@ -58,6 +59,18 @@ export function App() {
       dispatch({ type: 'set-save-state', saveState: 'failed' });
     }
   }, [currentChart, isUnlocked]);
+
+  useEffect(() => {
+    if (!isUnlocked) {
+      return;
+    }
+
+    try {
+      saveLocalLayoutMode(state.layoutMode);
+    } catch {
+      dispatch({ type: 'set-save-state', saveState: 'failed' });
+    }
+  }, [isUnlocked, state.layoutMode]);
 
   function handleExport() {
     try {

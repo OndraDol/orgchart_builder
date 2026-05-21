@@ -13,7 +13,7 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 - **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant)
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 92/92 zelených
+- **Testy:** 98/98 zelených
 
 ## Architektura
 
@@ -32,7 +32,7 @@ src/
 │   └── chartLayout.ts           # d3-hierarchy tree(), separation tuning
 ├── state/
 │   ├── chartReducer.ts          # všechny actions (add-child, drop-as-child, save-draft, undo, ...)
-│   └── storage.ts               # localStorage save/load s validation guard
+│   └── storage.ts               # localStorage save/load s validation guard + layout preference
 ├── components/
 │   ├── AuthGate.tsx             # minimalistický password gate (jen "Heslo:" input)
 │   ├── Toolbar.tsx              # search, orientation, undo, fit view, import, export, reset
@@ -54,29 +54,31 @@ src/
 - Audit gate: 0 unsupported source edges, 0 unresolved parent links; 4 skipped edges are synthetic root links
 - Confirmed override: Jan Jarma -> Martina Kahulová
 - Schema v5: `sourcePosition`, manual `position`, `sourceHidden`, confirmed parent override layer
-- Default zobrazeni `PDF zdroj`; `Auto strom` zustava jako prepinac
+- Default/fallback zobrazeni `Auto strom`; posledni volba `PDF zdroj` / `Auto strom` se pamatuje v localStorage
 - Modern indigo theme, glass toolbar, level stripes
 - Plně česká lokalizace + plurály
 - Drag & drop:
   - inflated rect intersection (60 px tolerance)
   - center → child (indigo ring + **bottom bar** ukazující kam se podřízený zařadí)
   - levá / pravá hrana → sibling left/right (vertikální bar na hraně)
+  - validní strukturální drop vždy přepne pracovní plochu do `Auto strom`, aby nový parent/order byl okamžitě vidět
+  - drag preview i drag stop používají stejný `resolveDropIntent`, takže validní preview se po puštění commitne stejně
+  - drop na existující hranu vloží taženou kartu jako mezičlánek mezi parenta a child
   - tažená karta = grayscale ghost s subtle scale-down + glow pulse když je nad valid drop místem
   - **viewport zůstává na stejném místě po dropu** (žádný auto-fit; user může kliknout „Přizpůsobit pohled" v toolbaru)
 - Draft flow pro novou kartu (dashed, NOVÁ badge, Uložit)
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 92 testů
+- 98 testů
 
 ## Co NENÍ hotovo
 
 - **Multi-select drag** — momentálně se přesune jen jedna karta (její podstrom jde s ní automaticky).
 - **Cross-tree move / make root** — single-root invariant nelze obejít UI.
 - **Redo button** — historie ho podporuje, ale UI nemá tlačítko.
-- **Sibling reorder v rámci jedné rodiny přesný** — drop left/right funguje, ale neumí přesně mezi dva konkrétní siblingy v multi-sibling skupině.
 - **Validace v UI** — chybové stavy zobrazují warning ve status baru, ale není modal/toast.
-- **Tests for D&D handlers** — kanonické testy jsou pro reducer; D&D logiku zatím netestuju (vyžaduje DOM event simulace).
+- **Full browser D&D smoke** — helper/reducer testy existují, ale Playwright drag flow není zatím automatizovaný.
 - **OCR z JPG** pro auto-audit — vyžadovalo by Tesseract nebo cloud OCR.
 - **Spolehlivý SVG parser** — Visio export má geometricky složité konektory, parser najde jen ~25 % relací reliable (`tmp/svg-audit.py` je proof-of-concept).
 
@@ -91,9 +93,9 @@ src/
 
 ### Priority 2 — UX
 1. **Redo tlačítko** v toolbaru
-2. **Sibling reorder s indexem** (drop mezi dva konkrétní siblingy)
-3. **Toast notifikace** pro warnings místo statického statusbaru
-4. **Hover preview** — když najedeš na kartu, zvýrazni jeho podstrom
+2. **Toast notifikace** pro warnings místo statického statusbaru
+3. **Hover preview** — když najedeš na kartu, zvýrazni jeho podstrom
+4. **Playwright D&D smoke** pro reálný drag Jakub Řehák → David Tatár po deployi
 
 ### Priority 3 — Tech debt
 1. **Dataset auto-generation** ze SVG/Visio přes lepší parser nebo CSV export

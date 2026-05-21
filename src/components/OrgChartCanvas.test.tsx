@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { SOURCE_ORGCHART } from '../data/sourceOrgchart';
 import { messages } from '../i18n/messages';
-import { getDropModeForCursor, mergeDraggedNodePosition, OrgChartCanvas } from './OrgChartCanvas';
+import { getDropModeForCursor, mergeDraggedNodePosition, OrgChartCanvas, resolveDropIntent } from './OrgChartCanvas';
 
 describe('OrgChartCanvas', () => {
   it('maps vertical cursor position to parent, child, and sibling drop modes', () => {
@@ -36,6 +36,66 @@ describe('OrgChartCanvas', () => {
       { id: 'a', position: { x: 300, y: 400 } },
       { id: 'b', position: { x: 100, y: 100 } },
     ]);
+  });
+
+  it('resolves a final cursor below David Tatár as a child drop for Jakub Řehák', () => {
+    const nodes = [
+      {
+        id: 'group-it-development-project-manager-jakub-rehak',
+        position: { x: 900, y: 640 },
+        width: 192,
+        height: 96,
+      },
+      {
+        id: 'head-of-analytics-david-tatar',
+        position: { x: 1000, y: 600 },
+        width: 192,
+        height: 96,
+      },
+    ];
+
+    expect(
+      resolveDropIntent({
+        chart: SOURCE_ORGCHART,
+        orientation: 'vertical',
+        sourceId: 'group-it-development-project-manager-jakub-rehak',
+        cursor: { x: 1000, y: 638 },
+        nodes,
+        edges: [],
+      }),
+    ).toEqual({
+      mode: 'child',
+      targetId: 'head-of-analytics-david-tatar',
+    });
+  });
+
+  it('resolves dropping a node on an existing edge as an insert-between parent drop', () => {
+    const nodes = [
+      { id: 'chief-executive-officer-zdenek-demeter', position: { x: 0, y: 0 }, width: 192, height: 96 },
+      { id: 'head-of-analytics-david-tatar', position: { x: 0, y: 240 }, width: 192, height: 96 },
+      { id: 'group-it-development-project-manager-jakub-rehak', position: { x: 160, y: 120 }, width: 192, height: 96 },
+    ];
+
+    expect(
+      resolveDropIntent({
+        chart: SOURCE_ORGCHART,
+        orientation: 'vertical',
+        sourceId: 'group-it-development-project-manager-jakub-rehak',
+        cursor: { x: 0, y: 120 },
+        nodes,
+        edges: [
+          {
+            id: 'chief-executive-officer-zdenek-demeter-head-of-analytics-david-tatar',
+            source: 'chief-executive-officer-zdenek-demeter',
+            target: 'head-of-analytics-david-tatar',
+          },
+        ],
+      }),
+    ).toEqual({
+      mode: 'parent',
+      targetId: 'head-of-analytics-david-tatar',
+      edgeSourceId: 'chief-executive-officer-zdenek-demeter',
+    });
   });
 
   it('renders source orgchart cards', () => {

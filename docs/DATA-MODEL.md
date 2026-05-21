@@ -23,6 +23,10 @@ interface OrgChartDocument {
 
 Při změně schemaVersion se localStorage automaticky invaliduje (`isChartDocument` v `chartValidation.ts` kontroluje pevnou hodnotu).
 
+## Layout preference
+
+Chart JSON a layout preference se ukládají odděleně. `orgchart-builder.chart.v1` drží samotná data a `orgchart-builder.layout-mode.v1` drží poslední volbu `source` / `tree`. Pokud preference chybí nebo je neplatná, aplikace startuje v `Auto strom` (`tree`), aby strukturální DnD hned po otevření pracovalo s přepočítaným stromem.
+
 ## Confirmed parent overrides
 
 `src/data/sourceParentOverrides.json` obsahuje potvrzené opravy pro případy, kde PDF/VSD geometrie napojuje kartu do více connector komponent a automatická inference by mohla vybrat špatného parenta. `SOURCE_ORGCHART` aplikuje tyto overrides při exportu výchozího datasetu a audit je zapisuje jako `confirmedOverride`.

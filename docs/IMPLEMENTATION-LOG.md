@@ -24,6 +24,9 @@ Primary priority: the source orgchart tree must match the provided source files.
 - [x] Task 8: Implement schema v5 and confirmed parent override layer
 - [x] Task 9: Strengthen PDF audit ambiguity reporting and regenerate audit artifacts
 - [x] Task 10: Final verification and handoff update
+- [x] Task 11: Add failing functional DnD tests
+- [x] Task 12: Implement Auto strom preference and deterministic DnD intent resolution
+- [x] Task 13: Verify functional DnD workflow
 
 ## Checkpoints
 
@@ -217,3 +220,59 @@ Verification:
 
 Next task:
 - Review and push/commit the current working tree if deployment should update GitHub Pages.
+
+### Task 11: Add failing functional DnD tests
+
+Status: complete
+
+Changed files:
+- `src/state/chartReducer.test.ts`
+- `src/state/storage.test.ts`
+- `src/components/OrgChartCanvas.test.tsx`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- RED: `npm run test:run -- src/state/chartReducer.test.ts src/state/storage.test.ts src/components/OrgChartCanvas.test.tsx`
+- Expected result observed: 6 failures covering Auto strom default, structural DnD layout switching, missing layout preference storage, and missing deterministic `resolveDropIntent`.
+
+Next task:
+- Implement Auto strom preference storage and deterministic DnD intent resolution.
+
+### Task 12: Implement Auto strom preference and deterministic DnD intent resolution
+
+Status: complete
+
+Changed files:
+- `src/state/storage.ts`
+- `src/state/chartReducer.ts`
+- `src/App.tsx`
+- `src/components/OrgChartCanvas.tsx`
+- `docs/HANDOFF.md`
+- `docs/DATA-MODEL.md`
+
+Verification:
+- `npm run test:run -- src/state/chartReducer.test.ts src/state/storage.test.ts src/components/OrgChartCanvas.test.tsx`
+- Result: 3 test files passed, 31 tests passed.
+
+Next task:
+- Run full verification and browser smoke for the functional DnD workflow.
+
+### Task 13: Verify functional DnD workflow
+
+Status: complete
+
+Changed files:
+- `docs/IMPLEMENTATION-LOG.md`
+- `docs/HANDOFF.md`
+
+Verification:
+- `npm run test:run`
+- Result: 15 test files passed, 98 tests passed.
+- `npm run build`
+- Result: TypeScript and Vite production build completed successfully.
+
+Browser smoke:
+- Attempted local dev server launch for Playwright smoke, but Windows process launch failed/stalled in this environment (`Start-Process` duplicated `PATH`; fallback shell start was interrupted). No code files were changed by that attempt.
+
+Next task:
+- Commit and push when ready for GitHub Pages deployment.

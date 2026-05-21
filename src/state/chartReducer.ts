@@ -46,13 +46,13 @@ export type ChartAction =
   | { type: 'set-warning'; warning: string }
   | { type: 'set-save-state'; saveState: SaveState };
 
-export const createInitialChartState = (chart: OrgChartDocument): ChartState => ({
+export const createInitialChartState = (chart: OrgChartDocument, layoutMode: ChartLayoutMode = 'tree'): ChartState => ({
   history: createHistory(chart),
   selectedNodeId: null,
   movingNodeId: null,
   draftNodeId: null,
   orientation: 'vertical',
-  layoutMode: 'source',
+  layoutMode,
   search: '',
   warning: '',
   saveState: 'idle',
@@ -179,6 +179,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
       try {
         return {
           ...withPushedChart(state, moveNodeAsChild(state.history.current, state.movingNodeId, action.targetParentId)),
+          layoutMode: 'tree',
           movingNodeId: null,
         };
       } catch (error) {
@@ -197,6 +198,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
             state,
             moveNodeAsSibling(state.history.current, state.movingNodeId, action.targetId, action.side),
           ),
+          layoutMode: 'tree',
           movingNodeId: null,
         };
       } catch (error) {
@@ -211,6 +213,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
             state,
             moveNodeAsChild(state.history.current, action.sourceId, action.targetParentId, action.position),
           ),
+          layoutMode: 'tree',
           movingNodeId: null,
         };
       } catch (error) {
@@ -225,6 +228,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
             state,
             moveNodeAsParent(state.history.current, action.sourceId, action.targetId, action.position),
           ),
+          layoutMode: 'tree',
           movingNodeId: null,
         };
       } catch (error) {
@@ -239,6 +243,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
             state,
             moveNodeAsSibling(state.history.current, action.sourceId, action.targetId, action.side, action.position),
           ),
+          layoutMode: 'tree',
           movingNodeId: null,
         };
       } catch (error) {
