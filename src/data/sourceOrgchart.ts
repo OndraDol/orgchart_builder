@@ -208,7 +208,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-executive-officer-zdenek-demeter',
-      parentId: 'co-ceo-petr-vanecek',
+      parentId: 'chief-innovation-officer-eldar-vagabov',
       title: 'Chief Executive Officer',
       person: 'Zdeněk Demeter',
       levelType: 'B-1',
@@ -244,7 +244,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-business-development-director-david-cizek',
-      parentId: 'chief-hr-officer-marie-vorsilkova',
+      parentId: 'co-ceo-karolina-topolova',
       title: 'Group Business Development Director',
       person: 'David Čížek',
       levelType: 'B-1',
