@@ -8,10 +8,16 @@ type ViteImportMeta = ImportMeta & {
   };
 };
 
+function readStoredUnlockState(): boolean {
+  try {
+    return sessionStorage.getItem('orgchart-builder.unlocked') === 'true';
+  } catch {
+    return false;
+  }
+}
+
 export function App() {
-  const [isUnlocked, setIsUnlocked] = useState(
-    () => sessionStorage.getItem('orgchart-builder.unlocked') === 'true',
-  );
+  const [isUnlocked, setIsUnlocked] = useState(readStoredUnlockState);
   const passwordHash =
     (import.meta as ViteImportMeta).env?.VITE_APP_PASSWORD_HASH ?? '';
 

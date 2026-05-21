@@ -7,7 +7,7 @@ type AuthGateProps = {
 };
 
 async function sha256Hex(value: string): Promise<string> {
-  const hash = await crypto.subtle.digest(
+  const hash = await globalThis.crypto.subtle.digest(
     'SHA-256',
     new TextEncoder().encode(value),
   );
@@ -34,10 +34,19 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
     setError(null);
 
     try {
+      if (!globalThis.crypto?.subtle?.digest) {
+        setError('Password hashing is not available in this browser.');
+        return;
+      }
+
       const enteredHash = await sha256Hex(password);
 
       if (enteredHash === passwordHash) {
-        sessionStorage.setItem('orgchart-builder.unlocked', 'true');
+        try {
+          sessionStorage.setItem('orgchart-builder.unlocked', 'true');
+        } catch {
+          // Continue with the in-memory unlock state when browser storage is unavailable.
+        }
         onUnlock();
         return;
       }
