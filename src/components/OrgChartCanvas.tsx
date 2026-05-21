@@ -93,13 +93,17 @@ function OrgChartFlow({
   onDropAsChild,
   onDropAsSibling,
 }: OrgChartCanvasProps) {
-  const { fitView, screenToFlowPosition, getNodes } = useReactFlow<OrgFlowNode, Edge>();
+  const { fitView, screenToFlowPosition, getIntersectingNodes } = useReactFlow<OrgFlowNode, Edge>();
   const normalizedSearch = search.trim().toLocaleLowerCase();
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
   const [dropMode, setDropMode] = useState<DropMode | null>(null);
   const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   void onMoveAsChild;
   void onMoveAsSibling;
+
+  const NODE_W = 192;
+  const NODE_H = 96;
+  const INFLATE = 60;
 
   const { nodes, edges } = useMemo(() => {
     const layout = layoutChart(chart, orientation);
@@ -174,31 +178,33 @@ function OrgChartFlow({
 
   const handleNodeDrag = useCallback(
     (event: ReactMouseEvent, node: OrgFlowNode) => {
-      // Cursor-based drop targeting: najdi nejbližší kartu k cursoru (ne k tažené kartě),
-      // i bez fyzického overlapu. Umožňuje opravdu volné přeskládání.
       const cursor = screenToFlowPosition({ x: event.clientX, y: event.clientY });
-      const allNodes = getNodes();
       const isVertical = orientation === 'vertical';
 
-      // Hledej nejbližší kartu k cursoru
+      // Inflated rect kolem tažené karty (nodeOrigin = [0.5, 0.5] → position je center)
+      const w = node.width ?? node.measured?.width ?? NODE_W;
+      const h = node.height ?? node.measured?.height ?? NODE_H;
+      const inflatedRect = {
+        x: node.position.x - w / 2 - INFLATE,
+        y: node.position.y - h / 2 - INFLATE,
+        width: w + INFLATE * 2,
+        height: h + INFLATE * 2,
+      };
+      const candidates = getIntersectingNodes(inflatedRect, true).filter((c) => c.id !== node.id);
+
+      // Pokud nemáme intersection kandidáty, najdeme nejbližší kartu k cursoru (volnější fallback)
       let bestTarget: OrgFlowNode | null = null;
-      let bestDist = Infinity;
-      const MAX_RADIUS = 320;
-      for (const candidate of allNodes) {
-        if (candidate.id === node.id) continue;
-        const w = candidate.width ?? candidate.measured?.width ?? 192;
-        const h = candidate.height ?? candidate.measured?.height ?? 96;
-        const cx = candidate.position.x; // nodeOrigin=[0.5, 0.5] → position je center
-        const cy = candidate.position.y;
-        const dx = cursor.x - cx;
-        const dy = cursor.y - cy;
-        // Vážená vzdálenost: zóna kolem karty je oválná podle dimenze
-        const normDx = dx / (w * 0.5);
-        const normDy = dy / (h * 0.5);
-        const dist = Math.sqrt(normDx * normDx + normDy * normDy);
-        if (dist < bestDist && dist < MAX_RADIUS / 100) {
-          bestDist = dist;
-          bestTarget = candidate;
+      if (candidates.length > 0) {
+        // Vyber nejbližší k cursoru
+        let bestDist = Infinity;
+        for (const c of candidates) {
+          const dx = cursor.x - c.position.x;
+          const dy = cursor.y - c.position.y;
+          const dist = dx * dx + dy * dy;
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestTarget = c;
+          }
         }
       }
 
@@ -208,17 +214,12 @@ function OrgChartFlow({
         return;
       }
 
-      // Určit drop mode podle pozice cursoru vůči target karty
-      // Vertikální layout: levá/pravá hrana = sibling, centrum = child
-      // Horizontální layout: horní/dolní hrana = sibling, centrum = child
-      const targetW = bestTarget.width ?? bestTarget.measured?.width ?? 192;
-      const targetH = bestTarget.height ?? bestTarget.measured?.height ?? 96;
-      const tcx = bestTarget.position.x;
-      const tcy = bestTarget.position.y;
-      const offset = isVertical ? cursor.x - tcx : cursor.y - tcy;
+      // Drop mode podle pozice cursoru vůči target center
+      const targetW = bestTarget.width ?? bestTarget.measured?.width ?? NODE_W;
+      const targetH = bestTarget.height ?? bestTarget.measured?.height ?? NODE_H;
+      const offset = isVertical ? cursor.x - bestTarget.position.x : cursor.y - bestTarget.position.y;
       const dim = isVertical ? targetW : targetH;
-      // Sibling zone když je cursor mimo centrální 30 % (15 % na každou stranu od center)
-      const childZone = dim * 0.15;
+      const childZone = dim * 0.18;
 
       let mode: DropMode;
       if (offset < -childZone) {
@@ -232,7 +233,7 @@ function OrgChartFlow({
       setDropTargetId(bestTarget.id);
       setDropMode(mode);
     },
-    [screenToFlowPosition, getNodes, orientation],
+    [screenToFlowPosition, getIntersectingNodes, orientation],
   );
 
   const handleNodeDragStop = useCallback(
@@ -244,6 +245,8 @@ function OrgChartFlow({
       setDropTargetId(null);
       setDropMode(null);
       if (!targetId || targetId === sourceId) {
+        // Žádný target — re-fit aby se karta vrátila na původní layout pozici
+        setTimeout(() => fitView({ padding: 0.2, duration: 240 }), 0);
         return;
       }
       if (mode === 'sibling-left') {
@@ -253,8 +256,10 @@ function OrgChartFlow({
       } else {
         onDropAsChild(sourceId, targetId);
       }
+      // Po dispatchi (asyncronně) re-fit, aby se nový layout vykreslil čistě
+      setTimeout(() => fitView({ padding: 0.2, duration: 320 }), 50);
     },
-    [dropTargetId, dropMode, onDropAsChild, onDropAsSibling],
+    [dropTargetId, dropMode, onDropAsChild, onDropAsSibling, fitView],
   );
 
   return (
