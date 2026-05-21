@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import {
   Background,
   Controls,
@@ -93,7 +93,7 @@ function OrgChartFlow({
   onDropAsChild,
   onDropAsSibling,
 }: OrgChartCanvasProps) {
-  const { fitView, getIntersectingNodes } = useReactFlow<OrgFlowNode, Edge>();
+  const { fitView, screenToFlowPosition, getNodes } = useReactFlow<OrgFlowNode, Edge>();
   const normalizedSearch = search.trim().toLocaleLowerCase();
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
   const [dropMode, setDropMode] = useState<DropMode | null>(null);
@@ -173,40 +173,66 @@ function OrgChartFlow({
   }, []);
 
   const handleNodeDrag = useCallback(
-    (_event: unknown, node: OrgFlowNode) => {
-      const intersecting = getIntersectingNodes(node);
-      const target = intersecting.find((candidate) => candidate.id !== node.id);
-      if (!target) {
+    (event: ReactMouseEvent, node: OrgFlowNode) => {
+      // Cursor-based drop targeting: najdi nejbližší kartu k cursoru (ne k tažené kartě),
+      // i bez fyzického overlapu. Umožňuje opravdu volné přeskládání.
+      const cursor = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+      const allNodes = getNodes();
+      const isVertical = orientation === 'vertical';
+
+      // Hledej nejbližší kartu k cursoru
+      let bestTarget: OrgFlowNode | null = null;
+      let bestDist = Infinity;
+      const MAX_RADIUS = 320;
+      for (const candidate of allNodes) {
+        if (candidate.id === node.id) continue;
+        const w = candidate.width ?? candidate.measured?.width ?? 192;
+        const h = candidate.height ?? candidate.measured?.height ?? 96;
+        const cx = candidate.position.x; // nodeOrigin=[0.5, 0.5] → position je center
+        const cy = candidate.position.y;
+        const dx = cursor.x - cx;
+        const dy = cursor.y - cy;
+        // Vážená vzdálenost: zóna kolem karty je oválná podle dimenze
+        const normDx = dx / (w * 0.5);
+        const normDy = dy / (h * 0.5);
+        const dist = Math.sqrt(normDx * normDx + normDy * normDy);
+        if (dist < bestDist && dist < MAX_RADIUS / 100) {
+          bestDist = dist;
+          bestTarget = candidate;
+        }
+      }
+
+      if (!bestTarget) {
         setDropTargetId(null);
         setDropMode(null);
         return;
       }
 
-      // Vypočti pozici tažené karty vůči cíli na ose souhlasné s orientací sourozenců.
-      // vertikální layout → siblingy se rozprostírají horizontálně (osa x)
-      // horizontální layout → siblingy svisle (osa y)
-      const isVertical = orientation === 'vertical';
-      const draggedCoord = isVertical ? node.position.x : node.position.y;
-      const targetCoord = isVertical ? target.position.x : target.position.y;
-      const dimension = isVertical
-        ? (target.width ?? target.measured?.width ?? 192)
-        : (target.height ?? target.measured?.height ?? 96);
-      const delta = draggedCoord - targetCoord;
-      const threshold = dimension * 0.35;
+      // Určit drop mode podle pozice cursoru vůči target karty
+      // Vertikální layout: levá/pravá hrana = sibling, centrum = child
+      // Horizontální layout: horní/dolní hrana = sibling, centrum = child
+      const targetW = bestTarget.width ?? bestTarget.measured?.width ?? 192;
+      const targetH = bestTarget.height ?? bestTarget.measured?.height ?? 96;
+      const tcx = bestTarget.position.x;
+      const tcy = bestTarget.position.y;
+      const offset = isVertical ? cursor.x - tcx : cursor.y - tcy;
+      const dim = isVertical ? targetW : targetH;
+      // Sibling zone když je cursor mimo centrální 30 % (15 % na každou stranu od center)
+      const childZone = dim * 0.15;
 
       let mode: DropMode;
-      if (delta < -threshold) {
+      if (offset < -childZone) {
         mode = 'sibling-left';
-      } else if (delta > threshold) {
+      } else if (offset > childZone) {
         mode = 'sibling-right';
       } else {
         mode = 'child';
       }
 
-      setDropTargetId(target.id);
+      setDropTargetId(bestTarget.id);
       setDropMode(mode);
     },
-    [getIntersectingNodes, orientation],
+    [screenToFlowPosition, getNodes, orientation],
   );
 
   const handleNodeDragStop = useCallback(
