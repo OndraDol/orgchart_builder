@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
 import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from './orgchart';
+import type { CardColorTokenId, OrgNode } from './orgchart';
 
 describe('orgchart constants', () => {
   it('defines required level types', () => {
@@ -21,5 +22,9 @@ describe('orgchart constants', () => {
       'regio',
       'neutral',
     ]);
+  });
+
+  it('uses color token ids for node color values', () => {
+    expectTypeOf<OrgNode['color']>().toEqualTypeOf<CardColorTokenId>();
   });
 });

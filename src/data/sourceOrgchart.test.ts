@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from '../domain/orgchart';
 import { SOURCE_ORGCHART } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
@@ -44,5 +45,40 @@ describe('SOURCE_ORGCHART', () => {
   it('has stable unique ids', () => {
     const ids = SOURCE_ORGCHART.nodes.map((node) => node.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it('references existing parent ids and has exactly one root', () => {
+    const ids = new Set(SOURCE_ORGCHART.nodes.map((node) => node.id));
+    const roots = SOURCE_ORGCHART.nodes.filter((node) => node.parentId === null);
+
+    expect(roots).toHaveLength(1);
+    expect(SOURCE_ORGCHART.nodes.every((node) => node.parentId === null || ids.has(node.parentId))).toBe(true);
+  });
+
+  it('uses only declared domain tokens', () => {
+    const colors = new Set(CARD_COLOR_TOKENS.map((token) => token.id));
+    const levelTypes = new Set(LEVEL_TYPES);
+    const statuses = new Set(STATUS_TYPES);
+
+    expect(SOURCE_ORGCHART.nodes.every((node) => colors.has(node.color))).toBe(true);
+    expect(SOURCE_ORGCHART.nodes.every((node) => levelTypes.has(node.levelType))).toBe(true);
+    expect(SOURCE_ORGCHART.nodes.every((node) => statuses.has(node.status))).toBe(true);
+  });
+
+  it('does not contain parent cycles', () => {
+    const nodesById = new Map(SOURCE_ORGCHART.nodes.map((node) => [node.id, node]));
+
+    for (const node of SOURCE_ORGCHART.nodes) {
+      const ancestors = new Set<string>();
+      let parentId = node.parentId;
+
+      while (parentId !== null) {
+        expect(parentId).not.toBe(node.id);
+        expect(ancestors.has(parentId)).toBe(false);
+        ancestors.add(parentId);
+
+        parentId = nodesById.get(parentId)?.parentId ?? null;
+      }
+    }
   });
 });

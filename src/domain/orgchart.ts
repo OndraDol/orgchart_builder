@@ -16,7 +16,7 @@ export interface CardColorToken {
   text: string;
 }
 
-export const CARD_COLOR_TOKENS: CardColorToken[] = [
+export const CARD_COLOR_TOKENS = [
   {
     id: 'executive',
     label: 'Executive',
@@ -66,7 +66,9 @@ export const CARD_COLOR_TOKENS: CardColorToken[] = [
     border: '#94A3B8',
     text: '#334155',
   },
-];
+] as const satisfies readonly CardColorToken[];
+
+export type CardColorTokenId = (typeof CARD_COLOR_TOKENS)[number]['id'];
 
 export interface OrgNode {
   id: string;
@@ -76,7 +78,7 @@ export interface OrgNode {
   levelType: OrgNodeLevelType;
   country: string;
   regio: string;
-  color: string;
+  color: CardColorTokenId;
   status: OrgNodeStatus;
   order: number;
 }
