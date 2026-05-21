@@ -2,10 +2,10 @@ import { hierarchy, tree } from 'd3-hierarchy';
 
 import type { ChartOrientation, OrgChartDocument, OrgNode } from './orgchart';
 
-const NODE_WIDTH = 220;
-const NODE_HEIGHT = 96;
-const LEVEL_GAP = 150;
-const SIBLING_GAP = 64;
+const NODE_WIDTH = 192;
+const NODE_HEIGHT = 100;
+const LEVEL_GAP = 130;
+const SIBLING_GAP = 24;
 
 export interface PositionedNode {
   id: string;
@@ -54,7 +54,9 @@ export function layoutChart(chart: OrgChartDocument, orientation: ChartOrientati
   });
 
   const root = hierarchy(toTreeNode(roots[0]));
-  const layout = tree<TreeNode>().nodeSize([NODE_WIDTH + SIBLING_GAP, NODE_HEIGHT + LEVEL_GAP])(root);
+  const layout = tree<TreeNode>()
+    .nodeSize([NODE_WIDTH + SIBLING_GAP, NODE_HEIGHT + LEVEL_GAP])
+    .separation((a, b) => (a.parent === b.parent ? 1 : 1.35))(root);
 
   const nodes = layout.descendants().map((item) => {
     const x = orientation === 'vertical' ? item.x : item.y;

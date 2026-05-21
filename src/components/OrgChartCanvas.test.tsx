@@ -16,10 +16,12 @@ describe('OrgChartCanvas', () => {
         movingNodeId={null}
         search=""
         fitViewToken={0}
+        draftNodeId={null}
         onSelect={vi.fn()}
         onAddChild={vi.fn()}
         onMoveAsChild={vi.fn()}
         onMoveAsSibling={vi.fn()}
+        onDropAsChild={vi.fn()}
       />,
     );
 
@@ -38,10 +40,12 @@ describe('OrgChartCanvas', () => {
         movingNodeId={null}
         search=""
         fitViewToken={0}
+        draftNodeId={null}
         onSelect={vi.fn()}
         onAddChild={onAddChild}
         onMoveAsChild={vi.fn()}
         onMoveAsSibling={vi.fn()}
+        onDropAsChild={vi.fn()}
       />,
     );
 

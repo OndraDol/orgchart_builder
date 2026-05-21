@@ -9,6 +9,8 @@ interface OrgNodeCardProps {
   selected: boolean;
   searchMatch: boolean;
   moving: boolean;
+  draft: boolean;
+  dropTarget: boolean;
   onSelect: (nodeId: string) => void;
   onAddChild: (nodeId: string) => void;
 }
@@ -18,12 +20,15 @@ export function OrgNodeCard({
   selected,
   searchMatch,
   moving,
+  draft,
+  dropTarget,
   onSelect,
   onAddChild,
 }: OrgNodeCardProps) {
   const colorToken = CARD_COLOR_TOKENS.find((token) => token.id === node.color) ?? CARD_COLOR_TOKENS[2];
   const metadata = [node.country, node.regio].filter(Boolean);
   const levelClass = `level-${node.levelType.toLowerCase().replace('-', '')}`;
+  const personDisplay = node.person || (draft ? '—' : statusLabel(node.status));
 
   return (
     <article
@@ -31,6 +36,8 @@ export function OrgNodeCard({
         selected,
         'search-match': searchMatch,
         moving,
+        draft,
+        'drop-target': dropTarget,
         planned: node.status === 'planned',
         vacant: node.status === 'vacant',
       })}
@@ -43,11 +50,17 @@ export function OrgNodeCard({
     >
       <div className="org-card-content">
         <h3 className="org-card-title">{node.title}</h3>
-        <p className="org-card-person">{node.person || statusLabel(node.status)}</p>
+        <p className="org-card-person">{personDisplay}</p>
         <div className="org-card-meta" aria-label={messages.editor.cardMetadataAria}>
-          <span className={clsx('org-card-level-badge', levelClass)} aria-label={`Úroveň ${node.levelType}`}>
-            {node.levelType}
-          </span>
+          {draft ? (
+            <span className="org-card-level-badge org-card-draft-badge" aria-label={messages.editor.draftBadge}>
+              {messages.editor.draftBadge}
+            </span>
+          ) : (
+            <span className={clsx('org-card-level-badge', levelClass)} aria-label={`Úroveň ${node.levelType}`}>
+              {node.levelType}
+            </span>
+          )}
           {metadata.map((item) => (
             <span key={item}>{item}</span>
           ))}

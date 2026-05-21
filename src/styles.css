@@ -466,7 +466,7 @@ button:disabled {
 }
 
 .chart-canvas .react-flow__node {
-  width: 232px;
+  width: 192px;
 }
 
 .chart-canvas .react-flow__node:focus,
@@ -528,12 +528,12 @@ button:disabled {
 .org-card {
   position: relative;
   display: flex;
-  width: 232px;
-  min-height: 102px;
+  width: 192px;
+  min-height: 96px;
   align-items: stretch;
   justify-content: space-between;
-  gap: var(--space-2);
-  padding: 12px 11px 12px 18px;
+  gap: 6px;
+  padding: 10px 8px 10px 14px;
   border: 1.5px solid;
   border-radius: var(--radius-md);
   background: var(--bg-elevated);
@@ -541,8 +541,33 @@ button:disabled {
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
-    transform 0.18s ease;
-  cursor: pointer;
+    transform 0.18s ease,
+    opacity 0.18s ease;
+  cursor: grab;
+}
+
+.org-card:active {
+  cursor: grabbing;
+}
+
+.chart-canvas .react-flow__node.dragging .org-card,
+.org-card.dragging {
+  opacity: 0.7;
+  cursor: grabbing;
+  box-shadow: var(--shadow-lg);
+}
+
+.org-card.drop-target {
+  border-color: var(--accent) !important;
+  box-shadow:
+    0 0 0 4px var(--accent-soft),
+    var(--shadow-lg) !important;
+  transform: scale(1.02);
+}
+
+.org-card.draft {
+  border-style: dashed !important;
+  opacity: 0.85;
 }
 
 .org-card::before {
@@ -583,6 +608,12 @@ button:disabled {
 .org-card-level-badge.level-b2 { background: rgba(22, 163, 74, 0.16); color: #14532d; }
 .org-card-level-badge.level-b3 { background: rgba(217, 119, 6, 0.18); color: #78350f; }
 .org-card-level-badge.level-b4 { background: rgba(219, 39, 119, 0.18); color: #831843; }
+
+.org-card-draft-badge {
+  background: var(--accent) !important;
+  color: var(--accent-text) !important;
+  letter-spacing: 0.06em;
+}
 
 .org-card:hover {
   box-shadow: var(--shadow-md);
@@ -631,13 +662,13 @@ button:disabled {
   margin: 0;
   overflow: hidden;
   color: inherit;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 650;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.005em;
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 }
 
 .org-card-person {
@@ -645,9 +676,9 @@ button:disabled {
   margin: 0;
   overflow: hidden;
   color: inherit;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 16px;
   opacity: 0.8;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -764,6 +795,34 @@ button:disabled {
   line-height: 1.25;
   letter-spacing: -0.015em;
   overflow-wrap: anywhere;
+}
+
+.panel-draft-banner {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius-md);
+  background: var(--accent-softer);
+}
+
+.panel-draft-banner p {
+  margin: 0;
+  color: var(--accent-hover);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.text-button.primary {
+  border-color: transparent !important;
+  color: var(--accent-text) !important;
+  background: linear-gradient(135deg, var(--accent) 0%, #6366f1 100%) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.text-button.primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 .panel-fields {

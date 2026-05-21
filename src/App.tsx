@@ -149,22 +149,28 @@ export function App() {
           orientation={state.orientation}
           selectedNodeId={state.selectedNodeId}
           movingNodeId={state.movingNodeId}
+          draftNodeId={state.draftNodeId}
           search={state.search}
           fitViewToken={fitViewToken}
           onSelect={(nodeId) => dispatch({ type: 'select', nodeId })}
           onAddChild={(parentId) => dispatch({ type: 'add-child', parentId })}
           onMoveAsChild={(targetParentId) => dispatch({ type: 'move-as-child', targetParentId })}
           onMoveAsSibling={(targetId, side) => dispatch({ type: 'move-as-sibling', targetId, side })}
+          onDropAsChild={(sourceId, targetParentId) =>
+            dispatch({ type: 'drop-as-child', sourceId, targetParentId })
+          }
         />
 
         <EditorPanel
           node={selectedNode}
           movingNodeId={state.movingNodeId}
+          isDraft={selectedNode !== null && state.draftNodeId === selectedNode.id}
           onChange={(patch) => dispatch({ type: 'update-selected', patch })}
           onDelete={handleDelete}
           onStartMove={(nodeId) => dispatch({ type: 'start-move', nodeId })}
           onCancelMove={() => dispatch({ type: 'cancel-move' })}
           onClose={() => dispatch({ type: 'select', nodeId: null })}
+          onSaveDraft={() => dispatch({ type: 'save-draft' })}
         />
 
         <StatusBar

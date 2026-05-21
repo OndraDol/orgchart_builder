@@ -16,6 +16,7 @@ export interface ChartState {
   history: ChartHistory;
   selectedNodeId: string | null;
   movingNodeId: string | null;
+  draftNodeId: string | null;
   orientation: ChartOrientation;
   search: string;
   warning: string;
@@ -33,6 +34,8 @@ export type ChartAction =
   | { type: 'cancel-move' }
   | { type: 'move-as-child'; targetParentId: string }
   | { type: 'move-as-sibling'; targetId: string; side: SiblingSide }
+  | { type: 'drop-as-child'; sourceId: string; targetParentId: string }
+  | { type: 'save-draft' }
   | { type: 'undo' }
   | { type: 'replace-chart'; chart: OrgChartDocument }
   | { type: 'set-warning'; warning: string }
@@ -42,6 +45,7 @@ export const createInitialChartState = (chart: OrgChartDocument): ChartState => 
   history: createHistory(chart),
   selectedNodeId: null,
   movingNodeId: null,
+  draftNodeId: null,
   orientation: 'vertical',
   search: '',
   warning: '',
@@ -106,6 +110,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
         return {
           ...withPushedChart(state, nextChart),
           selectedNodeId,
+          draftNodeId: selectedNodeId,
         };
       } catch (error) {
         return { ...state, warning: warningFromError(error) };
@@ -145,6 +150,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
           ...withPushedChart(state, deleteNodeAndDescendants(state.history.current, action.nodeId)),
           selectedNodeId: null,
           movingNodeId: null,
+          draftNodeId: state.draftNodeId === action.nodeId ? null : state.draftNodeId,
         };
       } catch (error) {
         return { ...state, warning: warningFromError(error) };
@@ -188,6 +194,20 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
         return { ...state, warning: warningFromError(error) };
       }
     }
+
+    case 'drop-as-child': {
+      try {
+        return {
+          ...withPushedChart(state, moveNodeAsChild(state.history.current, action.sourceId, action.targetParentId)),
+          movingNodeId: null,
+        };
+      } catch (error) {
+        return { ...state, warning: warningFromError(error) };
+      }
+    }
+
+    case 'save-draft':
+      return { ...state, draftNodeId: null };
 
     case 'undo':
       return {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Background,
   Controls,
@@ -23,12 +23,14 @@ interface OrgChartCanvasProps {
   orientation: ChartOrientation;
   selectedNodeId: string | null;
   movingNodeId: string | null;
+  draftNodeId: string | null;
   search: string;
   fitViewToken: number;
   onSelect: (nodeId: string | null) => void;
   onAddChild: (nodeId: string) => void;
   onMoveAsChild: (targetParentId: string) => void;
   onMoveAsSibling: (targetId: string, side: 'left' | 'right') => void;
+  onDropAsChild: (sourceId: string, targetParentId: string) => void;
 }
 
 interface OrgFlowNodeData extends Record<string, unknown> {
@@ -37,14 +39,13 @@ interface OrgFlowNodeData extends Record<string, unknown> {
   selected: boolean;
   searchMatch: boolean;
   moving: boolean;
+  draft: boolean;
+  dropTarget: boolean;
   onSelect: (nodeId: string) => void;
   onAddChild: (nodeId: string) => void;
 }
 
 type OrgFlowNode = Node<OrgFlowNodeData, 'orgNode'>;
-
-const NODE_WIDTH = 220;
-const NODE_HEIGHT = 96;
 
 function OrgFlowCard({ data }: NodeProps<OrgFlowNode>) {
   const targetPosition = data.orientation === 'vertical' ? Position.Top : Position.Left;
@@ -58,6 +59,8 @@ function OrgFlowCard({ data }: NodeProps<OrgFlowNode>) {
         selected={data.selected}
         searchMatch={data.searchMatch}
         moving={data.moving}
+        draft={data.draft}
+        dropTarget={data.dropTarget}
         onSelect={data.onSelect}
         onAddChild={data.onAddChild}
       />
@@ -75,15 +78,19 @@ function OrgChartFlow({
   orientation,
   selectedNodeId,
   movingNodeId,
+  draftNodeId,
   search,
   fitViewToken,
   onSelect,
   onAddChild,
   onMoveAsChild,
   onMoveAsSibling,
+  onDropAsChild,
 }: OrgChartCanvasProps) {
-  const { fitView } = useReactFlow<OrgFlowNode, Edge>();
+  const { fitView, getIntersectingNodes } = useReactFlow<OrgFlowNode, Edge>();
   const normalizedSearch = search.trim().toLocaleLowerCase();
+  const [dropTargetId, setDropTargetId] = useState<string | null>(null);
+  const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   void onMoveAsChild;
   void onMoveAsSibling;
 
@@ -106,11 +113,14 @@ function OrgChartFlow({
           selected: selectedNodeId === id,
           searchMatch,
           moving: movingNodeId === id,
+          draft: draftNodeId === id,
+          dropTarget: dropTargetId === id && draggedNodeId !== null && draggedNodeId !== id,
           onSelect: (nodeId) => onSelect(nodeId),
           onAddChild,
         },
         selected: selectedNodeId === id,
         draggable: true,
+        className: draggedNodeId === id ? 'dragging' : undefined,
       };
     });
 
@@ -119,12 +129,23 @@ function OrgChartFlow({
       source: edge.source,
       target: edge.target,
       type: 'smoothstep',
-      animated: movingNodeId !== null,
-      style: { stroke: '#7c8a86', strokeWidth: 1.5 },
+      animated: movingNodeId !== null || draggedNodeId !== null,
+      style: { stroke: '#94a3b8', strokeWidth: 1.4 },
     }));
 
     return { nodes: flowNodes, edges: flowEdges };
-  }, [chart, orientation, normalizedSearch, selectedNodeId, movingNodeId, onSelect, onAddChild]);
+  }, [
+    chart,
+    orientation,
+    normalizedSearch,
+    selectedNodeId,
+    movingNodeId,
+    draftNodeId,
+    dropTargetId,
+    draggedNodeId,
+    onSelect,
+    onAddChild,
+  ]);
 
   useEffect(() => {
     fitView({ padding: 0.2, duration: 0 });
@@ -136,18 +157,48 @@ function OrgChartFlow({
     }
   }, [fitView, fitViewToken]);
 
+  const handleNodeDragStart = useCallback((_event: unknown, node: OrgFlowNode) => {
+    setDraggedNodeId(node.id);
+    setDropTargetId(null);
+  }, []);
+
+  const handleNodeDrag = useCallback(
+    (_event: unknown, node: OrgFlowNode) => {
+      const intersecting = getIntersectingNodes(node);
+      const target = intersecting.find((candidate) => candidate.id !== node.id);
+      setDropTargetId(target?.id ?? null);
+    },
+    [getIntersectingNodes],
+  );
+
+  const handleNodeDragStop = useCallback(
+    (_event: unknown, node: OrgFlowNode) => {
+      const sourceId = node.id;
+      const targetId = dropTargetId;
+      setDraggedNodeId(null);
+      setDropTargetId(null);
+      if (targetId && targetId !== sourceId) {
+        onDropAsChild(sourceId, targetId);
+      }
+    },
+    [dropTargetId, onDropAsChild],
+  );
+
   return (
     <ReactFlow
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
       nodeOrigin={[0.5, 0.5]}
-      minZoom={0.2}
+      minZoom={0.15}
       maxZoom={1.6}
       fitView
       onlyRenderVisibleElements={false}
       nodesConnectable={false}
       onPaneClick={() => onSelect(null)}
+      onNodeDragStart={handleNodeDragStart}
+      onNodeDrag={handleNodeDrag}
+      onNodeDragStop={handleNodeDragStop}
     >
       <Background color="#cbd5e1" gap={28} size={1} />
       <Controls showInteractive={false} />

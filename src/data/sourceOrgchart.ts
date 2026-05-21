@@ -394,6 +394,8 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
 
     // B-2 pod Leoš Pilnaj (Group AutomotiveOPS)
+    // TODO: Lukáš Novotný a Martin Leipner – jména v PDF na řádce 35,
+    // tituly v text-extraktu neurčité, vyžaduje upřesnění od uživatele.
     {
       id: 'group-logistics-manager-alexandr-jordanov',
       parentId: 'group-automotiveops-director-leos-pilnaj',
@@ -405,6 +407,18 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       color: 'standard',
       status: 'active',
       order: 10,
+    },
+    {
+      id: 'group-development-manager-petr-havlik',
+      parentId: 'group-automotiveops-director-leos-pilnaj',
+      title: 'Group Development Manager',
+      person: 'Petr Havlík',
+      levelType: 'B-2',
+      country: '',
+      regio: '',
+      color: 'standard',
+      status: 'active',
+      order: 15,
     },
     {
       id: 'group-warehouse-manager-lubos-stangler',

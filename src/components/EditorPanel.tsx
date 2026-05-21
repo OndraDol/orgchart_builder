@@ -1,5 +1,5 @@
-import type { ChangeEvent } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useRef, type ChangeEvent } from 'react';
+import { CheckCircle2, X } from 'lucide-react';
 
 import {
   CARD_COLOR_TOKENS,
@@ -16,22 +16,35 @@ import { colorLabel, levelLabel, messages, statusLabel } from '../i18n/messages'
 interface EditorPanelProps {
   node: OrgNode | null;
   movingNodeId: string | null;
+  isDraft: boolean;
   onChange: (patch: SelectedNodePatch) => void;
   onDelete: (nodeId: string) => void;
   onStartMove: (nodeId: string) => void;
   onCancelMove: () => void;
   onClose: () => void;
+  onSaveDraft: () => void;
 }
 
 export function EditorPanel({
   node,
   movingNodeId,
+  isDraft,
   onChange,
   onDelete,
   onStartMove,
   onCancelMove,
   onClose,
+  onSaveDraft,
 }: EditorPanelProps) {
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (isDraft && titleInputRef.current) {
+      titleInputRef.current.focus();
+      titleInputRef.current.select();
+    }
+  }, [isDraft, node?.id]);
+
   if (!node) {
     return (
       <aside className="editor-panel editor-panel-empty" aria-label={messages.editor.panelLabel}>
@@ -50,7 +63,7 @@ export function EditorPanel({
     <aside className="editor-panel" aria-label={messages.editor.panelLabel}>
       <div className="panel-heading">
         <div className="panel-heading-text">
-          <p className="eyebrow">{messages.editor.eyebrow}</p>
+          <p className="eyebrow">{isDraft ? messages.editor.draftBadge : messages.editor.eyebrow}</p>
           <h2>{node.title || messages.editor.untitled}</h2>
         </div>
         <button
@@ -64,10 +77,20 @@ export function EditorPanel({
         </button>
       </div>
 
+      {isDraft ? (
+        <div className="panel-draft-banner" role="note">
+          <p>{messages.editor.draftBanner}</p>
+          <button className="text-button primary" type="button" onClick={onSaveDraft}>
+            <CheckCircle2 aria-hidden="true" size={16} />
+            {messages.editor.save}
+          </button>
+        </div>
+      ) : null}
+
       <div className="panel-fields">
         <label>
           <span>{messages.editor.title}</span>
-          <input value={node.title} onChange={updateTextField('title')} />
+          <input ref={titleInputRef} value={node.title} onChange={updateTextField('title')} />
         </label>
         <label>
           <span>{messages.editor.person}</span>
