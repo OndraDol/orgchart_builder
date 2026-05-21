@@ -146,7 +146,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-legal-officer-lenka-zajickova',
-      parentId: 'co-ceo-petr-vanecek',
+      parentId: 'co-ceo-karolina-topolova',
       title: 'Chief Legal Officer',
       person: 'Lenka Zajíčková',
       levelType: 'B-1',
@@ -158,7 +158,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-hr-officer-marie-vorsilkova',
-      parentId: 'co-ceo-petr-vanecek',
+      parentId: 'co-ceo-karolina-topolova',
       title: 'Chief HR Officer',
       person: 'Marie Voršílková',
       levelType: 'B-1',
@@ -184,7 +184,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-1 pod CO-CEO Karolína Topolová (innovation / IT / digital / business dev / office ops / mototechna / CEO)
     {
       id: 'chief-innovation-officer-eldar-vagabov',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'co-ceo-petr-vanecek',
       title: 'Chief Innovation Officer',
       person: 'Eldar Vagabov',
       levelType: 'B-1',
@@ -196,7 +196,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'managing-director-mototechna-drive-jan-hruby',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'co-ceo-petr-vanecek',
       title: 'Managing Director Mototechna Drive',
       person: 'Jan Hrubý',
       levelType: 'B-1',
@@ -208,7 +208,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-executive-officer-zdenek-demeter',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'co-ceo-petr-vanecek',
       title: 'Chief Executive Officer',
       person: 'Zdeněk Demeter',
       levelType: 'B-1',
@@ -220,7 +220,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-information-officer-jiri-cabradek',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'chief-innovation-officer-eldar-vagabov',
       title: 'Chief Information Officer',
       person: 'Jiří Čabrádek',
       levelType: 'B-1',
@@ -232,7 +232,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'chief-digital-officer-milan-jezek',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'chief-innovation-officer-eldar-vagabov',
       title: 'Chief Digital Officer',
       person: 'Milan Ježek',
       levelType: 'B-1',
@@ -244,7 +244,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-business-development-director-david-cizek',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'chief-hr-officer-marie-vorsilkova',
       title: 'Group Business Development Director',
       person: 'David Čížek',
       levelType: 'B-1',
@@ -256,7 +256,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-office-operations-director-michaela-kosinerova',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'chief-hr-officer-marie-vorsilkova',
       title: 'Group Office Operations Director',
       person: 'Michaela Kosinerová',
       levelType: 'B-1',
@@ -296,7 +296,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-pricing-manager-pavel-kreibich',
-      parentId: 'group-car-sales-director-daniel-lunacek',
+      parentId: 'group-buying-manager-martin-roudnicky',
       title: 'Group Pricing Manager',
       person: 'Pavel Kreibich',
       levelType: 'B-2',
@@ -308,7 +308,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'country-sales-manager-jiri-pokorak',
-      parentId: 'group-car-sales-director-daniel-lunacek',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country Sales Manager',
       person: 'Jiří Pokorák',
       levelType: 'B-2',
@@ -346,7 +346,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-web-photo-manager-frantisek-kudrna',
-      parentId: 'group-buying-manager-martin-roudnicky',
+      parentId: 'group-development-manager-petr-havlik',
       title: 'Group Web Photo Manager',
       person: 'František Kudrna',
       levelType: 'B-2',
@@ -371,7 +371,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     {
       id: 'group-segment-manager-czskpl-stanislav-otcenasek',
       parentId: 'group-buying-manager-martin-roudnicky',
-      title: 'Group Segment Manager CZ/SK/PL',
+      title: 'Segment Manager CZ/SK/PL',
       person: 'Stanislav Otčenášek',
       levelType: 'B-2',
       country: 'CZ/SK/PL',
@@ -398,7 +398,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // tituly v text-extraktu neurčité, vyžaduje upřesnění od uživatele.
     {
       id: 'group-logistics-manager-alexandr-jordanov',
-      parentId: 'group-automotiveops-director-leos-pilnaj',
+      parentId: 'group-stock-service-director-pavel-pospisil',
       title: 'Group Logistics Manager',
       person: 'Alexandr Jordanov',
       levelType: 'B-2',
@@ -422,7 +422,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-warehouse-manager-lubos-stangler',
-      parentId: 'group-automotiveops-director-leos-pilnaj',
+      parentId: 'group-stock-service-director-pavel-pospisil',
       title: 'Group Warehouse Manager',
       person: 'Luboš Štangler',
       levelType: 'B-2',
@@ -434,7 +434,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'country-ops-manager-jan-sokola',
-      parentId: 'group-automotiveops-director-leos-pilnaj',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country OPS Manager',
       person: 'Jan Sokola',
       levelType: 'B-2',
@@ -474,7 +474,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-2 pod Petr Havel (Group Call Centre)
     {
       id: 'group-fleet-rent-manager-tomas-preus',
-      parentId: 'group-call-centre-director-petr-havel',
+      parentId: 'managing-director-mototechna-drive-jan-hruby',
       title: 'Group Fleet & Rent Manager',
       person: 'Tomáš Preus',
       levelType: 'B-2',
@@ -498,7 +498,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-customer-care-manager-libor-muller',
-      parentId: 'group-call-centre-director-petr-havel',
+      parentId: 'group-marketing-operations-manager-david-reich',
       title: 'Group Customer Care Manager',
       person: 'Libor Müller',
       levelType: 'B-2',
@@ -510,7 +510,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'call-centre-manager-praha-petr-vik',
-      parentId: 'group-call-centre-director-petr-havel',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Call Centre Manager Praha',
       person: 'Petr Vik',
       levelType: 'B-2',
@@ -522,7 +522,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'call-centre-manager-ostrava-jan-kovar',
-      parentId: 'group-call-centre-director-petr-havel',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Call Centre Manager Ostrava',
       person: 'Jan Kovář',
       levelType: 'B-2',
@@ -561,7 +561,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     {
       id: 'general-manager-export-robert-radler',
       parentId: 'group-export-import-director-dusan-prochazka',
-      title: 'General Manager Export',
+      title: 'General Manager_Export',
       person: 'Robert Radler',
       levelType: 'B-2',
       country: '',
@@ -574,7 +574,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-2 pod Marie Voršílková (CHRO)
     {
       id: 'country-payroll-manager-czsk-jitka-horejsi',
-      parentId: 'chief-hr-officer-marie-vorsilkova',
+      parentId: 'group-personnel-payroll-manager-martina-kahulova',
       title: 'Country Payroll Manager CZ+SK',
       person: 'Jitka Hořejší',
       levelType: 'B-2',
@@ -598,7 +598,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'hr-team-leader-jan-jarma',
-      parentId: 'chief-hr-officer-marie-vorsilkova',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'HR Team Leader',
       person: 'Jan Jarma',
       levelType: 'B-2',
@@ -621,15 +621,15 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       order: 40,
     },
     {
-      id: 'group-personnel-payroll-manager-vacant',
+      id: 'group-personnel-payroll-manager-martina-kahulova',
       parentId: 'chief-hr-officer-marie-vorsilkova',
       title: 'Group Personnel & Payroll Manager',
-      person: '',
+      person: 'Martina Kahulová',
       levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
-      status: 'vacant',
+      status: 'active',
       order: 50,
     },
     {
@@ -676,7 +676,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-2 pod Jiří Čabrádek (CIO)
     {
       id: 'group-it-development-project-manager-jakub-rehak',
-      parentId: 'chief-information-officer-jiri-cabradek',
+      parentId: 'chief-executive-officer-zdenek-demeter',
       title: 'Group IT Development Project Manager',
       person: 'Jakub Řehák',
       levelType: 'B-2',
@@ -688,7 +688,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'head-of-analytics-david-tatar',
-      parentId: 'chief-information-officer-jiri-cabradek',
+      parentId: 'chief-executive-officer-zdenek-demeter',
       title: 'Head of Analytics',
       person: 'David Tatár',
       levelType: 'B-2',
@@ -700,7 +700,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'head-of-bi-petronela-hubocanova',
-      parentId: 'chief-information-officer-jiri-cabradek',
+      parentId: 'chief-executive-officer-zdenek-demeter',
       title: 'Head of BI',
       person: 'Petronela Hubočanová',
       levelType: 'B-2',
@@ -762,7 +762,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-2 pod Milan Ježek (CDO)
     {
       id: 'head-of-pmo-digital-transformation-daniel-farek',
-      parentId: 'chief-digital-officer-milan-jezek',
+      parentId: 'chief-innovation-officer-eldar-vagabov',
       title: 'Head of PMO & Digital Transformation Manager',
       person: 'Daniel Fárek',
       levelType: 'B-2',
@@ -848,8 +848,8 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-web-manager-czskplhu-ondrej-bober',
-      parentId: 'group-marketing-operations-manager-david-reich',
-      title: 'Group Web Manager CZ/SK/PL/HU',
+      parentId: 'group-business-development-director-david-cizek',
+      title: 'Development Operations Manager CZ/SK/PL/HU',
       person: 'Ondrej Bober',
       levelType: 'B-2',
       country: 'CZ/SK/PL/HU',
@@ -860,7 +860,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-segment-manager-david-chvojka',
-      parentId: 'group-business-development-director-david-cizek',
+      parentId: 'managing-director-mototechna-drive-jan-hruby',
       title: 'Group Segment Manager',
       person: 'David Chvojka',
       levelType: 'B-2',
@@ -872,7 +872,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'regional-marketing-manager-michal-krulis',
-      parentId: 'group-business-development-director-david-cizek',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Regional Marketing Manager',
       person: 'Michal Kruliš',
       levelType: 'B-2',
@@ -886,7 +886,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-2 pod Michaela Kosinerová (Group Office Operations)
     {
       id: 'group-facility-construction-manager-petr-rinda',
-      parentId: 'group-office-operations-director-michaela-kosinerova',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Group Facility & Construction Manager',
       person: 'Petr Rinda',
       levelType: 'B-2',
@@ -898,7 +898,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'cars-administration-manager-michaela-beckova',
-      parentId: 'group-office-operations-director-michaela-kosinerova',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Cars Administration Manager',
       person: 'Michaela Bečková',
       levelType: 'B-2',
@@ -909,9 +909,9 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       order: 20,
     },
     {
-      id: 'group-procurement-cost-control-manager-jan-vojtech',
+      id: 'group-company-cars-manager-jan-vojtech',
       parentId: 'group-office-operations-director-michaela-kosinerova',
-      title: 'Group Procurement & Cost Control Manager',
+      title: 'Group Company Cars Manager',
       person: 'Jan Vojtěch',
       levelType: 'B-2',
       country: '',
@@ -919,6 +919,18 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       color: 'standard',
       status: 'active',
       order: 30,
+    },
+    {
+      id: 'group-procurement-cost-control-manager-martin-leipner',
+      parentId: 'group-office-operations-director-michaela-kosinerova',
+      title: 'Group Procurement & Cost Control Manager',
+      person: 'Martin Leipner',
+      levelType: 'B-2',
+      country: '',
+      regio: '',
+      color: 'standard',
+      status: 'active',
+      order: 35,
     },
     {
       id: 'group-back-office-manager-pavla-smrckova',
@@ -934,7 +946,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-security-manager-alan-dobes',
-      parentId: 'group-office-operations-director-michaela-kosinerova',
+      parentId: 'group-business-development-director-david-cizek',
       title: 'Group Security Manager',
       person: 'Alan Dobeš',
       levelType: 'B-2',
@@ -946,27 +958,27 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'back-office-manager-pl-agnieszka-romanska',
-      parentId: 'group-office-operations-director-michaela-kosinerova',
-      title: 'Back Office Manager PL',
+      parentId: 'managing-director-pl-miroslav-vapenik',
+      title: 'Back Office Manager_PL',
       person: 'Agnieszka Romańska',
-      levelType: 'B-2',
+      levelType: 'B-4',
       country: 'PL',
       regio: '',
-      color: 'standard',
+      color: 'country',
       status: 'active',
-      order: 60,
+      order: 130,
     },
     {
-      id: 'group-company-cars-manager-martina-kahulova',
-      parentId: 'group-office-operations-director-michaela-kosinerova',
-      title: 'Group Company Cars Manager',
-      person: 'Martina Kahulová',
+      id: 'group-acquisition-manager-lukas-novotny',
+      parentId: 'group-business-development-director-david-cizek',
+      title: 'Group Acquisition Manager',
+      person: 'Lukáš Novotný',
       levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
       status: 'active',
-      order: 70,
+      order: 55,
     },
     {
       id: 'group-warehouse-archive-manager-ludvik-zawora',
@@ -996,7 +1008,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'mergers-acquisitions-ir-manager-radek-nemecek',
-      parentId: 'group-consolidation-tax-director-vojtech-karban',
+      parentId: 'cfo-marko-tapio-lehtonen',
       title: 'Mergers and Acquisitions IR Manager',
       person: 'Radek Němeček',
       levelType: 'B-2',
@@ -1009,7 +1021,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     {
       id: 'group-finance-operations-frantisek-klufa',
       parentId: 'cfo-marko-tapio-lehtonen',
-      title: 'Group Finance Operations',
+      title: 'Group Finance Operations Director',
       person: 'František Klufa',
       levelType: 'B-2',
       country: '',
@@ -1044,7 +1056,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'financial-accounting-manager-cz-renata-havlova',
-      parentId: 'cfo-marko-tapio-lehtonen',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Financial Accounting Manager',
       person: 'Renata Havlová',
       levelType: 'B-2',
@@ -1082,7 +1094,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'country-fi-manager-cz-david-hlavnicka',
-      parentId: 'group-financial-services-director-milan-dedecek',
+      parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country F&I Manager',
       person: 'David Hlavnička',
       levelType: 'B-2',
@@ -1434,7 +1446,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'swap-manager-de-michal-valka',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'SWAP Manager',
       person: 'Michal Válka',
       levelType: 'B-4',
@@ -1446,7 +1458,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'country-buying-manager-hu-ondrej-suba',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'swap-manager-de-michal-valka',
       title: 'Country Buying Manager',
       person: 'Ondrej Šuba',
       levelType: 'B-4',
