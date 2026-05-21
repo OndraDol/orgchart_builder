@@ -1,14 +1,16 @@
 import { Download, Maximize2, RotateCcw, Search, Undo2, Upload, Workflow } from 'lucide-react';
 
-import type { ChartOrientation } from '../domain/orgchart';
+import type { ChartLayoutMode, ChartOrientation } from '../domain/orgchart';
 import { messages } from '../i18n/messages';
 
 interface ToolbarProps {
   search: string;
   orientation: ChartOrientation;
+  layoutMode: ChartLayoutMode;
   canUndo: boolean;
   onSearchChange: (value: string) => void;
   onOrientationChange: (orientation: ChartOrientation) => void;
+  onLayoutModeChange: (layoutMode: ChartLayoutMode) => void;
   onUndo: () => void;
   onReset: () => void;
   onExport: () => void;
@@ -19,9 +21,11 @@ interface ToolbarProps {
 export function Toolbar({
   search,
   orientation,
+  layoutMode,
   canUndo,
   onSearchChange,
   onOrientationChange,
+  onLayoutModeChange,
   onUndo,
   onReset,
   onExport,
@@ -47,6 +51,25 @@ export function Toolbar({
           onChange={(event) => onSearchChange(event.currentTarget.value)}
         />
       </label>
+
+      <div className="segmented prominent" role="group" aria-label={messages.toolbar.layoutLabel}>
+        <button
+          className={layoutMode === 'source' ? 'active' : undefined}
+          type="button"
+          aria-pressed={layoutMode === 'source'}
+          onClick={() => onLayoutModeChange('source')}
+        >
+          {messages.toolbar.layoutSource}
+        </button>
+        <button
+          className={layoutMode === 'tree' ? 'active' : undefined}
+          type="button"
+          aria-pressed={layoutMode === 'tree'}
+          onClick={() => onLayoutModeChange('tree')}
+        >
+          {messages.toolbar.layoutTree}
+        </button>
+      </div>
 
       <div className="segmented" role="group" aria-label={messages.toolbar.orientationLabel}>
         <button

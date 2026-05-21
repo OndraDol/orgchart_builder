@@ -2,11 +2,12 @@ import {
   addChildNode,
   deleteNodeAndDescendants,
   moveNodeAsChild,
+  moveNodeAsParent,
   moveNodeAsSibling,
   updateNode,
 } from '../domain/chartOperations';
 import { createHistory, pushHistory, undoHistory, type ChartHistory } from '../domain/chartHistory';
-import type { ChartOrientation, OrgChartDocument, SelectedNodePatch } from '../domain/orgchart';
+import type { ChartLayoutMode, ChartOrientation, NodePosition, OrgChartDocument, SelectedNodePatch } from '../domain/orgchart';
 
 type SiblingSide = 'left' | 'right';
 
@@ -18,6 +19,7 @@ export interface ChartState {
   movingNodeId: string | null;
   draftNodeId: string | null;
   orientation: ChartOrientation;
+  layoutMode: ChartLayoutMode;
   search: string;
   warning: string;
   saveState: SaveState;
@@ -27,6 +29,7 @@ export type ChartAction =
   | { type: 'select'; nodeId: string | null }
   | { type: 'set-search'; search: string }
   | { type: 'set-orientation'; orientation: ChartOrientation }
+  | { type: 'set-layout-mode'; layoutMode: ChartLayoutMode }
   | { type: 'add-child'; parentId: string }
   | { type: 'update-selected'; patch: SelectedNodePatch }
   | { type: 'delete'; nodeId: string }
@@ -34,8 +37,9 @@ export type ChartAction =
   | { type: 'cancel-move' }
   | { type: 'move-as-child'; targetParentId: string }
   | { type: 'move-as-sibling'; targetId: string; side: SiblingSide }
-  | { type: 'drop-as-child'; sourceId: string; targetParentId: string }
-  | { type: 'drop-as-sibling'; sourceId: string; targetId: string; side: SiblingSide }
+  | { type: 'drop-as-child'; sourceId: string; targetParentId: string; position?: NodePosition }
+  | { type: 'drop-as-parent'; sourceId: string; targetId: string; position?: NodePosition }
+  | { type: 'drop-as-sibling'; sourceId: string; targetId: string; side: SiblingSide; position?: NodePosition }
   | { type: 'save-draft' }
   | { type: 'undo' }
   | { type: 'replace-chart'; chart: OrgChartDocument }
@@ -48,6 +52,7 @@ export const createInitialChartState = (chart: OrgChartDocument): ChartState => 
   movingNodeId: null,
   draftNodeId: null,
   orientation: 'vertical',
+  layoutMode: 'source',
   search: '',
   warning: '',
   saveState: 'idle',
@@ -100,6 +105,9 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
 
     case 'set-orientation':
       return { ...state, orientation: action.orientation, warning: '' };
+
+    case 'set-layout-mode':
+      return { ...state, layoutMode: action.layoutMode, warning: '' };
 
     case 'add-child': {
       try {
@@ -199,7 +207,24 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
     case 'drop-as-child': {
       try {
         return {
-          ...withPushedChart(state, moveNodeAsChild(state.history.current, action.sourceId, action.targetParentId)),
+          ...withPushedChart(
+            state,
+            moveNodeAsChild(state.history.current, action.sourceId, action.targetParentId, action.position),
+          ),
+          movingNodeId: null,
+        };
+      } catch (error) {
+        return { ...state, warning: warningFromError(error) };
+      }
+    }
+
+    case 'drop-as-parent': {
+      try {
+        return {
+          ...withPushedChart(
+            state,
+            moveNodeAsParent(state.history.current, action.sourceId, action.targetId, action.position),
+          ),
           movingNodeId: null,
         };
       } catch (error) {
@@ -212,7 +237,7 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
         return {
           ...withPushedChart(
             state,
-            moveNodeAsSibling(state.history.current, action.sourceId, action.targetId, action.side),
+            moveNodeAsSibling(state.history.current, action.sourceId, action.targetId, action.side, action.position),
           ),
           movingNodeId: null,
         };

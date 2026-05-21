@@ -122,11 +122,13 @@ export function App() {
         <Toolbar
           search={state.search}
           orientation={state.orientation}
+          layoutMode={state.layoutMode}
           canUndo={state.history.past.length > 0}
           onSearchChange={(search) => dispatch({ type: 'set-search', search })}
           onOrientationChange={(orientation) =>
             dispatch({ type: 'set-orientation', orientation })
           }
+          onLayoutModeChange={(layoutMode) => dispatch({ type: 'set-layout-mode', layoutMode })}
           onUndo={() => dispatch({ type: 'undo' })}
           onReset={handleReset}
           onExport={handleExport}
@@ -147,6 +149,7 @@ export function App() {
         <OrgChartCanvas
           chart={currentChart}
           orientation={state.orientation}
+          layoutMode={state.layoutMode}
           selectedNodeId={state.selectedNodeId}
           movingNodeId={state.movingNodeId}
           draftNodeId={state.draftNodeId}
@@ -156,11 +159,14 @@ export function App() {
           onAddChild={(parentId) => dispatch({ type: 'add-child', parentId })}
           onMoveAsChild={(targetParentId) => dispatch({ type: 'move-as-child', targetParentId })}
           onMoveAsSibling={(targetId, side) => dispatch({ type: 'move-as-sibling', targetId, side })}
-          onDropAsChild={(sourceId, targetParentId) =>
-            dispatch({ type: 'drop-as-child', sourceId, targetParentId })
+          onDropAsChild={(sourceId, targetParentId, position) =>
+            dispatch({ type: 'drop-as-child', sourceId, targetParentId, position })
           }
-          onDropAsSibling={(sourceId, targetId, side) =>
-            dispatch({ type: 'drop-as-sibling', sourceId, targetId, side })
+          onDropAsParent={(sourceId, targetId, position) =>
+            dispatch({ type: 'drop-as-parent', sourceId, targetId, position })
+          }
+          onDropAsSibling={(sourceId, targetId, side, position) =>
+            dispatch({ type: 'drop-as-sibling', sourceId, targetId, side, position })
           }
         />
 

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { CARD_COLOR_TOKENS, type OrgNode } from '../domain/orgchart';
 import { messages, statusLabel } from '../i18n/messages';
 
-type DropMode = 'child' | 'sibling-left' | 'sibling-right';
+type DropMode = 'parent' | 'child' | 'sibling-left' | 'sibling-right';
 
 interface OrgNodeCardProps {
   node: OrgNode;
@@ -44,6 +44,7 @@ export function OrgNodeCard({
         moving,
         draft,
         'drop-allowed': dropAllowed,
+        'drop-parent': dropTarget && dropMode === 'parent',
         'drop-target': dropTarget && dropMode === 'child',
         'drop-sibling-left': dropTarget && dropMode === 'sibling-left',
         'drop-sibling-right': dropTarget && dropMode === 'sibling-right',

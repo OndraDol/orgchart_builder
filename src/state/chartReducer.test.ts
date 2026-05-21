@@ -12,6 +12,16 @@ describe('chartReducer', () => {
     expect(result.selectedNodeId).toMatch(/^nov-role-/);
   });
 
+  it('starts in PDF source layout mode and switches layout mode without mutating chart data', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART);
+    expect(state.layoutMode).toBe('source');
+
+    const result = chartReducer(state, { type: 'set-layout-mode', layoutMode: 'tree' } as never);
+
+    expect(result.layoutMode).toBe('tree');
+    expect(result.history.current).toBe(state.history.current);
+  });
+
   it('updates selected node fields', () => {
     const state = { ...createInitialChartState(SOURCE_ORGCHART), selectedNodeId: SOURCE_ORGCHART.nodes[0].id };
     const result = chartReducer(state, { type: 'update-selected', patch: { title: 'Updated' } });
@@ -95,6 +105,37 @@ describe('chartReducer', () => {
 
     expect(result.history.current).toBe(state.history.current);
     expect(result.warning).toBe('Cannot move a node into itself.');
+  });
+
+  it('drops a node as parent of a target node', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART);
+    const result = chartReducer(state, {
+      type: 'drop-as-parent',
+      sourceId: 'group-it-development-project-manager-jakub-rehak',
+      targetId: 'head-of-analytics-david-tatar',
+    });
+
+    expect(
+      result.history.current.nodes.find((node) => node.id === 'group-it-development-project-manager-jakub-rehak'),
+    ).toMatchObject({ parentId: 'chief-executive-officer-zdenek-demeter' });
+    expect(result.history.current.nodes.find((node) => node.id === 'head-of-analytics-david-tatar')).toMatchObject({
+      parentId: 'group-it-development-project-manager-jakub-rehak',
+    });
+  });
+
+  it('stores manual node position after a valid drop', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART);
+    const result = chartReducer(state, {
+      type: 'drop-as-child',
+      sourceId: 'head-of-analytics-david-tatar',
+      targetParentId: 'chief-information-officer-jiri-cabradek',
+      position: { x: 420, y: 240 },
+    } as never);
+
+    expect(result.history.current.nodes.find((node) => node.id === 'head-of-analytics-david-tatar')).toMatchObject({
+      parentId: 'chief-information-officer-jiri-cabradek',
+      position: { x: 420, y: 240 },
+    });
   });
 
   it('clears warning when canceling move', () => {

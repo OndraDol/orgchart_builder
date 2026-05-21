@@ -1,4 +1,4 @@
-import type { OrgChartDocument, OrgNode, SelectedNodePatch } from './orgchart';
+import type { NodePosition, OrgChartDocument, OrgNode, SelectedNodePatch } from './orgchart';
 
 type SiblingSide = 'left' | 'right';
 
@@ -151,6 +151,7 @@ export const moveNodeAsChild = (
   chart: OrgChartDocument,
   sourceId: string,
   targetParentId: string,
+  position?: NodePosition,
 ): OrgChartDocument => {
   const source = findNode(chart, sourceId);
   findNode(chart, targetParentId);
@@ -164,8 +165,52 @@ export const moveNodeAsChild = (
   }
 
   const movedNodes = chart.nodes.map((node) =>
-    node.id === sourceId ? { ...node, parentId: targetParentId, order: nextSiblingOrder(chart.nodes, targetParentId) } : node,
+    node.id === sourceId
+      ? { ...node, parentId: targetParentId, order: nextSiblingOrder(chart.nodes, targetParentId), ...(position ? { position } : {}) }
+      : node,
   );
+
+  return withUpdatedAt(chart, normalizeAllSiblingOrders(movedNodes));
+};
+
+export const moveNodeAsParent = (
+  chart: OrgChartDocument,
+  sourceId: string,
+  targetId: string,
+  position?: NodePosition,
+): OrgChartDocument => {
+  const source = findNode(chart, sourceId);
+  const target = findNode(chart, targetId);
+
+  if (sourceId === targetId) {
+    throw new Error('Cannot move a node above itself.');
+  }
+
+  if (source.parentId === null) {
+    throw new Error('Cannot move the root node.');
+  }
+
+  if (target.parentId === null) {
+    throw new Error('Cannot move a node above the root.');
+  }
+
+  if (getDescendantIds(chart.nodes, sourceId).has(targetId)) {
+    throw new Error('Cannot move a node above its own descendant.');
+  }
+
+  const targetOriginalParentId = target.parentId;
+  const targetOrderUnderSource = nextSiblingOrder(chart.nodes, sourceId);
+  const movedNodes = chart.nodes.map((node) => {
+    if (node.id === sourceId) {
+      return { ...node, parentId: targetOriginalParentId, order: target.order, ...(position ? { position } : {}) };
+    }
+
+    if (node.id === targetId) {
+      return { ...node, parentId: sourceId, order: targetOrderUnderSource };
+    }
+
+    return node;
+  });
 
   return withUpdatedAt(chart, normalizeAllSiblingOrders(movedNodes));
 };
@@ -175,6 +220,7 @@ export const moveNodeAsSibling = (
   sourceId: string,
   targetId: string,
   side: SiblingSide,
+  position?: NodePosition,
 ): OrgChartDocument => {
   findNode(chart, sourceId);
   const target = findNode(chart, targetId);
@@ -206,7 +252,7 @@ export const moveNodeAsSibling = (
 
   const movedNodes = chart.nodes.map((node) => {
     if (node.id === sourceId) {
-      return { ...node, parentId: target.parentId, order: orderById.get(sourceId) ?? node.order };
+      return { ...node, parentId: target.parentId, order: orderById.get(sourceId) ?? node.order, ...(position ? { position } : {}) };
     }
 
     const order = orderById.get(node.id);

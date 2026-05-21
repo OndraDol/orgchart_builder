@@ -339,6 +339,11 @@ button:disabled {
   background: var(--bg-subtle);
 }
 
+.segmented.prominent {
+  border-color: rgba(79, 70, 229, 0.28);
+  background: rgba(79, 70, 229, 0.08);
+}
+
 .segmented button {
   display: inline-flex;
   min-height: 30px;
@@ -484,6 +489,12 @@ button:disabled {
   stroke-width: 2;
 }
 
+.chart-canvas .react-flow__edge.drop-preview-edge .react-flow__edge-path {
+  stroke: var(--accent);
+  stroke-width: 3;
+  filter: drop-shadow(0 6px 12px rgba(79, 70, 229, 0.35));
+}
+
 .chart-canvas .react-flow__controls {
   display: flex;
   flex-direction: column;
@@ -586,6 +597,27 @@ button:disabled {
     0 0 0 3px var(--accent-soft),
     var(--shadow-lg) !important;
   transform: scale(1.03);
+}
+
+.org-card.drop-parent {
+  border-color: var(--accent) !important;
+  box-shadow:
+    0 0 0 3px var(--accent-soft),
+    var(--shadow-lg) !important;
+  transform: scale(1.03);
+}
+
+.org-card.drop-parent::before {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: -14px;
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--accent-soft), 0 -6px 22px rgba(79, 70, 229, 0.55);
+  z-index: 1;
 }
 
 .org-card.drop-target::before {

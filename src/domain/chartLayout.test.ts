@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { layoutChart } from './chartLayout';
 
 const chart: OrgChartDocument = {
-  schemaVersion: 3,
+  schemaVersion: 4,
   name: 'Layout',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -66,6 +66,29 @@ describe('layoutChart', () => {
       { id: 'root-child-a', source: 'root', target: 'child-a' },
       { id: 'root-child-b', source: 'root', target: 'child-b' },
     ]);
+  });
+
+  it('uses PDF source positions and hides source-hidden nodes in source layout mode', () => {
+    const sourceChart = {
+      ...chart,
+      schemaVersion: 4,
+      nodes: [
+        { ...chart.nodes[0], sourceHidden: true },
+        { ...chart.nodes[1], sourcePosition: { x: 100, y: 120, width: 50, height: 30 } },
+        {
+          ...chart.nodes[2],
+          sourcePosition: { x: 200, y: 220, width: 50, height: 30 },
+          position: { x: 240, y: 260 },
+        },
+      ],
+    };
+
+    const layout = layoutChart(sourceChart as OrgChartDocument, 'vertical', 'source');
+
+    expect(layout.nodes.map((node) => node.id).sort()).toEqual(['child-a', 'child-b']);
+    expect(layout.nodes.find((node) => node.id === 'child-a')).toMatchObject({ x: 100, y: 120 });
+    expect(layout.nodes.find((node) => node.id === 'child-b')).toMatchObject({ x: 240, y: 260 });
+    expect(layout.edges).toEqual([]);
   });
 
   it('orders siblings by order value', () => {

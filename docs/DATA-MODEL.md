@@ -8,7 +8,7 @@ Top-level objekt celého org. stromu. Definice v `src/domain/orgchart.ts`.
 
 ```typescript
 interface OrgChartDocument {
-  schemaVersion: 3;        // bumpne se při breaking změně schématu
+  schemaVersion: 4;        // bumpne se pri breaking zmene schematu
   name: string;            // human-readable název dokumentu
   updatedAt: string;       // ISO 8601 timestamp
   nodes: OrgNode[];        // všechny karty (flat list, hierarchie via parentId)
@@ -18,6 +18,7 @@ interface OrgChartDocument {
 **Schema version history:**
 - v1 → v2: `LEVEL_TYPES` přepsán z `['holding', 'group', 'country', 'regio', 'team', 'role', 'placeholder']` na `['B-0', 'B-1', 'B-2', 'B-3', 'B-4']`
 - v2 → v3: refresh content (nové parent-child, B-úrovně, doplnění karet)
+- v3 -> v4: PDF source positions, manual node positions, and source-hidden synthetic root
 
 Při změně schemaVersion se localStorage automaticky invaliduje (`isChartDocument` v `chartValidation.ts` kontroluje pevnou hodnotu).
 
@@ -37,6 +38,9 @@ interface OrgNode {
   color: CardColorTokenId;                 // 'executive' | 'manager' | 'standard' | 'planned' | 'country' | 'regio' | 'neutral'
   status: 'active' | 'planned' | 'vacant'; // stav obsazení
   order: number;                           // pořadí mezi sourozenci (10, 20, 30, ...)
+  sourcePosition?: { x: number; y: number; width: number; height: number }; // PDF source card center + size
+  position?: { x: number; y: number };     // manual canvas position after drag
+  sourceHidden?: boolean;                  // hidden in PDF source layout, used by synthetic root
 }
 ```
 

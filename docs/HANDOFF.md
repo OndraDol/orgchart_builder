@@ -1,14 +1,19 @@
 # Handoff — Orgchart Builder
 
+## Current Implementation Log
+
+Active continuation notes and task checkpoints are tracked in `docs/IMPLEMENTATION-LOG.md`.
+Update that file after every completed implementation task before moving on.
+
 Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro pokračování (jiný nástroj/člověk).
 
 ## Aktuální stav (2026-05-21)
 
 - **Live deploy:** https://ondradol.github.io/orgchart_builder/
-- **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 3
+- **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 4, PDF source positions v `src/data/sourcePositions.ts`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant)
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 74/74 zelených
+- **Testy:** 89/89 zelenych
 
 ## Architektura
 
@@ -44,7 +49,10 @@ src/
 ## Co je hotovo
 
 - Doménový model B-0 až B-4 s validací
-- 118 karet 1:1 podle PDF + audit z JPG
+- 118 karet podle PDF + audit z PDF connector geometry
+- Audit gate: 0 unsupported source edges; 4 skipped edges are synthetic root links
+- Schema v4: `sourcePosition`, manual `position`, `sourceHidden`
+- Default zobrazeni `PDF zdroj`; `Auto strom` zustava jako prepinac
 - Modern indigo theme, glass toolbar, level stripes
 - Plně česká lokalizace + plurály
 - Drag & drop:

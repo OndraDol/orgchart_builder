@@ -1,6 +1,6 @@
 import { hierarchy, tree } from 'd3-hierarchy';
 
-import type { ChartOrientation, OrgChartDocument, OrgNode } from './orgchart';
+import type { ChartLayoutMode, ChartOrientation, OrgChartDocument, OrgNode } from './orgchart';
 
 const NODE_WIDTH = 192;
 const NODE_HEIGHT = 100;
@@ -30,7 +30,48 @@ interface TreeNode {
   children: TreeNode[];
 }
 
-export function layoutChart(chart: OrgChartDocument, orientation: ChartOrientation): LayoutResult {
+export function layoutChart(
+  chart: OrgChartDocument,
+  orientation: ChartOrientation,
+  layoutMode: ChartLayoutMode = 'tree',
+): LayoutResult {
+  if (layoutMode === 'source') {
+    return layoutSourceChart(chart, orientation);
+  }
+
+  return layoutTreeChart(chart, orientation);
+}
+
+function layoutSourceChart(chart: OrgChartDocument, orientation: ChartOrientation): LayoutResult {
+  const fallbackLayout = layoutTreeChart(chart, orientation);
+  const fallbackById = new Map(fallbackLayout.nodes.map((node) => [node.id, node]));
+  const hiddenIds = new Set(chart.nodes.filter((node) => node.sourceHidden).map((node) => node.id));
+
+  const nodes = chart.nodes
+    .filter((node) => !hiddenIds.has(node.id))
+    .map((node) => {
+      const position = node.position ?? node.sourcePosition ?? fallbackById.get(node.id);
+
+      return {
+        id: node.id,
+        node,
+        x: position?.x ?? 0,
+        y: position?.y ?? 0,
+      };
+    });
+
+  const edges = chart.nodes
+    .filter((node) => node.parentId !== null && !hiddenIds.has(node.id) && !hiddenIds.has(node.parentId))
+    .map((node) => ({
+      id: `${node.parentId}-${node.id}`,
+      source: node.parentId as string,
+      target: node.id,
+    }));
+
+  return { nodes, edges };
+}
+
+function layoutTreeChart(chart: OrgChartDocument, orientation: ChartOrientation): LayoutResult {
   const roots = chart.nodes.filter((node) => node.parentId === null);
 
   if (roots.length !== 1) {

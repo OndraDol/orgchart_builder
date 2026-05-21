@@ -1,7 +1,8 @@
 import type { OrgChartDocument } from '../domain/orgchart';
+import { SOURCE_POSITION_BY_ID } from './sourcePositions';
 
-export const SOURCE_ORGCHART: OrgChartDocument = {
-  schemaVersion: 3,
+const SOURCE_ORGCHART_BASE: OrgChartDocument = {
+  schemaVersion: 4,
   name: 'Aures Holdings — organizační struktura',
   updatedAt: '2026-04-01T00:00:00.000Z',
   nodes: [
@@ -120,7 +121,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-call-centre-director-petr-havel',
-      parentId: 'coo-martin-hrudnik',
+      parentId: 'co-ceo-karolina-topolova',
       title: 'Group Call Centre Director',
       person: 'Petr Havel',
       levelType: 'B-1',
@@ -267,10 +268,10 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       order: 70,
     },
 
-    // B-1 pod CFO Marko Tapio Lehtonen
+    // B-1 pod Chief Performance Officer Jiri Trnka
     {
       id: 'group-financial-services-director-milan-dedecek',
-      parentId: 'cfo-marko-tapio-lehtonen',
+      parentId: 'chief-performance-officer-jiri-trnka',
       title: 'Group Financial Services Director',
       person: 'Milan Dědeček',
       levelType: 'B-1',
@@ -498,7 +499,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'group-customer-care-manager-libor-muller',
-      parentId: 'group-marketing-operations-manager-david-reich',
+      parentId: 'group-customer-experience-manager-jan-preclik',
       title: 'Group Customer Care Manager',
       person: 'Libor Müller',
       levelType: 'B-2',
@@ -510,7 +511,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'call-centre-manager-praha-petr-vik',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'group-call-centre-director-petr-havel',
       title: 'Call Centre Manager Praha',
       person: 'Petr Vik',
       levelType: 'B-2',
@@ -522,7 +523,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'call-centre-manager-ostrava-jan-kovar',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'group-call-centre-director-petr-havel',
       title: 'Call Centre Manager Ostrava',
       person: 'Jan Kovář',
       levelType: 'B-2',
@@ -898,7 +899,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'cars-administration-manager-michaela-beckova',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'back-office-manager-pl-agnieszka-romanska',
       title: 'Cars Administration Manager',
       person: 'Michaela Bečková',
       levelType: 'B-2',
@@ -958,7 +959,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'back-office-manager-pl-agnieszka-romanska',
-      parentId: 'managing-director-pl-miroslav-vapenik',
+      parentId: 'group-office-operations-director-michaela-kosinerova',
       title: 'Back Office Manager_PL',
       person: 'Agnieszka Romańska',
       levelType: 'B-4',
@@ -1216,7 +1217,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'cars-administration-manager-sk-katarina-nemcova',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'back-office-manager-pl-agnieszka-romanska',
       title: 'Cars Administration Manager',
       person: 'Katarína Němcová',
       levelType: 'B-3',
@@ -1228,7 +1229,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'regional-mototechna-manager-sk-jan-tichy',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'managing-director-mototechna-drive-jan-hruby',
       title: 'Regional Mototechna Manager',
       person: 'Ján Tichý',
       levelType: 'B-3',
@@ -1240,7 +1241,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'facility-construction-manager-sk-pavol-rodina',
-      parentId: 'managing-director-czsk-lubos-vorlik',
+      parentId: 'group-business-development-director-david-cizek',
       title: 'Facility & Construction Manager',
       person: 'Pavol Rodina',
       levelType: 'B-3',
@@ -1290,7 +1291,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     // B-4 / Specialist — PL pod Miroslav Vápeník (MD PL) + DE + HU
     {
       id: 'managing-director-pl-miroslav-vapenik',
-      parentId: 'co-ceo-karolina-topolova',
+      parentId: 'co-ceo-petr-vanecek',
       title: 'Managing Director PL',
       person: 'Miroslav Vápeník',
       levelType: 'B-1',
@@ -1410,7 +1411,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'development-manager-pl-weronika-szmanda',
-      parentId: 'managing-director-pl-miroslav-vapenik',
+      parentId: 'group-business-development-director-david-cizek',
       title: 'Development Manager',
       person: 'Weronika Szmańda',
       levelType: 'B-4',
@@ -1446,7 +1447,7 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     },
     {
       id: 'swap-manager-de-michal-valka',
-      parentId: 'managing-director-pl-miroslav-vapenik',
+      parentId: 'group-export-import-director-dusan-prochazka',
       title: 'SWAP Manager',
       person: 'Michal Válka',
       levelType: 'B-4',
@@ -1469,4 +1470,16 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
       order: 100,
     },
   ],
+};
+
+export const SOURCE_ORGCHART: OrgChartDocument = {
+  ...SOURCE_ORGCHART_BASE,
+  nodes: SOURCE_ORGCHART_BASE.nodes.map((node) => {
+    if (node.id === 'holding-aures') {
+      return { ...node, sourceHidden: true };
+    }
+
+    const sourcePosition = SOURCE_POSITION_BY_ID[node.id];
+    return sourcePosition ? { ...node, sourcePosition } : node;
+  }),
 };

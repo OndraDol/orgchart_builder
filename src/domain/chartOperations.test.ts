@@ -4,13 +4,14 @@ import type { OrgChartDocument } from './orgchart';
 import {
   addChildNode,
   deleteNodeAndDescendants,
+  moveNodeAsParent,
   moveNodeAsChild,
   moveNodeAsSibling,
   updateNode,
 } from './chartOperations';
 
 const baseChart = (): OrgChartDocument => ({
-  schemaVersion: 3,
+  schemaVersion: 4,
   name: 'Test',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -99,6 +100,15 @@ describe('chartOperations', () => {
     expect(result.nodes.find((node) => node.id === 'child-b')).toMatchObject({ parentId: 'child-a' });
   });
 
+  it('stores a manual position when moving a node as child from drag-and-drop', () => {
+    const result = moveNodeAsChild(baseChart(), 'child-b', 'child-a', { x: 123, y: 456 });
+
+    expect(result.nodes.find((node) => node.id === 'child-b')).toMatchObject({
+      parentId: 'child-a',
+      position: { x: 123, y: 456 },
+    });
+  });
+
   it('blocks moving a node into its descendant', () => {
     expect(() => moveNodeAsChild(baseChart(), 'child-a', 'grandchild')).toThrow(
       'Cannot move a node into its own descendant.',
@@ -123,6 +133,27 @@ describe('chartOperations', () => {
 
     expect(childA?.parentId).toBe('root');
     expect(childA!.order).toBeGreaterThan(childB!.order);
+  });
+
+  it('moves a node as parent of a target node', () => {
+    const result = moveNodeAsParent(baseChart(), 'grandchild', 'child-b');
+    const moved = result.nodes.find((node) => node.id === 'grandchild');
+    const target = result.nodes.find((node) => node.id === 'child-b');
+
+    expect(moved).toMatchObject({ parentId: 'root' });
+    expect(target).toMatchObject({ parentId: 'grandchild' });
+  });
+
+  it('blocks moving a node as parent of the root', () => {
+    expect(() => moveNodeAsParent(baseChart(), 'child-a', 'root')).toThrow(
+      'Cannot move a node above the root.',
+    );
+  });
+
+  it('blocks moving a node above its own descendant', () => {
+    expect(() => moveNodeAsParent(baseChart(), 'child-a', 'grandchild')).toThrow(
+      'Cannot move a node above its own descendant.',
+    );
   });
 
   it('blocks moving a node beside the root', () => {

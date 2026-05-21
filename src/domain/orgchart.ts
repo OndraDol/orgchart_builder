@@ -8,6 +8,18 @@ export type OrgNodeStatus = (typeof STATUS_TYPES)[number];
 
 export type ChartOrientation = 'vertical' | 'horizontal';
 
+export type ChartLayoutMode = 'source' | 'tree';
+
+export interface NodePosition {
+  x: number;
+  y: number;
+}
+
+export interface NodeSourcePosition extends NodePosition {
+  width: number;
+  height: number;
+}
+
 export interface CardColorToken {
   id: string;
   label: string;
@@ -81,10 +93,13 @@ export interface OrgNode {
   color: CardColorTokenId;
   status: OrgNodeStatus;
   order: number;
+  sourcePosition?: NodeSourcePosition;
+  position?: NodePosition;
+  sourceHidden?: boolean;
 }
 
 export interface OrgChartDocument {
-  schemaVersion: 3;
+  schemaVersion: 4;
   name: string;
   updatedAt: string;
   nodes: OrgNode[];

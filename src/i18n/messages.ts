@@ -1,4 +1,4 @@
-import type { CardColorTokenId, OrgNodeLevelType, OrgNodeStatus } from '../domain/orgchart';
+import type { CardColorTokenId, ChartLayoutMode, OrgNodeLevelType, OrgNodeStatus } from '../domain/orgchart';
 
 export const messages = {
   app: {
@@ -22,6 +22,9 @@ export const messages = {
     orientationLabel: 'Orientace diagramu',
     orientationVertical: 'Svisle',
     orientationHorizontal: 'Vodorovně',
+    layoutLabel: 'Zobrazení diagramu',
+    layoutSource: 'PDF zdroj',
+    layoutTree: 'Auto strom',
     fitView: 'Přizpůsobit pohled',
     undo: 'Zpět',
     importJson: 'Importovat JSON',
@@ -93,6 +96,10 @@ export const messages = {
     regio: 'Region',
     neutral: 'Neutrální',
   } satisfies Record<CardColorTokenId, string>,
+  layouts: {
+    source: 'PDF zdroj',
+    tree: 'Auto strom',
+  } satisfies Record<ChartLayoutMode, string>,
 } as const;
 
 export const levelLabel = (level: OrgNodeLevelType): string => messages.levels[level];

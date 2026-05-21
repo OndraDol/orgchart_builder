@@ -18,6 +18,14 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const isString = (value: unknown): value is string => typeof value === 'string';
 
+const isFiniteNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
+
+const isNodePosition = (value: unknown): boolean =>
+  isRecord(value) && isFiniteNumber(value.x) && isFiniteNumber(value.y);
+
+const isNodeSourcePosition = (value: unknown): boolean =>
+  isNodePosition(value) && isRecord(value) && isFiniteNumber(value.width) && isFiniteNumber(value.height);
+
 const isValidNode = (value: unknown): value is OrgNode => {
   if (!isRecord(value)) {
     return false;
@@ -37,7 +45,10 @@ const isValidNode = (value: unknown): value is OrgNode => {
     isString(value.status) &&
     statusTypes.has(value.status as OrgNodeStatus) &&
     typeof value.order === 'number' &&
-    Number.isFinite(value.order)
+    Number.isFinite(value.order) &&
+    (value.sourcePosition === undefined || isNodeSourcePosition(value.sourcePosition)) &&
+    (value.position === undefined || isNodePosition(value.position)) &&
+    (value.sourceHidden === undefined || typeof value.sourceHidden === 'boolean')
   );
 };
 
@@ -47,7 +58,7 @@ export const isChartDocument = (value: unknown): value is OrgChartDocument => {
   }
 
   return (
-    value.schemaVersion === 3 &&
+    value.schemaVersion === 4 &&
     isString(value.name) &&
     isString(value.updatedAt) &&
     Array.isArray(value.nodes) &&

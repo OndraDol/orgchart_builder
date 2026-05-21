@@ -4,9 +4,58 @@ import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from '../domain/orgchart
 import { SOURCE_ORGCHART } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
-  it('uses schema version 2 and contains the full org chart', () => {
-    expect(SOURCE_ORGCHART.schemaVersion).toBe(3);
+  it('uses schema version 4 and contains the full org chart', () => {
+    expect(SOURCE_ORGCHART.schemaVersion).toBe(4);
     expect(SOURCE_ORGCHART.nodes.length).toBeGreaterThanOrEqual(100);
+  });
+
+  it('has a source PDF position for every visible source node', () => {
+    const visibleNodes = SOURCE_ORGCHART.nodes.filter((node) => {
+      const positionedNode = node as { sourceHidden?: boolean };
+      return !positionedNode.sourceHidden;
+    });
+
+    expect(visibleNodes.length).toBeGreaterThan(100);
+    expect(
+      visibleNodes.every((node) => {
+        const positionedNode = node as { sourcePosition?: { x: number; y: number; width: number; height: number } };
+        return (
+          positionedNode.sourcePosition !== undefined &&
+          Number.isFinite(positionedNode.sourcePosition.x) &&
+          Number.isFinite(positionedNode.sourcePosition.y) &&
+          positionedNode.sourcePosition.width > 0 &&
+          positionedNode.sourcePosition.height > 0
+        );
+      }),
+    ).toBe(true);
+  });
+
+  it('keeps critical innovation branch direct reports exactly as the source connectors show', () => {
+    const childrenOf = (parentId: string) =>
+      SOURCE_ORGCHART.nodes
+        .filter((node) => node.parentId === parentId)
+        .map((node) => `${node.title} / ${node.person}`)
+        .sort();
+
+    expect(childrenOf('chief-innovation-officer-eldar-vagabov')).toEqual([
+      'Chief Digital Officer / Milan Ježek',
+      'Chief Executive Officer / Zdeněk Demeter',
+      'Chief Information Officer / Jiří Čabrádek',
+      'Head of PMO & Digital Transformation Manager / Daniel Fárek',
+    ].sort());
+
+    expect(childrenOf('chief-executive-officer-zdenek-demeter')).toEqual([
+      'Group IT Development Project Manager / Jakub Řehák',
+      'Head of Analytics / David Tatár',
+      'Head of BI / Petronela Hubočanová',
+    ].sort());
+
+    expect(childrenOf('chief-information-officer-jiri-cabradek')).toEqual([
+      'Group IT Development Director / Robert Šmol',
+      'Group IT Infrastructure Manager / Ivo Baxant',
+      'Group IT Project Manager / Martin Slabý',
+      'Office Manager / Renata Lišková',
+    ].sort());
   });
 
   it('contains required role and person pairs from the source PDF', () => {
