@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { layoutChart } from './chartLayout';
 
 const chart: OrgChartDocument = {
-  schemaVersion: 4,
+  schemaVersion: 5,
   name: 'Layout',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -71,7 +71,7 @@ describe('layoutChart', () => {
   it('uses PDF source positions and hides source-hidden nodes in source layout mode', () => {
     const sourceChart = {
       ...chart,
-      schemaVersion: 4,
+      schemaVersion: 5,
       nodes: [
         { ...chart.nodes[0], sourceHidden: true },
         { ...chart.nodes[1], sourcePosition: { x: 100, y: 120, width: 50, height: 30 } },

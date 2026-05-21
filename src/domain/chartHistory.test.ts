@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { createHistory, pushHistory, undoHistory } from './chartHistory';
 
 const chart = (name: string): OrgChartDocument => ({
-  schemaVersion: 4,
+  schemaVersion: 5,
   name,
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [

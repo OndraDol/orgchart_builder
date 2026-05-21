@@ -11,13 +11,22 @@ interface SourceNodeMatch {
 interface SourceEdgeEvidence {
   childId: string;
   parentId: string;
-  status: 'supported' | 'unsupported' | 'skipped';
+  status: 'supported' | 'confirmedOverride' | 'ambiguous' | 'unsupported' | 'skipped';
   matchingComponents: number[];
+  selectedParentSource?: 'geometry' | 'confirmedOverride';
+  selectedParentConfidence?: 'high' | 'confirmed' | 'unresolved' | 'skipped';
 }
 
 interface PdfAudit {
+  summary?: {
+    unresolvedParentLinks?: number;
+    sourceEdgesResolvedByConfirmedOverride?: number;
+    sourceEdgesAmbiguous?: number;
+  };
   sourceNodeMatches?: SourceNodeMatch[];
   sourceEdgeEvidence?: SourceEdgeEvidence[];
+  ambiguousSourceEdges?: SourceEdgeEvidence[];
+  confirmedOverrideEdges?: SourceEdgeEvidence[];
 }
 
 describe('PDF source audit artifact', () => {
@@ -50,5 +59,21 @@ describe('PDF source audit artifact', () => {
 
   it('does not contain unsupported non-root source edges', () => {
     expect(typedAudit.sourceEdgeEvidence?.filter((edge) => edge.status === 'unsupported')).toEqual([]);
+  });
+
+  it('records Jan Jarma as a confirmed override under Martina Kahulová', () => {
+    expect(
+      typedAudit.sourceEdgeEvidence?.find((edge) => edge.childId === 'hr-team-leader-jan-jarma'),
+    ).toMatchObject({
+      parentId: 'group-personnel-payroll-manager-martina-kahulova',
+      status: 'confirmedOverride',
+      selectedParentSource: 'confirmedOverride',
+      selectedParentConfidence: 'confirmed',
+    });
+  });
+
+  it('fails the audit when ambiguous parent links remain unresolved', () => {
+    expect(typedAudit.summary?.unresolvedParentLinks).toBe(0);
+    expect(typedAudit.ambiguousSourceEdges).toEqual([]);
   });
 });

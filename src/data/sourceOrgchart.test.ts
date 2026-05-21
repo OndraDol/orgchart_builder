@@ -4,8 +4,8 @@ import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from '../domain/orgchart
 import { SOURCE_ORGCHART } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
-  it('uses schema version 4 and contains the full org chart', () => {
-    expect(SOURCE_ORGCHART.schemaVersion).toBe(4);
+  it('uses schema version 5 and contains the full org chart', () => {
+    expect(SOURCE_ORGCHART.schemaVersion).toBe(5);
     expect(SOURCE_ORGCHART.nodes.length).toBeGreaterThanOrEqual(100);
   });
 
@@ -56,6 +56,16 @@ describe('SOURCE_ORGCHART', () => {
       'Group IT Project Manager / Martin Slabý',
       'Office Manager / Renata Lišková',
     ].sort());
+  });
+
+  it('keeps Jan Jarma under Martina Kahulová as a confirmed HR branch correction', () => {
+    const janJarma = SOURCE_ORGCHART.nodes.find((node) => node.id === 'hr-team-leader-jan-jarma');
+
+    expect(janJarma).toMatchObject({
+      parentId: 'group-personnel-payroll-manager-martina-kahulova',
+      person: 'Jan Jarma',
+      title: 'HR Team Leader',
+    });
   });
 
   it('contains required role and person pairs from the source PDF', () => {

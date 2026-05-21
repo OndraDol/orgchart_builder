@@ -1,0 +1,8 @@
+[
+  {
+    "childId": "hr-team-leader-jan-jarma",
+    "parentId": "group-personnel-payroll-manager-martina-kahulova",
+    "source": "user-confirmed",
+    "reason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
+  }
+]

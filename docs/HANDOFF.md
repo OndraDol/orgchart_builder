@@ -10,10 +10,10 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 ## Aktuální stav (2026-05-21)
 
 - **Live deploy:** https://ondradol.github.io/orgchart_builder/
-- **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 4, PDF source positions v `src/data/sourcePositions.ts`
+- **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant)
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 89/89 zelenych
+- **Testy:** 92/92 zelených
 
 ## Architektura
 
@@ -41,7 +41,8 @@ src/
 │   ├── EditorPanel.tsx          # pravý panel: form + Uložit (pro draft)
 │   └── StatusBar.tsx            # počet karet + save state + warning
 ├── data/
-│   └── sourceOrgchart.ts        # 118 karet (root + 4 B-0 + 17 B-1 + ... + B-3 + B-4)
+│   ├── sourceOrgchart.ts        # 118 karet (root + 4 B-0 + 17 B-1 + ... + B-3 + B-4)
+│   └── sourceParentOverrides.json # potvrzené parent opravy pro nejednoznačné PDF konektory
 └── utils/
     └── download.ts              # downloadJson helper
 ```
@@ -50,8 +51,9 @@ src/
 
 - Doménový model B-0 až B-4 s validací
 - 118 karet podle PDF + audit z PDF connector geometry
-- Audit gate: 0 unsupported source edges; 4 skipped edges are synthetic root links
-- Schema v4: `sourcePosition`, manual `position`, `sourceHidden`
+- Audit gate: 0 unsupported source edges, 0 unresolved parent links; 4 skipped edges are synthetic root links
+- Confirmed override: Jan Jarma -> Martina Kahulová
+- Schema v5: `sourcePosition`, manual `position`, `sourceHidden`, confirmed parent override layer
 - Default zobrazeni `PDF zdroj`; `Auto strom` zustava jako prepinac
 - Modern indigo theme, glass toolbar, level stripes
 - Plně česká lokalizace + plurály
@@ -65,7 +67,7 @@ src/
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 74 testů
+- 92 testů
 
 ## Co NENÍ hotovo
 

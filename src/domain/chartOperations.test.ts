@@ -11,7 +11,7 @@ import {
 } from './chartOperations';
 
 const baseChart = (): OrgChartDocument => ({
-  schemaVersion: 4,
+  schemaVersion: 5,
   name: 'Test',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [

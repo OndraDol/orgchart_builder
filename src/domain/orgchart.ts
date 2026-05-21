@@ -99,7 +99,7 @@ export interface OrgNode {
 }
 
 export interface OrgChartDocument {
-  schemaVersion: 4;
+  schemaVersion: 5;
   name: string;
   updatedAt: string;
   nodes: OrgNode[];

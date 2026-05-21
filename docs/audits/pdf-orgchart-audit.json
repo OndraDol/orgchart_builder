@@ -1,6 +1,7 @@
 {
   "pdf": "C:\\Users\\ondrej.dolejs\\Desktop\\Projekty\\orgchart_builder\\source\\2026-04-01_Holding_Organizační struktura Holding.pdf",
   "source": "C:\\Users\\ondrej.dolejs\\Desktop\\Projekty\\orgchart_builder\\src\\data\\sourceOrgchart.ts",
+  "parentOverrides": "C:\\Users\\ondrej.dolejs\\Desktop\\Projekty\\orgchart_builder\\src\\data\\sourceParentOverrides.json",
   "summary": {
     "pdfCards": 121,
     "uniquePdfCardLabels": 116,
@@ -9,10 +10,24 @@
     "connectorSegments": 330,
     "connectorComponents": 33,
     "connectorComponentsWithMultipleCards": 31,
-    "sourceEdgesSupportedBySameConnectorComponent": 113,
+    "sourceEdgesSupportedBySameConnectorComponent": 112,
+    "sourceEdgesResolvedByConfirmedOverride": 1,
+    "sourceEdgesAmbiguous": 0,
     "sourceEdgesNotInSameConnectorComponent": 0,
-    "sourceEdgesSkipped": 4
+    "sourceEdgesSkipped": 4,
+    "parentOverrideErrors": 0,
+    "multiComponentCards": 57,
+    "unresolvedParentLinks": 0
   },
+  "confirmedParentOverrides": [
+    {
+      "childId": "hr-team-leader-jan-jarma",
+      "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "source": "user-confirmed",
+      "reason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
+    }
+  ],
+  "parentOverrideErrors": [],
   "duplicatePdfLabels": [
     {
       "label": "Back Office / Manager_PL / Agnieszka / Romańska",
@@ -36,6 +51,1043 @@
     }
   ],
   "unmatchedSourcePeople": [],
+  "multiComponentCards": [
+    {
+      "cardIndex": 0,
+      "label": "Managing / Director CZ/SK / Luboš Vorlík",
+      "rect": [
+        85.039,
+        749.686,
+        144.567,
+        800.71
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "154": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 1,
+      "label": "Group Car Sales / Director / Daniel Luňáček",
+      "rect": [
+        271.43,
+        308.228,
+        323.517,
+        358.82
+      ],
+      "components": {
+        "64": [
+          "bottom"
+        ],
+        "161": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 2,
+      "label": "Managing / Director CZ/SK / Luboš Vorlík",
+      "rect": [
+        85.436,
+        825.366,
+        144.964,
+        876.39
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "154": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 3,
+      "label": "Managing / Director PL / Miroslav Vápeník",
+      "rect": [
+        85.436,
+        902.756,
+        144.964,
+        953.78
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "154": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 4,
+      "label": "Country Sales / Manager / Jiří Pokorák",
+      "rect": [
+        272.13,
+        758.184,
+        323.154,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "64": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 5,
+      "label": "Country F&I / Manager / David Hlavnička",
+      "rect": [
+        654.85,
+        758.184,
+        705.874,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "168": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 6,
+      "label": "Group Buying / Manager / Martin Roudnický",
+      "rect": [
+        348.66,
+        758.184,
+        399.684,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "280": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 7,
+      "label": "Country Sales / Manager / Martin Medek",
+      "rect": [
+        272.13,
+        834.724,
+        323.154,
+        868.74
+      ],
+      "components": {
+        "64": [
+          "left"
+        ],
+        "113": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 8,
+      "label": "Country F&I / Manager / Martin Bulíček",
+      "rect": [
+        654.85,
+        834.724,
+        705.874,
+        868.74
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "169": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 9,
+      "label": "Country Buying / Manager / Robert Wiedner",
+      "rect": [
+        348.66,
+        834.724,
+        399.684,
+        868.74
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "280": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 10,
+      "label": "Country Sales / Manager / Jiří Vávra",
+      "rect": [
+        272.13,
+        911.254,
+        323.154,
+        945.27
+      ],
+      "components": {
+        "64": [
+          "left"
+        ],
+        "110": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 11,
+      "label": "Country F&I and / Relationship / Manager_PL / Pawel Molasy",
+      "rect": [
+        654.85,
+        911.254,
+        705.874,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "285": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 12,
+      "label": "Country Buying / Manager / Aleš Doudlebský",
+      "rect": [
+        348.66,
+        911.254,
+        399.684,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "280": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 13,
+      "label": "Regional OPS / Manager / Miloš Vitko / Juraj Chrást / Michal Ledvényi",
+      "rect": [
+        425.2,
+        834.724,
+        476.224,
+        868.74
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "298": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 14,
+      "label": "Country OPS / Manager / Lukáš Jonšta",
+      "rect": [
+        425.2,
+        911.254,
+        476.224,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "298": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 15,
+      "label": "Group Stock / Manager / Josef Borovec",
+      "rect": [
+        501.73,
+        758.184,
+        552.754,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "58": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 16,
+      "label": "Country Stock / Manager / Bronislav Kroneisl",
+      "rect": [
+        501.73,
+        834.724,
+        552.754,
+        868.74
+      ],
+      "components": {
+        "58": [
+          "left"
+        ],
+        "113": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 17,
+      "label": "Country Stock / Manager / David Poncza",
+      "rect": [
+        501.73,
+        911.254,
+        552.754,
+        945.27
+      ],
+      "components": {
+        "58": [
+          "left"
+        ],
+        "110": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 19,
+      "label": "Country Service / Manager / Michal Kóssi",
+      "rect": [
+        569.76,
+        834.724,
+        620.784,
+        868.74
+      ],
+      "components": {
+        "0": [
+          "left"
+        ],
+        "113": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 20,
+      "label": "Country Service / Manager / Filip Pavlovčin",
+      "rect": [
+        569.76,
+        911.254,
+        620.784,
+        945.27
+      ],
+      "components": {
+        "0": [
+          "left"
+        ],
+        "110": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 21,
+      "label": "Group / Purchasing / Director / Zdeněk Batěk",
+      "rect": [
+        348.66,
+        307.476,
+        399.684,
+        358.5
+      ],
+      "components": {
+        "161": [
+          "top"
+        ],
+        "280": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 22,
+      "label": "Group Stock / & Service / Director / Pavel Pospíšil",
+      "rect": [
+        501.73,
+        307.476,
+        552.754,
+        358.5
+      ],
+      "components": {
+        "58": [
+          "bottom"
+        ],
+        "161": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 23,
+      "label": "CO-Chief Executive Officer / Petr Vaněček",
+      "rect": [
+        811.66,
+        97.716,
+        896.936,
+        148.74
+      ],
+      "components": {
+        "154": [
+          "top"
+        ],
+        "161": [
+          "bottom"
+        ],
+        "224": [
+          "left"
+        ],
+        "234": [
+          "right"
+        ]
+      }
+    },
+    {
+      "cardIndex": 24,
+      "label": "CO-Chief Executive Officer / Karolína Topolová",
+      "rect": [
+        1266.88,
+        97.716,
+        1352.324,
+        148.74
+      ],
+      "components": {
+        "234": [
+          "left"
+        ],
+        "309": [
+          "right"
+        ],
+        "318": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 25,
+      "label": "Group Business / Development / Director / David Čížek",
+      "rect": [
+        1172.13,
+        307.476,
+        1223.154,
+        358.5
+      ],
+      "components": {
+        "301": [
+          "bottom"
+        ],
+        "318": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 26,
+      "label": "Chief / Executive / Officer / Zdeněk Demeter",
+      "rect": [
+        742.68,
+        306.726,
+        793.704,
+        357.75
+      ],
+      "components": {
+        "193": [
+          "bottom"
+        ],
+        "325": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 27,
+      "label": "Chief / Information / Officer / Jiří Čabrádek",
+      "rect": [
+        829.13,
+        306.726,
+        880.154,
+        357.75
+      ],
+      "components": {
+        "268": [
+          "bottom"
+        ],
+        "325": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 28,
+      "label": "Managing Director / Mototechna Drive / Jan Hrubý",
+      "rect": [
+        960.94,
+        220.354,
+        1028.971,
+        270.63
+      ],
+      "components": {
+        "144": [
+          "bottom"
+        ],
+        "161": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 29,
+      "label": "Group Call / Centre Director / Petr Havel",
+      "rect": [
+        1037.48,
+        307.476,
+        1088.504,
+        358.5
+      ],
+      "components": {
+        "100": [
+          "bottom"
+        ],
+        "318": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 30,
+      "label": "Chief HR Officer / Marie Voršílková",
+      "rect": [
+        1364.25,
+        219.606,
+        1431.877,
+        270.63
+      ],
+      "components": {
+        "214": [
+          "bottom"
+        ],
+        "318": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 31,
+      "label": "Chief Legal Officer / Lenka Zajíčková",
+      "rect": [
+        1275.59,
+        219.606,
+        1343.621,
+        270.63
+      ],
+      "components": {
+        "135": [
+          "bottom"
+        ],
+        "318": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 32,
+      "label": "Chief Financial Officer / Marko Tapio Lehtonen",
+      "rect": [
+        1440.38,
+        97.716,
+        1525.014,
+        148.74
+      ],
+      "components": {
+        "246": [
+          "bottom"
+        ],
+        "309": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 35,
+      "label": "HR Team Leader / Jan Jarma",
+      "rect": [
+        1389.91,
+        758.184,
+        1440.934,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "214": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 36,
+      "label": "Group Personnel / & Payroll / Manager / Martina Kahulová",
+      "rect": [
+        1386.85,
+        392.514,
+        1437.874,
+        426.53
+      ],
+      "components": {
+        "214": [
+          "left"
+        ],
+        "315": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 38,
+      "label": "Country / Personnel & / Staffing Manager / Kristína Dršková",
+      "rect": [
+        1389.91,
+        831.884,
+        1440.934,
+        865.9
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "214": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 41,
+      "label": "Financial / Accounting / Manager_SK / Danko Beran",
+      "rect": [
+        1452.86,
+        831.884,
+        1503.884,
+        865.9
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "246": [
+          "right"
+        ]
+      }
+    },
+    {
+      "cardIndex": 42,
+      "label": "Group Marketing / Operations / Manager / David Reich",
+      "rect": [
+        1104.09,
+        391.504,
+        1155.114,
+        425.52
+      ],
+      "components": {
+        "318": [
+          "left"
+        ],
+        "322": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 44,
+      "label": "Regional / Marketing / Manager / Marian Zielina",
+      "rect": [
+        1102.68,
+        912.674,
+        1153.704,
+        946.69
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "318": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 53,
+      "label": "Call Centre / Manager / Kamiński Krystian",
+      "rect": [
+        1037.48,
+        914.094,
+        1088.504,
+        948.11
+      ],
+      "components": {
+        "100": [
+          "left"
+        ],
+        "110": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 56,
+      "label": "Group Facility / &Construction / Manager / Petr Rinda",
+      "rect": [
+        1170.6,
+        758.184,
+        1221.219,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "301": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 59,
+      "label": "Country OPS / Manager / Jan Sokola",
+      "rect": [
+        425.2,
+        758.184,
+        476.224,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "298": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 60,
+      "label": "Regional / Marketing / Manager / Michal Kruliš",
+      "rect": [
+        1102.68,
+        758.184,
+        1153.704,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "318": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 64,
+      "label": "Group / AutomotiveOPS / Director / Leoš Pilnaj",
+      "rect": [
+        425.2,
+        307.476,
+        476.224,
+        358.5
+      ],
+      "components": {
+        "161": [
+          "top"
+        ],
+        "298": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 65,
+      "label": "Financial / Accounting / Manager_PL / Cegiel Klemens",
+      "rect": [
+        1452.86,
+        911.254,
+        1503.884,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "246": [
+          "right"
+        ]
+      }
+    },
+    {
+      "cardIndex": 71,
+      "label": "Chief Performance / Officer / Jiří Trnka",
+      "rect": [
+        646.3,
+        219.606,
+        714.43,
+        270.63
+      ],
+      "components": {
+        "161": [
+          "top"
+        ],
+        "178": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 77,
+      "label": "Chief Innovation / Officer / Eldar Vagabov",
+      "rect": [
+        819.57,
+        219.606,
+        889.019,
+        270.63
+      ],
+      "components": {
+        "161": [
+          "top"
+        ],
+        "325": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 78,
+      "label": "Group Export & / Import Director / Dušan Procházka",
+      "rect": [
+        172.91,
+        393.024,
+        223.934,
+        427.04
+      ],
+      "components": {
+        "161": [
+          "top"
+        ],
+        "182": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 81,
+      "label": "Chief Operations Officer / Martin Hrudník",
+      "rect": [
+        246.61,
+        97.716,
+        344.405,
+        148.74
+      ],
+      "components": {
+        "161": [
+          "bottom"
+        ],
+        "224": [
+          "right"
+        ]
+      }
+    },
+    {
+      "cardIndex": 82,
+      "label": "Country / Personnel & / Staffing Manager / Barbara Wolska",
+      "rect": [
+        1388.98,
+        911.254,
+        1440.004,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "214": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 83,
+      "label": "Country HQ / Manager / Michał Włodarczyk",
+      "rect": [
+        1318.11,
+        911.254,
+        1369.134,
+        945.27
+      ],
+      "components": {
+        "110": [
+          "top"
+        ],
+        "135": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 84,
+      "label": "Legal Manager / Emília Kosibová",
+      "rect": [
+        1318.11,
+        831.884,
+        1369.134,
+        865.9
+      ],
+      "components": {
+        "113": [
+          "top"
+        ],
+        "135": [
+          "left"
+        ]
+      }
+    },
+    {
+      "cardIndex": 87,
+      "label": "SWAP Manager / Michal Válka",
+      "rect": [
+        178.58,
+        1083.842,
+        238.108,
+        1117.858
+      ],
+      "components": {
+        "182": [
+          "top"
+        ],
+        "198": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 88,
+      "label": "Country Buying / Manager / Ondrej Šuba",
+      "rect": [
+        178.58,
+        1130.614,
+        238.108,
+        1164.63
+      ],
+      "components": {
+        "182": [
+          "left"
+        ],
+        "198": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 90,
+      "label": "Financial / Accounting / Manager_CZ / Renata Havlová",
+      "rect": [
+        1452.86,
+        758.184,
+        1503.884,
+        792.2
+      ],
+      "components": {
+        "0": [
+          "top"
+        ],
+        "246": [
+          "right"
+        ]
+      }
+    },
+    {
+      "cardIndex": 94,
+      "label": "Group Office / Operations / Director / Michaela / Kosinerová",
+      "rect": [
+        1238.74,
+        307.476,
+        1289.764,
+        358.5
+      ],
+      "components": {
+        "259": [
+          "bottom"
+        ],
+        "318": [
+          "top"
+        ]
+      }
+    },
+    {
+      "cardIndex": 103,
+      "label": "Group Financial / Services / Director / Milan Dědeček",
+      "rect": [
+        654.85,
+        305.346,
+        705.874,
+        356.37
+      ],
+      "components": {
+        "178": [
+          "top"
+        ],
+        "285": [
+          "bottom"
+        ]
+      }
+    },
+    {
+      "cardIndex": 120,
+      "label": "Group Customer / Experience / Manager / Jan Preclík",
+      "rect": [
+        1105.51,
+        612.284,
+        1156.534,
+        646.3
+      ],
+      "components": {
+        "318": [
+          "left"
+        ],
+        "329": [
+          "bottom"
+        ]
+      }
+    }
+  ],
   "sourceNodeMatches": [
     {
       "id": "coo-martin-hrudnik",
@@ -2093,57 +3145,77 @@
       "childTitle": "Chief Operations Officer",
       "childPerson": "Martin Hrudník",
       "parentId": "holding-aures",
+      "originalParentId": "holding-aures",
       "parentTitle": "Aures Holdings",
       "parentPerson": "",
       "status": "skipped",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "skipped",
       "matchingComponents": [],
       "childCards": [],
-      "parentCards": []
+      "parentCards": [],
+      "childComponentIds": [],
+      "candidateParentCount": 0
     },
     {
       "childId": "co-ceo-petr-vanecek",
       "childTitle": "CO-Chief Executive Officer",
       "childPerson": "Petr Vaněček",
       "parentId": "holding-aures",
+      "originalParentId": "holding-aures",
       "parentTitle": "Aures Holdings",
       "parentPerson": "",
       "status": "skipped",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "skipped",
       "matchingComponents": [],
       "childCards": [],
-      "parentCards": []
+      "parentCards": [],
+      "childComponentIds": [],
+      "candidateParentCount": 0
     },
     {
       "childId": "co-ceo-karolina-topolova",
       "childTitle": "CO-Chief Executive Officer",
       "childPerson": "Karolína Topolová",
       "parentId": "holding-aures",
+      "originalParentId": "holding-aures",
       "parentTitle": "Aures Holdings",
       "parentPerson": "",
       "status": "skipped",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "skipped",
       "matchingComponents": [],
       "childCards": [],
-      "parentCards": []
+      "parentCards": [],
+      "childComponentIds": [],
+      "candidateParentCount": 0
     },
     {
       "childId": "cfo-marko-tapio-lehtonen",
       "childTitle": "Chief Financial Officer",
       "childPerson": "Marko Tapio Lehtonen",
       "parentId": "holding-aures",
+      "originalParentId": "holding-aures",
       "parentTitle": "Aures Holdings",
       "parentPerson": "",
       "status": "skipped",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "skipped",
       "matchingComponents": [],
       "childCards": [],
-      "parentCards": []
+      "parentCards": [],
+      "childComponentIds": [],
+      "candidateParentCount": 0
     },
     {
       "childId": "group-car-sales-director-daniel-lunacek",
       "childTitle": "Group Car Sales Director",
       "childPerson": "Daniel Luňáček",
       "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
       "parentTitle": "Chief Operations Officer",
       "parentPerson": "Martin Hrudník",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2152,16 +3224,24 @@
       ],
       "parentCards": [
         81
-      ]
+      ],
+      "childComponentIds": [
+        64,
+        161
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-purchasing-director-zdenek-batek",
       "childTitle": "Group Purchasing Director",
       "childPerson": "Zdeněk Batěk",
       "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
       "parentTitle": "Chief Operations Officer",
       "parentPerson": "Martin Hrudník",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2170,16 +3250,24 @@
       ],
       "parentCards": [
         81
-      ]
+      ],
+      "childComponentIds": [
+        161,
+        280
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-automotiveops-director-leos-pilnaj",
       "childTitle": "Group AutomotiveOPS Director",
       "childPerson": "Leoš Pilnaj",
       "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
       "parentTitle": "Chief Operations Officer",
       "parentPerson": "Martin Hrudník",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2188,16 +3276,24 @@
       ],
       "parentCards": [
         81
-      ]
+      ],
+      "childComponentIds": [
+        161,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-stock-service-director-pavel-pospisil",
       "childTitle": "Group Stock & Service Director",
       "childPerson": "Pavel Pospíšil",
       "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
       "parentTitle": "Chief Operations Officer",
       "parentPerson": "Martin Hrudník",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2206,16 +3302,24 @@
       ],
       "parentCards": [
         81
-      ]
+      ],
+      "childComponentIds": [
+        58,
+        161
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-call-centre-director-petr-havel",
       "childTitle": "Group Call Centre Director",
       "childPerson": "Petr Havel",
       "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Karolína Topolová",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -2224,16 +3328,24 @@
       ],
       "parentCards": [
         24
-      ]
+      ],
+      "childComponentIds": [
+        100,
+        318
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-performance-officer-jiri-trnka",
       "childTitle": "Chief Performance Officer",
       "childPerson": "Jiří Trnka",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2242,16 +3354,24 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        161,
+        178
+      ],
+      "candidateParentCount": 11,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-legal-officer-lenka-zajickova",
       "childTitle": "Chief Legal Officer",
       "childPerson": "Lenka Zajíčková",
       "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Karolína Topolová",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -2260,16 +3380,24 @@
       ],
       "parentCards": [
         24
-      ]
+      ],
+      "childComponentIds": [
+        135,
+        318
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-hr-officer-marie-vorsilkova",
       "childTitle": "Chief HR Officer",
       "childPerson": "Marie Voršílková",
       "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Karolína Topolová",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -2278,16 +3406,24 @@
       ],
       "parentCards": [
         24
-      ]
+      ],
+      "childComponentIds": [
+        214,
+        318
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-internal-audit-director-lukas-chlup",
       "childTitle": "Group Internal Audit Director",
       "childPerson": "Lukáš Chlup",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2296,16 +3432,23 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        161
+      ],
+      "candidateParentCount": 10,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-innovation-officer-eldar-vagabov",
       "childTitle": "Chief Innovation Officer",
       "childPerson": "Eldar Vagabov",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2314,16 +3457,24 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        161,
+        325
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "managing-director-mototechna-drive-jan-hruby",
       "childTitle": "Managing Director Mototechna Drive",
       "childPerson": "Jan Hrubý",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2332,16 +3483,24 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        144,
+        161
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-executive-officer-zdenek-demeter",
       "childTitle": "Chief Executive Officer",
       "childPerson": "Zdeněk Demeter",
       "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
       "parentTitle": "Chief Innovation Officer",
       "parentPerson": "Eldar Vagabov",
-      "status": "supported",
       "matchingComponents": [
         325
       ],
@@ -2350,16 +3509,24 @@
       ],
       "parentCards": [
         77
-      ]
+      ],
+      "childComponentIds": [
+        193,
+        325
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-information-officer-jiri-cabradek",
       "childTitle": "Chief Information Officer",
       "childPerson": "Jiří Čabrádek",
       "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
       "parentTitle": "Chief Innovation Officer",
       "parentPerson": "Eldar Vagabov",
-      "status": "supported",
       "matchingComponents": [
         325
       ],
@@ -2368,16 +3535,24 @@
       ],
       "parentCards": [
         77
-      ]
+      ],
+      "childComponentIds": [
+        268,
+        325
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "chief-digital-officer-milan-jezek",
       "childTitle": "Chief Digital Officer",
       "childPerson": "Milan Ježek",
       "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
       "parentTitle": "Chief Innovation Officer",
       "parentPerson": "Eldar Vagabov",
-      "status": "supported",
       "matchingComponents": [
         325
       ],
@@ -2386,16 +3561,23 @@
       ],
       "parentCards": [
         77
-      ]
+      ],
+      "childComponentIds": [
+        325
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-business-development-director-david-cizek",
       "childTitle": "Group Business Development Director",
       "childPerson": "David Čížek",
       "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Karolína Topolová",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -2404,16 +3586,24 @@
       ],
       "parentCards": [
         24
-      ]
+      ],
+      "childComponentIds": [
+        301,
+        318
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-office-operations-director-michaela-kosinerova",
       "childTitle": "Group Office Operations Director",
       "childPerson": "Michaela Kosinerová",
       "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
       "parentTitle": "Chief HR Officer",
       "parentPerson": "Marie Voršílková",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -2422,16 +3612,24 @@
       ],
       "parentCards": [
         30
-      ]
+      ],
+      "childComponentIds": [
+        259,
+        318
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-financial-services-director-milan-dedecek",
       "childTitle": "Group Financial Services Director",
       "childPerson": "Milan Dědeček",
       "parentId": "chief-performance-officer-jiri-trnka",
+      "originalParentId": "chief-performance-officer-jiri-trnka",
       "parentTitle": "Chief Performance Officer",
       "parentPerson": "Jiří Trnka",
-      "status": "supported",
       "matchingComponents": [
         178
       ],
@@ -2440,16 +3638,24 @@
       ],
       "parentCards": [
         71
-      ]
+      ],
+      "childComponentIds": [
+        178,
+        285
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-business-express-store-manager-petr-neckar",
       "childTitle": "Group Business Express Store Manager",
       "childPerson": "Petr Neckař",
       "parentId": "group-car-sales-director-daniel-lunacek",
+      "originalParentId": "group-car-sales-director-daniel-lunacek",
       "parentTitle": "Group Car Sales Director",
       "parentPerson": "Daniel Luňáček",
-      "status": "supported",
       "matchingComponents": [
         64
       ],
@@ -2458,16 +3664,23 @@
       ],
       "parentCards": [
         1
-      ]
+      ],
+      "childComponentIds": [
+        64
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-pricing-manager-pavel-kreibich",
       "childTitle": "Group Pricing Manager",
       "childPerson": "Pavel Kreibich",
       "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
       "parentTitle": "Group Buying Manager",
       "parentPerson": "Martin Roudnický",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2477,16 +3690,23 @@
       "parentCards": [
         6,
         73
-      ]
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-sales-manager-jiri-pokorak",
       "childTitle": "Country Sales Manager",
       "childPerson": "Jiří Pokorák",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -2496,16 +3716,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        64
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-buying-manager-martin-roudnicky",
       "childTitle": "Group Buying Manager",
       "childPerson": "Martin Roudnický",
       "parentId": "group-purchasing-director-zdenek-batek",
+      "originalParentId": "group-purchasing-director-zdenek-batek",
       "parentTitle": "Group Purchasing Director",
       "parentPerson": "Zdeněk Batěk",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2515,16 +3743,24 @@
       ],
       "parentCards": [
         21
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        280
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-mobile-buying-manager-michal-dyrsmid",
       "childTitle": "Group Mobile Buying Manager",
       "childPerson": "Michal Dyršmíd",
       "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
       "parentTitle": "Group Buying Manager",
       "parentPerson": "Martin Roudnický",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2534,16 +3770,23 @@
       "parentCards": [
         6,
         73
-      ]
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-web-photo-manager-frantisek-kudrna",
       "childTitle": "Group Web Photo Manager",
       "childPerson": "František Kudrna",
       "parentId": "group-development-manager-petr-havlik",
+      "originalParentId": "group-development-manager-petr-havlik",
       "parentTitle": "Group Development Manager",
       "parentPerson": "Petr Havlík",
-      "status": "supported",
       "matchingComponents": [
         298
       ],
@@ -2552,16 +3795,23 @@
       ],
       "parentCards": [
         106
-      ]
+      ],
+      "childComponentIds": [
+        298
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-b2b-development-manager-jan-vacha",
       "childTitle": "Group B2B Development Manager",
       "childPerson": "Jan Vácha",
       "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
       "parentTitle": "Group Buying Manager",
       "parentPerson": "Martin Roudnický",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2571,16 +3821,23 @@
       "parentCards": [
         6,
         73
-      ]
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-segment-manager-czskpl-stanislav-otcenasek",
       "childTitle": "Segment Manager CZ/SK/PL",
       "childPerson": "Stanislav Otčenášek",
       "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
       "parentTitle": "Group Buying Manager",
       "parentPerson": "Martin Roudnický",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2590,16 +3847,23 @@
       "parentCards": [
         6,
         73
-      ]
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "senior-analyst-jindrich-topol",
       "childTitle": "Senior Analyst",
       "childPerson": "Jindřich Topol",
       "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
       "parentTitle": "Group Buying Manager",
       "parentPerson": "Martin Roudnický",
-      "status": "supported",
       "matchingComponents": [
         280
       ],
@@ -2609,16 +3873,23 @@
       "parentCards": [
         6,
         73
-      ]
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-logistics-manager-alexandr-jordanov",
       "childTitle": "Group Logistics Manager",
       "childPerson": "Alexandr Jordanov",
       "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
       "parentTitle": "Group Stock & Service Director",
       "parentPerson": "Pavel Pospíšil",
-      "status": "supported",
       "matchingComponents": [
         58
       ],
@@ -2627,16 +3898,23 @@
       ],
       "parentCards": [
         22
-      ]
+      ],
+      "childComponentIds": [
+        58
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-development-manager-petr-havlik",
       "childTitle": "Group Development Manager",
       "childPerson": "Petr Havlík",
       "parentId": "group-automotiveops-director-leos-pilnaj",
+      "originalParentId": "group-automotiveops-director-leos-pilnaj",
       "parentTitle": "Group AutomotiveOPS Director",
       "parentPerson": "Leoš Pilnaj",
-      "status": "supported",
       "matchingComponents": [
         298
       ],
@@ -2645,16 +3923,23 @@
       ],
       "parentCards": [
         64
-      ]
+      ],
+      "childComponentIds": [
+        298
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-warehouse-manager-lubos-stangler",
       "childTitle": "Group Warehouse Manager",
       "childPerson": "Luboš Štangler",
       "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
       "parentTitle": "Group Stock & Service Director",
       "parentPerson": "Pavel Pospíšil",
-      "status": "supported",
       "matchingComponents": [
         58
       ],
@@ -2663,16 +3948,23 @@
       ],
       "parentCards": [
         22
-      ]
+      ],
+      "childComponentIds": [
+        58
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-ops-manager-jan-sokola",
       "childTitle": "Country OPS Manager",
       "childPerson": "Jan Sokola",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -2682,16 +3974,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        298
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-stock-manager-josef-borovec",
       "childTitle": "Group Stock Manager",
       "childPerson": "Josef Borovec",
       "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
       "parentTitle": "Group Stock & Service Director",
       "parentPerson": "Pavel Pospíšil",
-      "status": "supported",
       "matchingComponents": [
         58
       ],
@@ -2701,16 +4001,24 @@
       ],
       "parentCards": [
         22
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        58
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-service-manager-miloslav-knap",
       "childTitle": "Group Service Manager",
       "childPerson": "Miloslav Knap",
       "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
       "parentTitle": "Group Stock & Service Director",
       "parentPerson": "Pavel Pospíšil",
-      "status": "supported",
       "matchingComponents": [
         58
       ],
@@ -2720,16 +4028,24 @@
       ],
       "parentCards": [
         22
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        58
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-fleet-rent-manager-tomas-preus",
       "childTitle": "Group Fleet & Rent Manager",
       "childPerson": "Tomáš Preus",
       "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
       "parentTitle": "Managing Director Mototechna Drive",
       "parentPerson": "Jan Hrubý",
-      "status": "supported",
       "matchingComponents": [
         144
       ],
@@ -2738,16 +4054,23 @@
       ],
       "parentCards": [
         28
-      ]
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-call-centre-manager-vojtech-torac",
       "childTitle": "Group Call Centre Manager",
       "childPerson": "Vojtěch Toráč",
       "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
       "parentTitle": "Group Call Centre Director",
       "parentPerson": "Petr Havel",
-      "status": "supported",
       "matchingComponents": [
         100
       ],
@@ -2756,16 +4079,23 @@
       ],
       "parentCards": [
         29
-      ]
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-customer-care-manager-libor-muller",
       "childTitle": "Group Customer Care Manager",
       "childPerson": "Libor Müller",
       "parentId": "group-customer-experience-manager-jan-preclik",
+      "originalParentId": "group-customer-experience-manager-jan-preclik",
       "parentTitle": "Group Customer Experience Manager",
       "parentPerson": "Jan Preclík",
-      "status": "supported",
       "matchingComponents": [
         329
       ],
@@ -2774,16 +4104,23 @@
       ],
       "parentCards": [
         120
-      ]
+      ],
+      "childComponentIds": [
+        329
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "call-centre-manager-praha-petr-vik",
       "childTitle": "Call Centre Manager Praha",
       "childPerson": "Petr Vik",
       "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
       "parentTitle": "Group Call Centre Director",
       "parentPerson": "Petr Havel",
-      "status": "supported",
       "matchingComponents": [
         100
       ],
@@ -2792,16 +4129,23 @@
       ],
       "parentCards": [
         29
-      ]
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "call-centre-manager-ostrava-jan-kovar",
       "childTitle": "Call Centre Manager Ostrava",
       "childPerson": "Jan Kovář",
       "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
       "parentTitle": "Group Call Centre Director",
       "parentPerson": "Petr Havel",
-      "status": "supported",
       "matchingComponents": [
         100
       ],
@@ -2810,16 +4154,23 @@
       ],
       "parentCards": [
         29
-      ]
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-export-import-director-dusan-prochazka",
       "childTitle": "Group Export & Import Director",
       "childPerson": "Dušan Procházka",
       "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
       "parentTitle": "Chief Operations Officer",
       "parentPerson": "Martin Hrudník",
-      "status": "supported",
       "matchingComponents": [
         161
       ],
@@ -2828,16 +4179,24 @@
       ],
       "parentCards": [
         81
-      ]
+      ],
+      "childComponentIds": [
+        161,
+        182
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "import-manager-filip-kvarda",
       "childTitle": "Import Manager",
       "childPerson": "Filip Kvarda",
       "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
       "parentTitle": "Group Export & Import Director",
       "parentPerson": "Dušan Procházka",
-      "status": "supported",
       "matchingComponents": [
         182
       ],
@@ -2846,16 +4205,23 @@
       ],
       "parentCards": [
         78
-      ]
+      ],
+      "childComponentIds": [
+        182
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "general-manager-export-robert-radler",
       "childTitle": "General Manager_Export",
       "childPerson": "Robert Radler",
       "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
       "parentTitle": "Group Export & Import Director",
       "parentPerson": "Dušan Procházka",
-      "status": "supported",
       "matchingComponents": [
         182
       ],
@@ -2864,16 +4230,23 @@
       ],
       "parentCards": [
         78
-      ]
+      ],
+      "childComponentIds": [
+        182
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-payroll-manager-czsk-jitka-horejsi",
       "childTitle": "Country Payroll Manager CZ+SK",
       "childPerson": "Jitka Hořejší",
       "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "originalParentId": "group-personnel-payroll-manager-martina-kahulova",
       "parentTitle": "Group Personnel & Payroll Manager",
       "parentPerson": "Martina Kahulová",
-      "status": "supported",
       "matchingComponents": [
         315
       ],
@@ -2882,16 +4255,23 @@
       ],
       "parentCards": [
         36
-      ]
+      ],
+      "childComponentIds": [
+        315
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "hr-project-manager-katerina-kvapilova",
       "childTitle": "HR Project Manager",
       "childPerson": "Kateřina Kvapilová",
       "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
       "parentTitle": "Chief HR Officer",
       "parentPerson": "Marie Voršílková",
-      "status": "supported",
       "matchingComponents": [
         214
       ],
@@ -2900,35 +4280,51 @@
       ],
       "parentCards": [
         30
-      ]
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "hr-team-leader-jan-jarma",
       "childTitle": "HR Team Leader",
       "childPerson": "Jan Jarma",
-      "parentId": "managing-director-czsk-lubos-vorlik",
-      "parentTitle": "Managing Director CZ/SK",
-      "parentPerson": "Luboš Vorlík",
-      "status": "supported",
+      "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Group Personnel & Payroll Manager",
+      "parentPerson": "Martina Kahulová",
       "matchingComponents": [
-        0
+        214
       ],
       "childCards": [
         35
       ],
       "parentCards": [
+        36
+      ],
+      "childComponentIds": [
         0,
-        2
-      ]
+        214
+      ],
+      "candidateParentCount": 19,
+      "status": "confirmedOverride",
+      "selectedParentSource": "confirmedOverride",
+      "selectedParentConfidence": "confirmed",
+      "overrideSource": "user-confirmed",
+      "overrideReason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
     },
     {
       "childId": "group-training-development-manager-michal-mestek",
       "childTitle": "Group Training & Development Manager",
       "childPerson": "Michal Mestek",
       "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
       "parentTitle": "Chief HR Officer",
       "parentPerson": "Marie Voršílková",
-      "status": "supported",
       "matchingComponents": [
         214
       ],
@@ -2937,16 +4333,23 @@
       ],
       "parentCards": [
         30
-      ]
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-personnel-payroll-manager-martina-kahulova",
       "childTitle": "Group Personnel & Payroll Manager",
       "childPerson": "Martina Kahulová",
       "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
       "parentTitle": "Chief HR Officer",
       "parentPerson": "Marie Voršílková",
-      "status": "supported",
       "matchingComponents": [
         214
       ],
@@ -2955,16 +4358,24 @@
       ],
       "parentCards": [
         30
-      ]
+      ],
+      "childComponentIds": [
+        214,
+        315
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-staffing-manager-zuzana-vobornikova",
       "childTitle": "Group Staffing Manager",
       "childPerson": "Zuzana Voborníková",
       "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
       "parentTitle": "Chief HR Officer",
       "parentPerson": "Marie Voršílková",
-      "status": "supported",
       "matchingComponents": [
         214
       ],
@@ -2973,16 +4384,23 @@
       ],
       "parentCards": [
         30
-      ]
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "managing-director-czsk-lubos-vorlik",
       "childTitle": "Managing Director CZ/SK",
       "childPerson": "Luboš Vorlík",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         154
       ],
@@ -2992,16 +4410,25 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        113,
+        154
+      ],
+      "candidateParentCount": 25,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "general-manager-mototechna-2-michal-gabrhel",
       "childTitle": "General Manager Mototechna 2.0",
       "childPerson": "Michal Gabrhel",
       "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
       "parentTitle": "Managing Director Mototechna Drive",
       "parentPerson": "Jan Hrubý",
-      "status": "supported",
       "matchingComponents": [
         144
       ],
@@ -3010,16 +4437,23 @@
       ],
       "parentCards": [
         28
-      ]
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-it-development-project-manager-jakub-rehak",
       "childTitle": "Group IT Development Project Manager",
       "childPerson": "Jakub Řehák",
       "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
       "parentTitle": "Chief Executive Officer",
       "parentPerson": "Zdeněk Demeter",
-      "status": "supported",
       "matchingComponents": [
         193
       ],
@@ -3028,16 +4462,23 @@
       ],
       "parentCards": [
         26
-      ]
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "head-of-analytics-david-tatar",
       "childTitle": "Head of Analytics",
       "childPerson": "David Tatár",
       "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
       "parentTitle": "Chief Executive Officer",
       "parentPerson": "Zdeněk Demeter",
-      "status": "supported",
       "matchingComponents": [
         193
       ],
@@ -3046,16 +4487,23 @@
       ],
       "parentCards": [
         26
-      ]
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "head-of-bi-petronela-hubocanova",
       "childTitle": "Head of BI",
       "childPerson": "Petronela Hubočanová",
       "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
       "parentTitle": "Chief Executive Officer",
       "parentPerson": "Zdeněk Demeter",
-      "status": "supported",
       "matchingComponents": [
         193
       ],
@@ -3064,16 +4512,23 @@
       ],
       "parentCards": [
         26
-      ]
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-it-infrastructure-manager-ivo-baxant",
       "childTitle": "Group IT Infrastructure Manager",
       "childPerson": "Ivo Baxant",
       "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
       "parentTitle": "Chief Information Officer",
       "parentPerson": "Jiří Čabrádek",
-      "status": "supported",
       "matchingComponents": [
         268
       ],
@@ -3082,16 +4537,23 @@
       ],
       "parentCards": [
         27
-      ]
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "office-manager-renata-liskova",
       "childTitle": "Office Manager",
       "childPerson": "Renata Lišková",
       "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
       "parentTitle": "Chief Information Officer",
       "parentPerson": "Jiří Čabrádek",
-      "status": "supported",
       "matchingComponents": [
         268
       ],
@@ -3100,16 +4562,23 @@
       ],
       "parentCards": [
         27
-      ]
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-it-project-manager-martin-slaby",
       "childTitle": "Group IT Project Manager",
       "childPerson": "Martin Slabý",
       "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
       "parentTitle": "Chief Information Officer",
       "parentPerson": "Jiří Čabrádek",
-      "status": "supported",
       "matchingComponents": [
         268
       ],
@@ -3118,16 +4587,23 @@
       ],
       "parentCards": [
         27
-      ]
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-it-development-director-robert-smol",
       "childTitle": "Group IT Development Director",
       "childPerson": "Robert Šmol",
       "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
       "parentTitle": "Chief Information Officer",
       "parentPerson": "Jiří Čabrádek",
-      "status": "supported",
       "matchingComponents": [
         268
       ],
@@ -3136,16 +4612,23 @@
       ],
       "parentCards": [
         27
-      ]
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "head-of-pmo-digital-transformation-daniel-farek",
       "childTitle": "Head of PMO & Digital Transformation Manager",
       "childPerson": "Daniel Fárek",
       "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
       "parentTitle": "Chief Innovation Officer",
       "parentPerson": "Eldar Vagabov",
-      "status": "supported",
       "matchingComponents": [
         325
       ],
@@ -3154,16 +4637,23 @@
       ],
       "parentCards": [
         77
-      ]
+      ],
+      "childComponentIds": [
+        325
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-marketing-operations-manager-david-reich",
       "childTitle": "Group Marketing Operations Manager",
       "childPerson": "David Reich",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -3172,16 +4662,24 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        318,
+        322
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-creative-director-jan-metelka",
       "childTitle": "Group Creative Director",
       "childPerson": "Jan Metelka",
       "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
       "parentTitle": "Group Marketing Operations Manager",
       "parentPerson": "David Reich",
-      "status": "supported",
       "matchingComponents": [
         322
       ],
@@ -3190,16 +4688,23 @@
       ],
       "parentCards": [
         42
-      ]
+      ],
+      "childComponentIds": [
+        322
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-web-direct-marketing-manager-martin-tampir",
       "childTitle": "Group Web & Direct Marketing Manager",
       "childPerson": "Martin Tampír",
       "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
       "parentTitle": "Group Marketing Operations Manager",
       "parentPerson": "David Reich",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -3208,16 +4713,23 @@
       ],
       "parentCards": [
         42
-      ]
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-product-brand-manager-jakub-matuska",
       "childTitle": "Group Product & Brand Manager",
       "childPerson": "Jakub Matuška",
       "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
       "parentTitle": "Group Marketing Operations Manager",
       "parentPerson": "David Reich",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -3226,16 +4738,23 @@
       ],
       "parentCards": [
         42
-      ]
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-pr-manager-lucie-brychtova",
       "childTitle": "Group PR Manager",
       "childPerson": "Lucie Brychtová",
       "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
       "parentTitle": "Group Marketing Operations Manager",
       "parentPerson": "David Reich",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -3244,16 +4763,23 @@
       ],
       "parentCards": [
         42
-      ]
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-customer-experience-manager-jan-preclik",
       "childTitle": "Group Customer Experience Manager",
       "childPerson": "Jan Preclík",
       "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
       "parentTitle": "Group Marketing Operations Manager",
       "parentPerson": "David Reich",
-      "status": "supported",
       "matchingComponents": [
         318
       ],
@@ -3262,16 +4788,24 @@
       ],
       "parentCards": [
         42
-      ]
+      ],
+      "childComponentIds": [
+        318,
+        329
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-web-manager-czskplhu-ondrej-bober",
       "childTitle": "Development Operations Manager CZ/SK/PL/HU",
       "childPerson": "Ondrej Bober",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         301
       ],
@@ -3280,16 +4814,23 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-segment-manager-david-chvojka",
       "childTitle": "Group Segment Manager",
       "childPerson": "David Chvojka",
       "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
       "parentTitle": "Managing Director Mototechna Drive",
       "parentPerson": "Jan Hrubý",
-      "status": "supported",
       "matchingComponents": [
         144
       ],
@@ -3298,16 +4839,23 @@
       ],
       "parentCards": [
         28
-      ]
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-marketing-manager-michal-krulis",
       "childTitle": "Regional Marketing Manager",
       "childPerson": "Michal Kruliš",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -3317,16 +4865,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        318
+      ],
+      "candidateParentCount": 24,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-facility-construction-manager-petr-rinda",
       "childTitle": "Group Facility & Construction Manager",
       "childPerson": "Petr Rinda",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -3337,16 +4893,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        301
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "cars-administration-manager-michaela-beckova",
       "childTitle": "Cars Administration Manager",
       "childPerson": "Michaela Bečková",
       "parentId": "back-office-manager-pl-agnieszka-romanska",
+      "originalParentId": "back-office-manager-pl-agnieszka-romanska",
       "parentTitle": "Back Office Manager_PL",
       "parentPerson": "Agnieszka Romańska",
-      "status": "supported",
       "matchingComponents": [
         291
       ],
@@ -3356,16 +4920,23 @@
       "parentCards": [
         109,
         111
-      ]
+      ],
+      "childComponentIds": [
+        291
+      ],
+      "candidateParentCount": 2,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-company-cars-manager-jan-vojtech",
       "childTitle": "Group Company Cars Manager",
       "childPerson": "Jan Vojtěch",
       "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
       "parentTitle": "Group Office Operations Director",
       "parentPerson": "Michaela Kosinerová",
-      "status": "supported",
       "matchingComponents": [
         259
       ],
@@ -3374,16 +4945,23 @@
       ],
       "parentCards": [
         94
-      ]
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-procurement-cost-control-manager-martin-leipner",
       "childTitle": "Group Procurement & Cost Control Manager",
       "childPerson": "Martin Leipner",
       "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
       "parentTitle": "Group Office Operations Director",
       "parentPerson": "Michaela Kosinerová",
-      "status": "supported",
       "matchingComponents": [
         259
       ],
@@ -3392,16 +4970,23 @@
       ],
       "parentCards": [
         94
-      ]
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-back-office-manager-pavla-smrckova",
       "childTitle": "Group Back Office Manager",
       "childPerson": "Pavla Smrčková",
       "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
       "parentTitle": "Group Office Operations Director",
       "parentPerson": "Michaela Kosinerová",
-      "status": "supported",
       "matchingComponents": [
         259
       ],
@@ -3410,16 +4995,23 @@
       ],
       "parentCards": [
         94
-      ]
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-security-manager-alan-dobes",
       "childTitle": "Group Security Manager",
       "childPerson": "Alan Dobeš",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         301
       ],
@@ -3428,16 +5020,23 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "back-office-manager-pl-agnieszka-romanska",
       "childTitle": "Back Office Manager_PL",
       "childPerson": "Agnieszka Romańska",
       "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
       "parentTitle": "Group Office Operations Director",
       "parentPerson": "Michaela Kosinerová",
-      "status": "supported",
       "matchingComponents": [
         259
       ],
@@ -3447,16 +5046,24 @@
       ],
       "parentCards": [
         94
-      ]
+      ],
+      "childComponentIds": [
+        259,
+        291
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-acquisition-manager-lukas-novotny",
       "childTitle": "Group Acquisition Manager",
       "childPerson": "Lukáš Novotný",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         301
       ],
@@ -3465,16 +5072,23 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-warehouse-archive-manager-ludvik-zawora",
       "childTitle": "Group Warehouse & Archive Manager",
       "childPerson": "Ludvík Zawora",
       "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
       "parentTitle": "Group Office Operations Director",
       "parentPerson": "Michaela Kosinerová",
-      "status": "supported",
       "matchingComponents": [
         259
       ],
@@ -3483,16 +5097,23 @@
       ],
       "parentCards": [
         94
-      ]
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-consolidation-tax-director-vojtech-karban",
       "childTitle": "Group Consolidation & Tax Director",
       "childPerson": "Vojtěch Karban",
       "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
       "parentTitle": "Chief Financial Officer",
       "parentPerson": "Marko Tapio Lehtonen",
-      "status": "supported",
       "matchingComponents": [
         246
       ],
@@ -3501,16 +5122,23 @@
       ],
       "parentCards": [
         32
-      ]
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "mergers-acquisitions-ir-manager-radek-nemecek",
       "childTitle": "Mergers and Acquisitions IR Manager",
       "childPerson": "Radek Němeček",
       "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
       "parentTitle": "Chief Financial Officer",
       "parentPerson": "Marko Tapio Lehtonen",
-      "status": "supported",
       "matchingComponents": [
         246
       ],
@@ -3519,16 +5147,23 @@
       ],
       "parentCards": [
         32
-      ]
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-finance-operations-frantisek-klufa",
       "childTitle": "Group Finance Operations Director",
       "childPerson": "František Klufa",
       "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
       "parentTitle": "Chief Financial Officer",
       "parentPerson": "Marko Tapio Lehtonen",
-      "status": "supported",
       "matchingComponents": [
         246
       ],
@@ -3537,16 +5172,23 @@
       ],
       "parentCards": [
         32
-      ]
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "cash-control-bank-operations-manager-martina-semradova",
       "childTitle": "Cash Control & Bank Operations Manager",
       "childPerson": "Martina Semrádová",
       "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
       "parentTitle": "Chief Financial Officer",
       "parentPerson": "Marko Tapio Lehtonen",
-      "status": "supported",
       "matchingComponents": [
         246
       ],
@@ -3555,16 +5197,23 @@
       ],
       "parentCards": [
         32
-      ]
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-finance-controlling-manager-jiri-gross",
       "childTitle": "Group Finance Controlling Manager",
       "childPerson": "Jiří Gross",
       "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
       "parentTitle": "Chief Financial Officer",
       "parentPerson": "Marko Tapio Lehtonen",
-      "status": "supported",
       "matchingComponents": [
         246
       ],
@@ -3573,16 +5222,23 @@
       ],
       "parentCards": [
         32
-      ]
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "financial-accounting-manager-cz-renata-havlova",
       "childTitle": "Financial Accounting Manager",
       "childPerson": "Renata Havlová",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -3592,16 +5248,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        246
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-fi-upsale-compliance-manager-lukas-faltus",
       "childTitle": "Group F&I Upsale and Compliance Manager",
       "childPerson": "Lukáš Faltus",
       "parentId": "group-financial-services-director-milan-dedecek",
+      "originalParentId": "group-financial-services-director-milan-dedecek",
       "parentTitle": "Group Financial Services Director",
       "parentPerson": "Milan Dědeček",
-      "status": "supported",
       "matchingComponents": [
         285
       ],
@@ -3610,16 +5274,23 @@
       ],
       "parentCards": [
         103
-      ]
+      ],
+      "childComponentIds": [
+        285
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "group-business-controlling-manager-jan-moravec",
       "childTitle": "Group Business Controlling Manager",
       "childPerson": "Jan Moravec",
       "parentId": "group-financial-services-director-milan-dedecek",
+      "originalParentId": "group-financial-services-director-milan-dedecek",
       "parentTitle": "Group Financial Services Director",
       "parentPerson": "Milan Dědeček",
-      "status": "supported",
       "matchingComponents": [
         285
       ],
@@ -3628,16 +5299,23 @@
       ],
       "parentCards": [
         103
-      ]
+      ],
+      "childComponentIds": [
+        285
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-fi-manager-cz-david-hlavnicka",
       "childTitle": "Country F&I Manager",
       "childPerson": "David Hlavnička",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0
       ],
@@ -3647,16 +5325,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        168
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-business-manager-sk-radoslav-skalos",
       "childTitle": "Country Business Manager SK",
       "childPerson": "Radoslav Skaloš",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3666,16 +5352,23 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-sales-manager-sk-martin-medek",
       "childTitle": "Country Sales Manager",
       "childPerson": "Martin Medek",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3685,16 +5378,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        64,
+        113
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-buying-manager-sk-robert-wiedner",
       "childTitle": "Country Buying Manager",
       "childPerson": "Robert Wiedner",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3704,16 +5405,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        280
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-ops-manager-sk-milos-vitko",
       "childTitle": "Regional OPS Manager",
       "childPerson": "Miloš Vitko",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3723,16 +5432,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-ops-manager-sk-juraj-chrast",
       "childTitle": "Regional OPS Manager",
       "childPerson": "Juraj Chrást",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3742,16 +5459,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-ops-manager-sk-michal-ledvenyi",
       "childTitle": "Regional OPS Manager",
       "childPerson": "Michal Ledvényi",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3761,16 +5486,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-stock-manager-sk-bronislav-kroneisl",
       "childTitle": "Country Stock Manager",
       "childPerson": "Bronislav Kroneisl",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3780,16 +5513,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        58,
+        113
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-service-manager-sk-michal-kossi",
       "childTitle": "Country Service Manager",
       "childPerson": "Michal Kóssi",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         0,
         113
@@ -3800,16 +5541,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        113
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-fi-manager-sk-martin-bulicek",
       "childTitle": "Country F&I Manager",
       "childPerson": "Martin Bulíček",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3819,16 +5568,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        169
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "cars-administration-manager-sk-katarina-nemcova",
       "childTitle": "Cars Administration Manager",
       "childPerson": "Katarína Němcová",
       "parentId": "back-office-manager-pl-agnieszka-romanska",
+      "originalParentId": "back-office-manager-pl-agnieszka-romanska",
       "parentTitle": "Back Office Manager_PL",
       "parentPerson": "Agnieszka Romańska",
-      "status": "supported",
       "matchingComponents": [
         291
       ],
@@ -3838,16 +5595,23 @@
       "parentCards": [
         109,
         111
-      ]
+      ],
+      "childComponentIds": [
+        291
+      ],
+      "candidateParentCount": 2,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-mototechna-manager-sk-jan-tichy",
       "childTitle": "Regional Mototechna Manager",
       "childPerson": "Ján Tichý",
       "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
       "parentTitle": "Managing Director Mototechna Drive",
       "parentPerson": "Jan Hrubý",
-      "status": "supported",
       "matchingComponents": [
         144
       ],
@@ -3856,16 +5620,23 @@
       ],
       "parentCards": [
         28
-      ]
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "facility-construction-manager-sk-pavol-rodina",
       "childTitle": "Facility & Construction Manager",
       "childPerson": "Pavol Rodina",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         301
       ],
@@ -3874,16 +5645,23 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "legal-manager-sk-emilia-kosibova",
       "childTitle": "Legal Manager",
       "childPerson": "Emília Kosibová",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3893,16 +5671,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        135
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-personnel-staffing-manager-sk-kristina-drskova",
       "childTitle": "Country Personnel & Staffing Manager",
       "childPerson": "Kristína Dršková",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3912,16 +5698,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        214
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "financial-accounting-manager-sk-danko-beran",
       "childTitle": "Financial Accounting Manager",
       "childPerson": "Danko Beran",
       "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
       "parentTitle": "Managing Director CZ/SK",
       "parentPerson": "Luboš Vorlík",
-      "status": "supported",
       "matchingComponents": [
         113
       ],
@@ -3931,16 +5725,24 @@
       "parentCards": [
         0,
         2
-      ]
+      ],
+      "childComponentIds": [
+        113,
+        246
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "managing-director-pl-miroslav-vapenik",
       "childTitle": "Managing Director PL",
       "childPerson": "Miroslav Vápeník",
       "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
       "parentTitle": "CO-Chief Executive Officer",
       "parentPerson": "Petr Vaněček",
-      "status": "supported",
       "matchingComponents": [
         154
       ],
@@ -3949,16 +5751,24 @@
       ],
       "parentCards": [
         23
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        154
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-sales-manager-pl-jiri-vavra",
       "childTitle": "Country Sales Manager",
       "childPerson": "Jiří Vávra",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -3967,16 +5777,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        64,
+        110
+      ],
+      "candidateParentCount": 15,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-buying-manager-pl-ales-doudlebsky",
       "childTitle": "Country Buying Manager",
       "childPerson": "Aleš Doudlebský",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -3985,16 +5803,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        280
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-ops-manager-pl-lukas-jonsta",
       "childTitle": "Country OPS Manager",
       "childPerson": "Lukáš Jonšta",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4003,16 +5829,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        298
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-stock-manager-pl-david-poncza",
       "childTitle": "Country Stock Manager",
       "childPerson": "David Poncza",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4021,16 +5855,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        58,
+        110
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-service-manager-pl-filip-pavlovcin",
       "childTitle": "Country Service Manager",
       "childPerson": "Filip Pavlovčin",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4039,16 +5881,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        0,
+        110
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "call-centre-manager-pl-kaminski-krystian",
       "childTitle": "Call Centre Manager",
       "childPerson": "Kamiński Krystian",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4057,16 +5907,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        100,
+        110
+      ],
+      "candidateParentCount": 15,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-hq-manager-pl-michal-wlodarczyk",
       "childTitle": "Country HQ Manager",
       "childPerson": "Michał Włodarczyk",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4075,16 +5933,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        135
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-fi-relationship-manager-pl-pawel-molasy",
       "childTitle": "Country F&I and Relationship Manager",
       "childPerson": "Pawel Molasy",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4093,16 +5959,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        285
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "regional-marketing-manager-pl-marian-zielina",
       "childTitle": "Regional Marketing Manager",
       "childPerson": "Marian Zielina",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4111,16 +5985,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        318
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "development-manager-pl-weronika-szmanda",
       "childTitle": "Development Manager",
       "childPerson": "Weronika Szmańda",
       "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
       "parentTitle": "Group Business Development Director",
       "parentPerson": "David Čížek",
-      "status": "supported",
       "matchingComponents": [
         301
       ],
@@ -4129,16 +6011,23 @@
       ],
       "parentCards": [
         25
-      ]
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-personnel-staffing-manager-pl-barbara-wolska",
       "childTitle": "Country Personnel & Staffing Manager",
       "childPerson": "Barbara Wolska",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4147,16 +6036,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        214
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "financial-accounting-manager-pl-cegiel-klemens",
       "childTitle": "Financial Accounting Manager",
       "childPerson": "Cegiel Klemens",
       "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
       "parentTitle": "Managing Director PL",
       "parentPerson": "Miroslav Vápeník",
-      "status": "supported",
       "matchingComponents": [
         110
       ],
@@ -4165,16 +6062,24 @@
       ],
       "parentCards": [
         3
-      ]
+      ],
+      "childComponentIds": [
+        110,
+        246
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "swap-manager-de-michal-valka",
       "childTitle": "SWAP Manager",
       "childPerson": "Michal Válka",
       "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
       "parentTitle": "Group Export & Import Director",
       "parentPerson": "Dušan Procházka",
-      "status": "supported",
       "matchingComponents": [
         182
       ],
@@ -4183,16 +6088,24 @@
       ],
       "parentCards": [
         78
-      ]
+      ],
+      "childComponentIds": [
+        182,
+        198
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     },
     {
       "childId": "country-buying-manager-hu-ondrej-suba",
       "childTitle": "Country Buying Manager",
       "childPerson": "Ondrej Šuba",
       "parentId": "swap-manager-de-michal-valka",
+      "originalParentId": "swap-manager-de-michal-valka",
       "parentTitle": "SWAP Manager",
       "parentPerson": "Michal Válka",
-      "status": "supported",
       "matchingComponents": [
         182,
         198
@@ -4202,9 +6115,2967 @@
       ],
       "parentCards": [
         87
-      ]
+      ],
+      "childComponentIds": [
+        182,
+        198
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
     }
   ],
+  "parentReviewRows": [
+    {
+      "childId": "group-car-sales-director-daniel-lunacek",
+      "childTitle": "Group Car Sales Director",
+      "childPerson": "Daniel Luňáček",
+      "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
+      "parentTitle": "Chief Operations Officer",
+      "parentPerson": "Martin Hrudník",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        1
+      ],
+      "parentCards": [
+        81
+      ],
+      "childComponentIds": [
+        64,
+        161
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-purchasing-director-zdenek-batek",
+      "childTitle": "Group Purchasing Director",
+      "childPerson": "Zdeněk Batěk",
+      "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
+      "parentTitle": "Chief Operations Officer",
+      "parentPerson": "Martin Hrudník",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        21
+      ],
+      "parentCards": [
+        81
+      ],
+      "childComponentIds": [
+        161,
+        280
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-automotiveops-director-leos-pilnaj",
+      "childTitle": "Group AutomotiveOPS Director",
+      "childPerson": "Leoš Pilnaj",
+      "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
+      "parentTitle": "Chief Operations Officer",
+      "parentPerson": "Martin Hrudník",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        64
+      ],
+      "parentCards": [
+        81
+      ],
+      "childComponentIds": [
+        161,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-stock-service-director-pavel-pospisil",
+      "childTitle": "Group Stock & Service Director",
+      "childPerson": "Pavel Pospíšil",
+      "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
+      "parentTitle": "Chief Operations Officer",
+      "parentPerson": "Martin Hrudník",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        22
+      ],
+      "parentCards": [
+        81
+      ],
+      "childComponentIds": [
+        58,
+        161
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-call-centre-director-petr-havel",
+      "childTitle": "Group Call Centre Director",
+      "childPerson": "Petr Havel",
+      "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Karolína Topolová",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        29
+      ],
+      "parentCards": [
+        24
+      ],
+      "childComponentIds": [
+        100,
+        318
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-performance-officer-jiri-trnka",
+      "childTitle": "Chief Performance Officer",
+      "childPerson": "Jiří Trnka",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        71
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        161,
+        178
+      ],
+      "candidateParentCount": 11,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-legal-officer-lenka-zajickova",
+      "childTitle": "Chief Legal Officer",
+      "childPerson": "Lenka Zajíčková",
+      "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Karolína Topolová",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        31
+      ],
+      "parentCards": [
+        24
+      ],
+      "childComponentIds": [
+        135,
+        318
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-hr-officer-marie-vorsilkova",
+      "childTitle": "Chief HR Officer",
+      "childPerson": "Marie Voršílková",
+      "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Karolína Topolová",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        30
+      ],
+      "parentCards": [
+        24
+      ],
+      "childComponentIds": [
+        214,
+        318
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-internal-audit-director-lukas-chlup",
+      "childTitle": "Group Internal Audit Director",
+      "childPerson": "Lukáš Chlup",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        93
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        161
+      ],
+      "candidateParentCount": 10,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-innovation-officer-eldar-vagabov",
+      "childTitle": "Chief Innovation Officer",
+      "childPerson": "Eldar Vagabov",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        77
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        161,
+        325
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "managing-director-mototechna-drive-jan-hruby",
+      "childTitle": "Managing Director Mototechna Drive",
+      "childPerson": "Jan Hrubý",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        28
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        144,
+        161
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-executive-officer-zdenek-demeter",
+      "childTitle": "Chief Executive Officer",
+      "childPerson": "Zdeněk Demeter",
+      "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
+      "parentTitle": "Chief Innovation Officer",
+      "parentPerson": "Eldar Vagabov",
+      "matchingComponents": [
+        325
+      ],
+      "childCards": [
+        26
+      ],
+      "parentCards": [
+        77
+      ],
+      "childComponentIds": [
+        193,
+        325
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-information-officer-jiri-cabradek",
+      "childTitle": "Chief Information Officer",
+      "childPerson": "Jiří Čabrádek",
+      "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
+      "parentTitle": "Chief Innovation Officer",
+      "parentPerson": "Eldar Vagabov",
+      "matchingComponents": [
+        325
+      ],
+      "childCards": [
+        27
+      ],
+      "parentCards": [
+        77
+      ],
+      "childComponentIds": [
+        268,
+        325
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "chief-digital-officer-milan-jezek",
+      "childTitle": "Chief Digital Officer",
+      "childPerson": "Milan Ježek",
+      "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
+      "parentTitle": "Chief Innovation Officer",
+      "parentPerson": "Eldar Vagabov",
+      "matchingComponents": [
+        325
+      ],
+      "childCards": [
+        118
+      ],
+      "parentCards": [
+        77
+      ],
+      "childComponentIds": [
+        325
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-business-development-director-david-cizek",
+      "childTitle": "Group Business Development Director",
+      "childPerson": "David Čížek",
+      "parentId": "co-ceo-karolina-topolova",
+      "originalParentId": "co-ceo-karolina-topolova",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Karolína Topolová",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        25
+      ],
+      "parentCards": [
+        24
+      ],
+      "childComponentIds": [
+        301,
+        318
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-office-operations-director-michaela-kosinerova",
+      "childTitle": "Group Office Operations Director",
+      "childPerson": "Michaela Kosinerová",
+      "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
+      "parentTitle": "Chief HR Officer",
+      "parentPerson": "Marie Voršílková",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        94
+      ],
+      "parentCards": [
+        30
+      ],
+      "childComponentIds": [
+        259,
+        318
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-financial-services-director-milan-dedecek",
+      "childTitle": "Group Financial Services Director",
+      "childPerson": "Milan Dědeček",
+      "parentId": "chief-performance-officer-jiri-trnka",
+      "originalParentId": "chief-performance-officer-jiri-trnka",
+      "parentTitle": "Chief Performance Officer",
+      "parentPerson": "Jiří Trnka",
+      "matchingComponents": [
+        178
+      ],
+      "childCards": [
+        103
+      ],
+      "parentCards": [
+        71
+      ],
+      "childComponentIds": [
+        178,
+        285
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-business-express-store-manager-petr-neckar",
+      "childTitle": "Group Business Express Store Manager",
+      "childPerson": "Petr Neckař",
+      "parentId": "group-car-sales-director-daniel-lunacek",
+      "originalParentId": "group-car-sales-director-daniel-lunacek",
+      "parentTitle": "Group Car Sales Director",
+      "parentPerson": "Daniel Luňáček",
+      "matchingComponents": [
+        64
+      ],
+      "childCards": [
+        113
+      ],
+      "parentCards": [
+        1
+      ],
+      "childComponentIds": [
+        64
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-pricing-manager-pavel-kreibich",
+      "childTitle": "Group Pricing Manager",
+      "childPerson": "Pavel Kreibich",
+      "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
+      "parentTitle": "Group Buying Manager",
+      "parentPerson": "Martin Roudnický",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        49
+      ],
+      "parentCards": [
+        6,
+        73
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-sales-manager-jiri-pokorak",
+      "childTitle": "Country Sales Manager",
+      "childPerson": "Jiří Pokorák",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        4
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        64
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-buying-manager-martin-roudnicky",
+      "childTitle": "Group Buying Manager",
+      "childPerson": "Martin Roudnický",
+      "parentId": "group-purchasing-director-zdenek-batek",
+      "originalParentId": "group-purchasing-director-zdenek-batek",
+      "parentTitle": "Group Purchasing Director",
+      "parentPerson": "Zdeněk Batěk",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        6,
+        73
+      ],
+      "parentCards": [
+        21
+      ],
+      "childComponentIds": [
+        0,
+        280
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-mobile-buying-manager-michal-dyrsmid",
+      "childTitle": "Group Mobile Buying Manager",
+      "childPerson": "Michal Dyršmíd",
+      "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
+      "parentTitle": "Group Buying Manager",
+      "parentPerson": "Martin Roudnický",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        45
+      ],
+      "parentCards": [
+        6,
+        73
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-web-photo-manager-frantisek-kudrna",
+      "childTitle": "Group Web Photo Manager",
+      "childPerson": "František Kudrna",
+      "parentId": "group-development-manager-petr-havlik",
+      "originalParentId": "group-development-manager-petr-havlik",
+      "parentTitle": "Group Development Manager",
+      "parentPerson": "Petr Havlík",
+      "matchingComponents": [
+        298
+      ],
+      "childCards": [
+        107
+      ],
+      "parentCards": [
+        106
+      ],
+      "childComponentIds": [
+        298
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-b2b-development-manager-jan-vacha",
+      "childTitle": "Group B2B Development Manager",
+      "childPerson": "Jan Vácha",
+      "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
+      "parentTitle": "Group Buying Manager",
+      "parentPerson": "Martin Roudnický",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        46
+      ],
+      "parentCards": [
+        6,
+        73
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-segment-manager-czskpl-stanislav-otcenasek",
+      "childTitle": "Segment Manager CZ/SK/PL",
+      "childPerson": "Stanislav Otčenášek",
+      "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
+      "parentTitle": "Group Buying Manager",
+      "parentPerson": "Martin Roudnický",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        105
+      ],
+      "parentCards": [
+        6,
+        73
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "senior-analyst-jindrich-topol",
+      "childTitle": "Senior Analyst",
+      "childPerson": "Jindřich Topol",
+      "parentId": "group-buying-manager-martin-roudnicky",
+      "originalParentId": "group-buying-manager-martin-roudnicky",
+      "parentTitle": "Group Buying Manager",
+      "parentPerson": "Martin Roudnický",
+      "matchingComponents": [
+        280
+      ],
+      "childCards": [
+        48
+      ],
+      "parentCards": [
+        6,
+        73
+      ],
+      "childComponentIds": [
+        280
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-logistics-manager-alexandr-jordanov",
+      "childTitle": "Group Logistics Manager",
+      "childPerson": "Alexandr Jordanov",
+      "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
+      "parentTitle": "Group Stock & Service Director",
+      "parentPerson": "Pavel Pospíšil",
+      "matchingComponents": [
+        58
+      ],
+      "childCards": [
+        50
+      ],
+      "parentCards": [
+        22
+      ],
+      "childComponentIds": [
+        58
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-development-manager-petr-havlik",
+      "childTitle": "Group Development Manager",
+      "childPerson": "Petr Havlík",
+      "parentId": "group-automotiveops-director-leos-pilnaj",
+      "originalParentId": "group-automotiveops-director-leos-pilnaj",
+      "parentTitle": "Group AutomotiveOPS Director",
+      "parentPerson": "Leoš Pilnaj",
+      "matchingComponents": [
+        298
+      ],
+      "childCards": [
+        106
+      ],
+      "parentCards": [
+        64
+      ],
+      "childComponentIds": [
+        298
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-warehouse-manager-lubos-stangler",
+      "childTitle": "Group Warehouse Manager",
+      "childPerson": "Luboš Štangler",
+      "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
+      "parentTitle": "Group Stock & Service Director",
+      "parentPerson": "Pavel Pospíšil",
+      "matchingComponents": [
+        58
+      ],
+      "childCards": [
+        51
+      ],
+      "parentCards": [
+        22
+      ],
+      "childComponentIds": [
+        58
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-ops-manager-jan-sokola",
+      "childTitle": "Country OPS Manager",
+      "childPerson": "Jan Sokola",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        59
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        298
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-stock-manager-josef-borovec",
+      "childTitle": "Group Stock Manager",
+      "childPerson": "Josef Borovec",
+      "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
+      "parentTitle": "Group Stock & Service Director",
+      "parentPerson": "Pavel Pospíšil",
+      "matchingComponents": [
+        58
+      ],
+      "childCards": [
+        15,
+        69
+      ],
+      "parentCards": [
+        22
+      ],
+      "childComponentIds": [
+        0,
+        58
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-service-manager-miloslav-knap",
+      "childTitle": "Group Service Manager",
+      "childPerson": "Miloslav Knap",
+      "parentId": "group-stock-service-director-pavel-pospisil",
+      "originalParentId": "group-stock-service-director-pavel-pospisil",
+      "parentTitle": "Group Stock & Service Director",
+      "parentPerson": "Pavel Pospíšil",
+      "matchingComponents": [
+        58
+      ],
+      "childCards": [
+        18,
+        62
+      ],
+      "parentCards": [
+        22
+      ],
+      "childComponentIds": [
+        0,
+        58
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-fleet-rent-manager-tomas-preus",
+      "childTitle": "Group Fleet & Rent Manager",
+      "childPerson": "Tomáš Preus",
+      "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
+      "parentTitle": "Managing Director Mototechna Drive",
+      "parentPerson": "Jan Hrubý",
+      "matchingComponents": [
+        144
+      ],
+      "childCards": [
+        75
+      ],
+      "parentCards": [
+        28
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-call-centre-manager-vojtech-torac",
+      "childTitle": "Group Call Centre Manager",
+      "childPerson": "Vojtěch Toráč",
+      "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
+      "parentTitle": "Group Call Centre Director",
+      "parentPerson": "Petr Havel",
+      "matchingComponents": [
+        100
+      ],
+      "childCards": [
+        52
+      ],
+      "parentCards": [
+        29
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-customer-care-manager-libor-muller",
+      "childTitle": "Group Customer Care Manager",
+      "childPerson": "Libor Müller",
+      "parentId": "group-customer-experience-manager-jan-preclik",
+      "originalParentId": "group-customer-experience-manager-jan-preclik",
+      "parentTitle": "Group Customer Experience Manager",
+      "parentPerson": "Jan Preclík",
+      "matchingComponents": [
+        329
+      ],
+      "childCards": [
+        119
+      ],
+      "parentCards": [
+        120
+      ],
+      "childComponentIds": [
+        329
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "call-centre-manager-praha-petr-vik",
+      "childTitle": "Call Centre Manager Praha",
+      "childPerson": "Petr Vik",
+      "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
+      "parentTitle": "Group Call Centre Director",
+      "parentPerson": "Petr Havel",
+      "matchingComponents": [
+        100
+      ],
+      "childCards": [
+        80
+      ],
+      "parentCards": [
+        29
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "call-centre-manager-ostrava-jan-kovar",
+      "childTitle": "Call Centre Manager Ostrava",
+      "childPerson": "Jan Kovář",
+      "parentId": "group-call-centre-director-petr-havel",
+      "originalParentId": "group-call-centre-director-petr-havel",
+      "parentTitle": "Group Call Centre Director",
+      "parentPerson": "Petr Havel",
+      "matchingComponents": [
+        100
+      ],
+      "childCards": [
+        63
+      ],
+      "parentCards": [
+        29
+      ],
+      "childComponentIds": [
+        100
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-export-import-director-dusan-prochazka",
+      "childTitle": "Group Export & Import Director",
+      "childPerson": "Dušan Procházka",
+      "parentId": "coo-martin-hrudnik",
+      "originalParentId": "coo-martin-hrudnik",
+      "parentTitle": "Chief Operations Officer",
+      "parentPerson": "Martin Hrudník",
+      "matchingComponents": [
+        161
+      ],
+      "childCards": [
+        78
+      ],
+      "parentCards": [
+        81
+      ],
+      "childComponentIds": [
+        161,
+        182
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "import-manager-filip-kvarda",
+      "childTitle": "Import Manager",
+      "childPerson": "Filip Kvarda",
+      "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
+      "parentTitle": "Group Export & Import Director",
+      "parentPerson": "Dušan Procházka",
+      "matchingComponents": [
+        182
+      ],
+      "childCards": [
+        47
+      ],
+      "parentCards": [
+        78
+      ],
+      "childComponentIds": [
+        182
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "general-manager-export-robert-radler",
+      "childTitle": "General Manager_Export",
+      "childPerson": "Robert Radler",
+      "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
+      "parentTitle": "Group Export & Import Director",
+      "parentPerson": "Dušan Procházka",
+      "matchingComponents": [
+        182
+      ],
+      "childCards": [
+        61
+      ],
+      "parentCards": [
+        78
+      ],
+      "childComponentIds": [
+        182
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-payroll-manager-czsk-jitka-horejsi",
+      "childTitle": "Country Payroll Manager CZ+SK",
+      "childPerson": "Jitka Hořejší",
+      "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "originalParentId": "group-personnel-payroll-manager-martina-kahulova",
+      "parentTitle": "Group Personnel & Payroll Manager",
+      "parentPerson": "Martina Kahulová",
+      "matchingComponents": [
+        315
+      ],
+      "childCards": [
+        114
+      ],
+      "parentCards": [
+        36
+      ],
+      "childComponentIds": [
+        315
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "hr-project-manager-katerina-kvapilova",
+      "childTitle": "HR Project Manager",
+      "childPerson": "Kateřina Kvapilová",
+      "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
+      "parentTitle": "Chief HR Officer",
+      "parentPerson": "Marie Voršílková",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        92
+      ],
+      "parentCards": [
+        30
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "hr-team-leader-jan-jarma",
+      "childTitle": "HR Team Leader",
+      "childPerson": "Jan Jarma",
+      "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Group Personnel & Payroll Manager",
+      "parentPerson": "Martina Kahulová",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        35
+      ],
+      "parentCards": [
+        36
+      ],
+      "childComponentIds": [
+        0,
+        214
+      ],
+      "candidateParentCount": 19,
+      "status": "confirmedOverride",
+      "selectedParentSource": "confirmedOverride",
+      "selectedParentConfidence": "confirmed",
+      "overrideSource": "user-confirmed",
+      "overrideReason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
+    },
+    {
+      "childId": "group-training-development-manager-michal-mestek",
+      "childTitle": "Group Training & Development Manager",
+      "childPerson": "Michal Mestek",
+      "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
+      "parentTitle": "Chief HR Officer",
+      "parentPerson": "Marie Voršílková",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        100
+      ],
+      "parentCards": [
+        30
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-personnel-payroll-manager-martina-kahulova",
+      "childTitle": "Group Personnel & Payroll Manager",
+      "childPerson": "Martina Kahulová",
+      "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
+      "parentTitle": "Chief HR Officer",
+      "parentPerson": "Marie Voršílková",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        36
+      ],
+      "parentCards": [
+        30
+      ],
+      "childComponentIds": [
+        214,
+        315
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-staffing-manager-zuzana-vobornikova",
+      "childTitle": "Group Staffing Manager",
+      "childPerson": "Zuzana Voborníková",
+      "parentId": "chief-hr-officer-marie-vorsilkova",
+      "originalParentId": "chief-hr-officer-marie-vorsilkova",
+      "parentTitle": "Chief HR Officer",
+      "parentPerson": "Marie Voršílková",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        37
+      ],
+      "parentCards": [
+        30
+      ],
+      "childComponentIds": [
+        214
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "managing-director-czsk-lubos-vorlik",
+      "childTitle": "Managing Director CZ/SK",
+      "childPerson": "Luboš Vorlík",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        154
+      ],
+      "childCards": [
+        0,
+        2
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        0,
+        113,
+        154
+      ],
+      "candidateParentCount": 25,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "general-manager-mototechna-2-michal-gabrhel",
+      "childTitle": "General Manager Mototechna 2.0",
+      "childPerson": "Michal Gabrhel",
+      "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
+      "parentTitle": "Managing Director Mototechna Drive",
+      "parentPerson": "Jan Hrubý",
+      "matchingComponents": [
+        144
+      ],
+      "childCards": [
+        102
+      ],
+      "parentCards": [
+        28
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-it-development-project-manager-jakub-rehak",
+      "childTitle": "Group IT Development Project Manager",
+      "childPerson": "Jakub Řehák",
+      "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
+      "parentTitle": "Chief Executive Officer",
+      "parentPerson": "Zdeněk Demeter",
+      "matchingComponents": [
+        193
+      ],
+      "childCards": [
+        85
+      ],
+      "parentCards": [
+        26
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "head-of-analytics-david-tatar",
+      "childTitle": "Head of Analytics",
+      "childPerson": "David Tatár",
+      "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
+      "parentTitle": "Chief Executive Officer",
+      "parentPerson": "Zdeněk Demeter",
+      "matchingComponents": [
+        193
+      ],
+      "childCards": [
+        98
+      ],
+      "parentCards": [
+        26
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "head-of-bi-petronela-hubocanova",
+      "childTitle": "Head of BI",
+      "childPerson": "Petronela Hubočanová",
+      "parentId": "chief-executive-officer-zdenek-demeter",
+      "originalParentId": "chief-executive-officer-zdenek-demeter",
+      "parentTitle": "Chief Executive Officer",
+      "parentPerson": "Zdeněk Demeter",
+      "matchingComponents": [
+        193
+      ],
+      "childCards": [
+        86
+      ],
+      "parentCards": [
+        26
+      ],
+      "childComponentIds": [
+        193
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-it-infrastructure-manager-ivo-baxant",
+      "childTitle": "Group IT Infrastructure Manager",
+      "childPerson": "Ivo Baxant",
+      "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
+      "parentTitle": "Chief Information Officer",
+      "parentPerson": "Jiří Čabrádek",
+      "matchingComponents": [
+        268
+      ],
+      "childCards": [
+        117
+      ],
+      "parentCards": [
+        27
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "office-manager-renata-liskova",
+      "childTitle": "Office Manager",
+      "childPerson": "Renata Lišková",
+      "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
+      "parentTitle": "Chief Information Officer",
+      "parentPerson": "Jiří Čabrádek",
+      "matchingComponents": [
+        268
+      ],
+      "childCards": [
+        99
+      ],
+      "parentCards": [
+        27
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-it-project-manager-martin-slaby",
+      "childTitle": "Group IT Project Manager",
+      "childPerson": "Martin Slabý",
+      "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
+      "parentTitle": "Chief Information Officer",
+      "parentPerson": "Jiří Čabrádek",
+      "matchingComponents": [
+        268
+      ],
+      "childCards": [
+        34
+      ],
+      "parentCards": [
+        27
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-it-development-director-robert-smol",
+      "childTitle": "Group IT Development Director",
+      "childPerson": "Robert Šmol",
+      "parentId": "chief-information-officer-jiri-cabradek",
+      "originalParentId": "chief-information-officer-jiri-cabradek",
+      "parentTitle": "Chief Information Officer",
+      "parentPerson": "Jiří Čabrádek",
+      "matchingComponents": [
+        268
+      ],
+      "childCards": [
+        33
+      ],
+      "parentCards": [
+        27
+      ],
+      "childComponentIds": [
+        268
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "head-of-pmo-digital-transformation-daniel-farek",
+      "childTitle": "Head of PMO & Digital Transformation Manager",
+      "childPerson": "Daniel Fárek",
+      "parentId": "chief-innovation-officer-eldar-vagabov",
+      "originalParentId": "chief-innovation-officer-eldar-vagabov",
+      "parentTitle": "Chief Innovation Officer",
+      "parentPerson": "Eldar Vagabov",
+      "matchingComponents": [
+        325
+      ],
+      "childCards": [
+        89
+      ],
+      "parentCards": [
+        77
+      ],
+      "childComponentIds": [
+        325
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-marketing-operations-manager-david-reich",
+      "childTitle": "Group Marketing Operations Manager",
+      "childPerson": "David Reich",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        42
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        318,
+        322
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-creative-director-jan-metelka",
+      "childTitle": "Group Creative Director",
+      "childPerson": "Jan Metelka",
+      "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
+      "parentTitle": "Group Marketing Operations Manager",
+      "parentPerson": "David Reich",
+      "matchingComponents": [
+        322
+      ],
+      "childCards": [
+        116
+      ],
+      "parentCards": [
+        42
+      ],
+      "childComponentIds": [
+        322
+      ],
+      "candidateParentCount": 1,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-web-direct-marketing-manager-martin-tampir",
+      "childTitle": "Group Web & Direct Marketing Manager",
+      "childPerson": "Martin Tampír",
+      "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
+      "parentTitle": "Group Marketing Operations Manager",
+      "parentPerson": "David Reich",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        43
+      ],
+      "parentCards": [
+        42
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-product-brand-manager-jakub-matuska",
+      "childTitle": "Group Product & Brand Manager",
+      "childPerson": "Jakub Matuška",
+      "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
+      "parentTitle": "Group Marketing Operations Manager",
+      "parentPerson": "David Reich",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        67
+      ],
+      "parentCards": [
+        42
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-pr-manager-lucie-brychtova",
+      "childTitle": "Group PR Manager",
+      "childPerson": "Lucie Brychtová",
+      "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
+      "parentTitle": "Group Marketing Operations Manager",
+      "parentPerson": "David Reich",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        68
+      ],
+      "parentCards": [
+        42
+      ],
+      "childComponentIds": [
+        318
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-customer-experience-manager-jan-preclik",
+      "childTitle": "Group Customer Experience Manager",
+      "childPerson": "Jan Preclík",
+      "parentId": "group-marketing-operations-manager-david-reich",
+      "originalParentId": "group-marketing-operations-manager-david-reich",
+      "parentTitle": "Group Marketing Operations Manager",
+      "parentPerson": "David Reich",
+      "matchingComponents": [
+        318
+      ],
+      "childCards": [
+        120
+      ],
+      "parentCards": [
+        42
+      ],
+      "childComponentIds": [
+        318,
+        329
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-web-manager-czskplhu-ondrej-bober",
+      "childTitle": "Development Operations Manager CZ/SK/PL/HU",
+      "childPerson": "Ondrej Bober",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        301
+      ],
+      "childCards": [
+        108
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-segment-manager-david-chvojka",
+      "childTitle": "Group Segment Manager",
+      "childPerson": "David Chvojka",
+      "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
+      "parentTitle": "Managing Director Mototechna Drive",
+      "parentPerson": "Jan Hrubý",
+      "matchingComponents": [
+        144
+      ],
+      "childCards": [
+        101
+      ],
+      "parentCards": [
+        28
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-marketing-manager-michal-krulis",
+      "childTitle": "Regional Marketing Manager",
+      "childPerson": "Michal Kruliš",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        60
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        318
+      ],
+      "candidateParentCount": 24,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-facility-construction-manager-petr-rinda",
+      "childTitle": "Group Facility & Construction Manager",
+      "childPerson": "Petr Rinda",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        55,
+        56
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        301
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "cars-administration-manager-michaela-beckova",
+      "childTitle": "Cars Administration Manager",
+      "childPerson": "Michaela Bečková",
+      "parentId": "back-office-manager-pl-agnieszka-romanska",
+      "originalParentId": "back-office-manager-pl-agnieszka-romanska",
+      "parentTitle": "Back Office Manager_PL",
+      "parentPerson": "Agnieszka Romańska",
+      "matchingComponents": [
+        291
+      ],
+      "childCards": [
+        110
+      ],
+      "parentCards": [
+        109,
+        111
+      ],
+      "childComponentIds": [
+        291
+      ],
+      "candidateParentCount": 2,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-company-cars-manager-jan-vojtech",
+      "childTitle": "Group Company Cars Manager",
+      "childPerson": "Jan Vojtěch",
+      "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
+      "parentTitle": "Group Office Operations Director",
+      "parentPerson": "Michaela Kosinerová",
+      "matchingComponents": [
+        259
+      ],
+      "childCards": [
+        70
+      ],
+      "parentCards": [
+        94
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-procurement-cost-control-manager-martin-leipner",
+      "childTitle": "Group Procurement & Cost Control Manager",
+      "childPerson": "Martin Leipner",
+      "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
+      "parentTitle": "Group Office Operations Director",
+      "parentPerson": "Michaela Kosinerová",
+      "matchingComponents": [
+        259
+      ],
+      "childCards": [
+        91
+      ],
+      "parentCards": [
+        94
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-back-office-manager-pavla-smrckova",
+      "childTitle": "Group Back Office Manager",
+      "childPerson": "Pavla Smrčková",
+      "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
+      "parentTitle": "Group Office Operations Director",
+      "parentPerson": "Michaela Kosinerová",
+      "matchingComponents": [
+        259
+      ],
+      "childCards": [
+        96
+      ],
+      "parentCards": [
+        94
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-security-manager-alan-dobes",
+      "childTitle": "Group Security Manager",
+      "childPerson": "Alan Dobeš",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        301
+      ],
+      "childCards": [
+        54
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "back-office-manager-pl-agnieszka-romanska",
+      "childTitle": "Back Office Manager_PL",
+      "childPerson": "Agnieszka Romańska",
+      "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
+      "parentTitle": "Group Office Operations Director",
+      "parentPerson": "Michaela Kosinerová",
+      "matchingComponents": [
+        259
+      ],
+      "childCards": [
+        109,
+        111
+      ],
+      "parentCards": [
+        94
+      ],
+      "childComponentIds": [
+        259,
+        291
+      ],
+      "candidateParentCount": 7,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-acquisition-manager-lukas-novotny",
+      "childTitle": "Group Acquisition Manager",
+      "childPerson": "Lukáš Novotný",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        301
+      ],
+      "childCards": [
+        95
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-warehouse-archive-manager-ludvik-zawora",
+      "childTitle": "Group Warehouse & Archive Manager",
+      "childPerson": "Ludvík Zawora",
+      "parentId": "group-office-operations-director-michaela-kosinerova",
+      "originalParentId": "group-office-operations-director-michaela-kosinerova",
+      "parentTitle": "Group Office Operations Director",
+      "parentPerson": "Michaela Kosinerová",
+      "matchingComponents": [
+        259
+      ],
+      "childCards": [
+        66
+      ],
+      "parentCards": [
+        94
+      ],
+      "childComponentIds": [
+        259
+      ],
+      "candidateParentCount": 5,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-consolidation-tax-director-vojtech-karban",
+      "childTitle": "Group Consolidation & Tax Director",
+      "childPerson": "Vojtěch Karban",
+      "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
+      "parentTitle": "Chief Financial Officer",
+      "parentPerson": "Marko Tapio Lehtonen",
+      "matchingComponents": [
+        246
+      ],
+      "childCards": [
+        40
+      ],
+      "parentCards": [
+        32
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "mergers-acquisitions-ir-manager-radek-nemecek",
+      "childTitle": "Mergers and Acquisitions IR Manager",
+      "childPerson": "Radek Němeček",
+      "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
+      "parentTitle": "Chief Financial Officer",
+      "parentPerson": "Marko Tapio Lehtonen",
+      "matchingComponents": [
+        246
+      ],
+      "childCards": [
+        72
+      ],
+      "parentCards": [
+        32
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-finance-operations-frantisek-klufa",
+      "childTitle": "Group Finance Operations Director",
+      "childPerson": "František Klufa",
+      "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
+      "parentTitle": "Chief Financial Officer",
+      "parentPerson": "Marko Tapio Lehtonen",
+      "matchingComponents": [
+        246
+      ],
+      "childCards": [
+        97
+      ],
+      "parentCards": [
+        32
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "cash-control-bank-operations-manager-martina-semradova",
+      "childTitle": "Cash Control & Bank Operations Manager",
+      "childPerson": "Martina Semrádová",
+      "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
+      "parentTitle": "Chief Financial Officer",
+      "parentPerson": "Marko Tapio Lehtonen",
+      "matchingComponents": [
+        246
+      ],
+      "childCards": [
+        39
+      ],
+      "parentCards": [
+        32
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-finance-controlling-manager-jiri-gross",
+      "childTitle": "Group Finance Controlling Manager",
+      "childPerson": "Jiří Gross",
+      "parentId": "cfo-marko-tapio-lehtonen",
+      "originalParentId": "cfo-marko-tapio-lehtonen",
+      "parentTitle": "Chief Financial Officer",
+      "parentPerson": "Marko Tapio Lehtonen",
+      "matchingComponents": [
+        246
+      ],
+      "childCards": [
+        112
+      ],
+      "parentCards": [
+        32
+      ],
+      "childComponentIds": [
+        246
+      ],
+      "candidateParentCount": 8,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "financial-accounting-manager-cz-renata-havlova",
+      "childTitle": "Financial Accounting Manager",
+      "childPerson": "Renata Havlová",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        90
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        246
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-fi-upsale-compliance-manager-lukas-faltus",
+      "childTitle": "Group F&I Upsale and Compliance Manager",
+      "childPerson": "Lukáš Faltus",
+      "parentId": "group-financial-services-director-milan-dedecek",
+      "originalParentId": "group-financial-services-director-milan-dedecek",
+      "parentTitle": "Group Financial Services Director",
+      "parentPerson": "Milan Dědeček",
+      "matchingComponents": [
+        285
+      ],
+      "childCards": [
+        74
+      ],
+      "parentCards": [
+        103
+      ],
+      "childComponentIds": [
+        285
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "group-business-controlling-manager-jan-moravec",
+      "childTitle": "Group Business Controlling Manager",
+      "childPerson": "Jan Moravec",
+      "parentId": "group-financial-services-director-milan-dedecek",
+      "originalParentId": "group-financial-services-director-milan-dedecek",
+      "parentTitle": "Group Financial Services Director",
+      "parentPerson": "Milan Dědeček",
+      "matchingComponents": [
+        285
+      ],
+      "childCards": [
+        104
+      ],
+      "parentCards": [
+        103
+      ],
+      "childComponentIds": [
+        285
+      ],
+      "candidateParentCount": 3,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-fi-manager-cz-david-hlavnicka",
+      "childTitle": "Country F&I Manager",
+      "childPerson": "David Hlavnička",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0
+      ],
+      "childCards": [
+        5
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        168
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-business-manager-sk-radoslav-skalos",
+      "childTitle": "Country Business Manager SK",
+      "childPerson": "Radoslav Skaloš",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        115
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-sales-manager-sk-martin-medek",
+      "childTitle": "Country Sales Manager",
+      "childPerson": "Martin Medek",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        7
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        64,
+        113
+      ],
+      "candidateParentCount": 16,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-buying-manager-sk-robert-wiedner",
+      "childTitle": "Country Buying Manager",
+      "childPerson": "Robert Wiedner",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        9
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        280
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-ops-manager-sk-milos-vitko",
+      "childTitle": "Regional OPS Manager",
+      "childPerson": "Miloš Vitko",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        13
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-ops-manager-sk-juraj-chrast",
+      "childTitle": "Regional OPS Manager",
+      "childPerson": "Juraj Chrást",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        13
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-ops-manager-sk-michal-ledvenyi",
+      "childTitle": "Regional OPS Manager",
+      "childPerson": "Michal Ledvényi",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        13
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        298
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-stock-manager-sk-bronislav-kroneisl",
+      "childTitle": "Country Stock Manager",
+      "childPerson": "Bronislav Kroneisl",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        16
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        58,
+        113
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-service-manager-sk-michal-kossi",
+      "childTitle": "Country Service Manager",
+      "childPerson": "Michal Kóssi",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        0,
+        113
+      ],
+      "childCards": [
+        19
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        0,
+        113
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-fi-manager-sk-martin-bulicek",
+      "childTitle": "Country F&I Manager",
+      "childPerson": "Martin Bulíček",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        8
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        169
+      ],
+      "candidateParentCount": 12,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "cars-administration-manager-sk-katarina-nemcova",
+      "childTitle": "Cars Administration Manager",
+      "childPerson": "Katarína Němcová",
+      "parentId": "back-office-manager-pl-agnieszka-romanska",
+      "originalParentId": "back-office-manager-pl-agnieszka-romanska",
+      "parentTitle": "Back Office Manager_PL",
+      "parentPerson": "Agnieszka Romańska",
+      "matchingComponents": [
+        291
+      ],
+      "childCards": [
+        58
+      ],
+      "parentCards": [
+        109,
+        111
+      ],
+      "childComponentIds": [
+        291
+      ],
+      "candidateParentCount": 2,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-mototechna-manager-sk-jan-tichy",
+      "childTitle": "Regional Mototechna Manager",
+      "childPerson": "Ján Tichý",
+      "parentId": "managing-director-mototechna-drive-jan-hruby",
+      "originalParentId": "managing-director-mototechna-drive-jan-hruby",
+      "parentTitle": "Managing Director Mototechna Drive",
+      "parentPerson": "Jan Hrubý",
+      "matchingComponents": [
+        144
+      ],
+      "childCards": [
+        76
+      ],
+      "parentCards": [
+        28
+      ],
+      "childComponentIds": [
+        144
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "facility-construction-manager-sk-pavol-rodina",
+      "childTitle": "Facility & Construction Manager",
+      "childPerson": "Pavol Rodina",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        301
+      ],
+      "childCards": [
+        57
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "legal-manager-sk-emilia-kosibova",
+      "childTitle": "Legal Manager",
+      "childPerson": "Emília Kosibová",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        84
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        135
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-personnel-staffing-manager-sk-kristina-drskova",
+      "childTitle": "Country Personnel & Staffing Manager",
+      "childPerson": "Kristína Dršková",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        38
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        214
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "financial-accounting-manager-sk-danko-beran",
+      "childTitle": "Financial Accounting Manager",
+      "childPerson": "Danko Beran",
+      "parentId": "managing-director-czsk-lubos-vorlik",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Managing Director CZ/SK",
+      "parentPerson": "Luboš Vorlík",
+      "matchingComponents": [
+        113
+      ],
+      "childCards": [
+        41
+      ],
+      "parentCards": [
+        0,
+        2
+      ],
+      "childComponentIds": [
+        113,
+        246
+      ],
+      "candidateParentCount": 20,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "managing-director-pl-miroslav-vapenik",
+      "childTitle": "Managing Director PL",
+      "childPerson": "Miroslav Vápeník",
+      "parentId": "co-ceo-petr-vanecek",
+      "originalParentId": "co-ceo-petr-vanecek",
+      "parentTitle": "CO-Chief Executive Officer",
+      "parentPerson": "Petr Vaněček",
+      "matchingComponents": [
+        154
+      ],
+      "childCards": [
+        3
+      ],
+      "parentCards": [
+        23
+      ],
+      "childComponentIds": [
+        110,
+        154
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-sales-manager-pl-jiri-vavra",
+      "childTitle": "Country Sales Manager",
+      "childPerson": "Jiří Vávra",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        10
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        64,
+        110
+      ],
+      "candidateParentCount": 15,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-buying-manager-pl-ales-doudlebsky",
+      "childTitle": "Country Buying Manager",
+      "childPerson": "Aleš Doudlebský",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        12
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        280
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-ops-manager-pl-lukas-jonsta",
+      "childTitle": "Country OPS Manager",
+      "childPerson": "Lukáš Jonšta",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        14
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        298
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-stock-manager-pl-david-poncza",
+      "childTitle": "Country Stock Manager",
+      "childPerson": "David Poncza",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        17
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        58,
+        110
+      ],
+      "candidateParentCount": 17,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-service-manager-pl-filip-pavlovcin",
+      "childTitle": "Country Service Manager",
+      "childPerson": "Filip Pavlovčin",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        20
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        0,
+        110
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "call-centre-manager-pl-kaminski-krystian",
+      "childTitle": "Call Centre Manager",
+      "childPerson": "Kamiński Krystian",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        53
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        100,
+        110
+      ],
+      "candidateParentCount": 15,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-hq-manager-pl-michal-wlodarczyk",
+      "childTitle": "Country HQ Manager",
+      "childPerson": "Michał Włodarczyk",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        83
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        135
+      ],
+      "candidateParentCount": 13,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-fi-relationship-manager-pl-pawel-molasy",
+      "childTitle": "Country F&I and Relationship Manager",
+      "childPerson": "Pawel Molasy",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        11
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        285
+      ],
+      "candidateParentCount": 14,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "regional-marketing-manager-pl-marian-zielina",
+      "childTitle": "Regional Marketing Manager",
+      "childPerson": "Marian Zielina",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        44
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        318
+      ],
+      "candidateParentCount": 23,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "development-manager-pl-weronika-szmanda",
+      "childTitle": "Development Manager",
+      "childPerson": "Weronika Szmańda",
+      "parentId": "group-business-development-director-david-cizek",
+      "originalParentId": "group-business-development-director-david-cizek",
+      "parentTitle": "Group Business Development Director",
+      "parentPerson": "David Čížek",
+      "matchingComponents": [
+        301
+      ],
+      "childCards": [
+        79
+      ],
+      "parentCards": [
+        25
+      ],
+      "childComponentIds": [
+        301
+      ],
+      "candidateParentCount": 6,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-personnel-staffing-manager-pl-barbara-wolska",
+      "childTitle": "Country Personnel & Staffing Manager",
+      "childPerson": "Barbara Wolska",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        82
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        214
+      ],
+      "candidateParentCount": 18,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "financial-accounting-manager-pl-cegiel-klemens",
+      "childTitle": "Financial Accounting Manager",
+      "childPerson": "Cegiel Klemens",
+      "parentId": "managing-director-pl-miroslav-vapenik",
+      "originalParentId": "managing-director-pl-miroslav-vapenik",
+      "parentTitle": "Managing Director PL",
+      "parentPerson": "Miroslav Vápeník",
+      "matchingComponents": [
+        110
+      ],
+      "childCards": [
+        65
+      ],
+      "parentCards": [
+        3
+      ],
+      "childComponentIds": [
+        110,
+        246
+      ],
+      "candidateParentCount": 19,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "swap-manager-de-michal-valka",
+      "childTitle": "SWAP Manager",
+      "childPerson": "Michal Válka",
+      "parentId": "group-export-import-director-dusan-prochazka",
+      "originalParentId": "group-export-import-director-dusan-prochazka",
+      "parentTitle": "Group Export & Import Director",
+      "parentPerson": "Dušan Procházka",
+      "matchingComponents": [
+        182
+      ],
+      "childCards": [
+        87
+      ],
+      "parentCards": [
+        78
+      ],
+      "childComponentIds": [
+        182,
+        198
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    },
+    {
+      "childId": "country-buying-manager-hu-ondrej-suba",
+      "childTitle": "Country Buying Manager",
+      "childPerson": "Ondrej Šuba",
+      "parentId": "swap-manager-de-michal-valka",
+      "originalParentId": "swap-manager-de-michal-valka",
+      "parentTitle": "SWAP Manager",
+      "parentPerson": "Michal Válka",
+      "matchingComponents": [
+        182,
+        198
+      ],
+      "childCards": [
+        88
+      ],
+      "parentCards": [
+        87
+      ],
+      "childComponentIds": [
+        182,
+        198
+      ],
+      "candidateParentCount": 4,
+      "status": "supported",
+      "selectedParentSource": "geometry",
+      "selectedParentConfidence": "high"
+    }
+  ],
+  "confirmedOverrideEdges": [
+    {
+      "childId": "hr-team-leader-jan-jarma",
+      "childTitle": "HR Team Leader",
+      "childPerson": "Jan Jarma",
+      "parentId": "group-personnel-payroll-manager-martina-kahulova",
+      "originalParentId": "managing-director-czsk-lubos-vorlik",
+      "parentTitle": "Group Personnel & Payroll Manager",
+      "parentPerson": "Martina Kahulová",
+      "matchingComponents": [
+        214
+      ],
+      "childCards": [
+        35
+      ],
+      "parentCards": [
+        36
+      ],
+      "childComponentIds": [
+        0,
+        214
+      ],
+      "candidateParentCount": 19,
+      "status": "confirmedOverride",
+      "selectedParentSource": "confirmedOverride",
+      "selectedParentConfidence": "confirmed",
+      "overrideSource": "user-confirmed",
+      "overrideReason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
+    }
+  ],
+  "ambiguousSourceEdges": [],
   "sourceEdgesNotInSameConnectorComponent": [],
   "connectorComponents": [
     {

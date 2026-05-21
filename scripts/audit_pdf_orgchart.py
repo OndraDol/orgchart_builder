@@ -24,6 +24,7 @@ import fitz
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PDF_GLOBS = ("source/*Holding.pdf", "*Holding.pdf")
 DEFAULT_SOURCE = ROOT / "src" / "data" / "sourceOrgchart.ts"
+DEFAULT_PARENT_OVERRIDES = ROOT / "src" / "data" / "sourceParentOverrides.json"
 DEFAULT_JSON_OUT = ROOT / "docs" / "audits" / "pdf-orgchart-audit.json"
 DEFAULT_MD_OUT = ROOT / "docs" / "audits" / "pdf-orgchart-audit.md"
 
@@ -270,26 +271,71 @@ def touched_sides(segment: Segment, card: Card) -> set[str]:
   return sides
 
 
-def load_source_nodes(source_path: Path) -> list[dict[str, str | None]]:
+def load_parent_overrides(path: Path) -> dict[str, dict[str, str]]:
+  if not path.exists():
+    return {}
+
+  data = json.loads(path.read_text(encoding="utf-8"))
+  if not isinstance(data, list):
+    raise ValueError(f"Parent override file must contain a list: {path}")
+
+  overrides: dict[str, dict[str, str]] = {}
+  for item in data:
+    if not isinstance(item, dict):
+      raise ValueError(f"Invalid parent override item in {path}: {item!r}")
+
+    child_id = item.get("childId")
+    parent_id = item.get("parentId")
+    if not isinstance(child_id, str) or not isinstance(parent_id, str):
+      raise ValueError(f"Parent override must contain string childId and parentId: {item!r}")
+
+    overrides[child_id] = {
+      "childId": child_id,
+      "parentId": parent_id,
+      "source": str(item.get("source", "")),
+      "reason": str(item.get("reason", "")),
+    }
+
+  return overrides
+
+
+def load_source_nodes(
+  source_path: Path, parent_overrides: dict[str, dict[str, str]] | None = None
+) -> list[dict[str, str | None]]:
   source = source_path.read_text(encoding="utf-8")
   node_pattern = re.compile(
     r"\{\s*id:\s*'([^']+)',\s*parentId:\s*(?:'([^']+)'|null),\s*title:\s*'([^']*)',\s*person:\s*'([^']*)'",
     re.S,
   )
 
-  return [
-    {"id": match.group(1), "parentId": match.group(2), "title": match.group(3), "person": match.group(4)}
-    for match in node_pattern.finditer(source)
-  ]
+  overrides = parent_overrides or {}
+  nodes: list[dict[str, str | None]] = []
+
+  for match in node_pattern.finditer(source):
+    node_id = match.group(1)
+    original_parent_id = match.group(2)
+    override = overrides.get(node_id)
+    nodes.append(
+      {
+        "id": node_id,
+        "parentId": override["parentId"] if override else original_parent_id,
+        "originalParentId": original_parent_id,
+        "title": match.group(3),
+        "person": match.group(4),
+      }
+    )
+
+  return nodes
 
 
-def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
+def build_audit(pdf_path: Path, source_path: Path, parent_override_path: Path = DEFAULT_PARENT_OVERRIDES) -> dict[str, Any]:
   document = fitz.open(pdf_path)
   page = document[0]
   cards = extract_cards(page)
   segments = extract_segments(page)
   components = group_segments(segments)
-  source_nodes = load_source_nodes(source_path)
+  parent_overrides = load_parent_overrides(parent_override_path)
+  source_nodes = load_source_nodes(source_path, parent_overrides)
 
   card_components: dict[int, dict[int, set[str]]] = defaultdict(lambda: defaultdict(set))
   component_cards: dict[int, list[dict[str, Any]]] = defaultdict(list)
@@ -343,9 +389,62 @@ def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
 
   id_to_node = {node["id"]: node for node in source_nodes}
   unsupported_edges: list[dict[str, Any]] = []
+  ambiguous_source_edges: list[dict[str, Any]] = []
+  confirmed_override_edges: list[dict[str, Any]] = []
+  parent_review_rows: list[dict[str, Any]] = []
+  parent_override_errors: list[dict[str, str]] = []
   source_edge_evidence: list[dict[str, Any]] = []
   supported_edge_count = 0
+  confirmed_override_count = 0
   skipped_edge_count = 0
+  unresolved_parent_links = 0
+
+  for child_id, override in parent_overrides.items():
+    if child_id not in id_to_node:
+      parent_override_errors.append(
+        {"childId": child_id, "parentId": override["parentId"], "error": "childId not found in source nodes"}
+      )
+    elif override["parentId"] not in id_to_node:
+      parent_override_errors.append(
+        {"childId": child_id, "parentId": override["parentId"], "error": "parentId not found in source nodes"}
+      )
+
+  def node_card_indexes(node: dict[str, str | None]) -> list[int]:
+    return person_to_card_indexes.get(str(node["person"]), []) if node["person"] else []
+
+  def component_ids_for_card_indexes(card_indexes: list[int]) -> set[int]:
+    return set().union(*(card_components[index].keys() for index in card_indexes)) if card_indexes else set()
+
+  def matching_components_for(
+    child: dict[str, str | None], parent: dict[str, str | None]
+  ) -> tuple[list[int], list[int], list[int], list[int]]:
+    child_card_indexes = node_card_indexes(child)
+    parent_card_indexes = node_card_indexes(parent)
+    child_component_ids = component_ids_for_card_indexes(child_card_indexes)
+    parent_component_ids = component_ids_for_card_indexes(parent_card_indexes)
+    return (
+      sorted(child_component_ids & parent_component_ids),
+      child_card_indexes,
+      parent_card_indexes,
+      sorted(child_component_ids),
+    )
+
+  def candidate_parent_count(child: dict[str, str | None]) -> int:
+    child_card_indexes = node_card_indexes(child)
+    child_component_ids = component_ids_for_card_indexes(child_card_indexes)
+    if not child_component_ids:
+      return 0
+
+    count = 0
+    for candidate in source_nodes:
+      if candidate["id"] == child["id"] or not candidate["person"]:
+        continue
+
+      candidate_component_ids = component_ids_for_card_indexes(node_card_indexes(candidate))
+      if child_component_ids & candidate_component_ids:
+        count += 1
+
+    return count
 
   for node in source_nodes:
     parent_id = node["parentId"]
@@ -353,6 +452,7 @@ def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
       continue
 
     parent = id_to_node.get(parent_id)
+    override = parent_overrides.get(str(node["id"]))
     if not parent or not node["person"] or not parent["person"]:
       skipped_edge_count += 1
       source_edge_evidence.append(
@@ -361,54 +461,76 @@ def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
           "childTitle": node["title"],
           "childPerson": node["person"],
           "parentId": parent_id,
+          "originalParentId": node.get("originalParentId"),
           "parentTitle": parent["title"] if parent else None,
           "parentPerson": parent["person"] if parent else None,
           "status": "skipped",
+          "selectedParentSource": "confirmedOverride" if override else "geometry",
+          "selectedParentConfidence": "skipped",
           "matchingComponents": [],
           "childCards": [],
           "parentCards": [],
+          "childComponentIds": [],
+          "candidateParentCount": 0,
         }
       )
       continue
 
-    child_card_indexes = person_to_card_indexes.get(node["person"], [])
-    parent_card_indexes = person_to_card_indexes.get(parent["person"], [])
-    matching_components = sorted(
-      set().union(*(card_components[index].keys() for index in child_card_indexes))
-      & set().union(*(card_components[index].keys() for index in parent_card_indexes))
+    matching_components, child_card_indexes, parent_card_indexes, child_component_ids = matching_components_for(
+      node, parent
     )
+    candidate_count = candidate_parent_count(node)
 
-    if matching_components:
+    base_edge = {
+      "childId": node["id"],
+      "childTitle": node["title"],
+      "childPerson": node["person"],
+      "parentId": parent["id"],
+      "originalParentId": node.get("originalParentId"),
+      "parentTitle": parent["title"],
+      "parentPerson": parent["person"],
+      "matchingComponents": matching_components,
+      "childCards": child_card_indexes,
+      "parentCards": parent_card_indexes,
+      "childComponentIds": child_component_ids,
+      "candidateParentCount": candidate_count,
+    }
+
+    if override:
+      confirmed_override_count += 1
+      override_edge = {
+        **base_edge,
+        "status": "confirmedOverride",
+        "selectedParentSource": "confirmedOverride",
+        "selectedParentConfidence": "confirmed",
+        "overrideSource": override.get("source", ""),
+        "overrideReason": override.get("reason", ""),
+      }
+      confirmed_override_edges.append(override_edge)
+      source_edge_evidence.append(override_edge)
+      parent_review_rows.append(override_edge)
+    elif matching_components:
       supported_edge_count += 1
-      source_edge_evidence.append(
-        {
-          "childId": node["id"],
-          "childTitle": node["title"],
-          "childPerson": node["person"],
-          "parentId": parent["id"],
-          "parentTitle": parent["title"],
-          "parentPerson": parent["person"],
-          "status": "supported",
-          "matchingComponents": matching_components,
-          "childCards": child_card_indexes,
-          "parentCards": parent_card_indexes,
-        }
-      )
+      supported_edge = {
+        **base_edge,
+        "status": "supported",
+        "selectedParentSource": "geometry",
+        "selectedParentConfidence": "high",
+      }
+      source_edge_evidence.append(supported_edge)
+      parent_review_rows.append(supported_edge)
     else:
       unsupported_edge = {
-        "childId": node["id"],
-        "childTitle": node["title"],
-        "childPerson": node["person"],
-        "parentId": parent["id"],
-        "parentTitle": parent["title"],
-        "parentPerson": parent["person"],
+        **base_edge,
         "status": "unsupported",
-        "matchingComponents": [],
-        "childCards": child_card_indexes,
-        "parentCards": parent_card_indexes,
+        "selectedParentSource": "geometry",
+        "selectedParentConfidence": "unresolved",
       }
+      unresolved_parent_links += 1
       unsupported_edges.append(unsupported_edge)
+      ambiguous_source_edges.append(unsupported_edge)
       source_edge_evidence.append(unsupported_edge)
+      parent_review_rows.append(unsupported_edge)
 
   duplicate_labels = [
     {"label": label, "count": count}
@@ -431,9 +553,24 @@ def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
     if len(component_cards[component_id]) >= 2
   ]
 
+  multi_component_cards = [
+    {
+      "cardIndex": card.index,
+      "label": card.label,
+      "rect": card.rect.as_list(),
+      "components": {
+        str(component_id): sorted(sides)
+        for component_id, sides in sorted(card_components.get(card.index, {}).items())
+      },
+    }
+    for card in cards
+    if len(card_components.get(card.index, {})) > 1
+  ]
+
   return {
     "pdf": str(pdf_path),
     "source": str(source_path),
+    "parentOverrides": str(parent_override_path),
     "summary": {
       "pdfCards": len(cards),
       "uniquePdfCardLabels": len(set(card.label for card in cards)),
@@ -443,13 +580,24 @@ def build_audit(pdf_path: Path, source_path: Path) -> dict[str, Any]:
       "connectorComponents": len(components),
       "connectorComponentsWithMultipleCards": len(meaningful_components),
       "sourceEdgesSupportedBySameConnectorComponent": supported_edge_count,
+      "sourceEdgesResolvedByConfirmedOverride": confirmed_override_count,
+      "sourceEdgesAmbiguous": len(ambiguous_source_edges),
       "sourceEdgesNotInSameConnectorComponent": len(unsupported_edges),
       "sourceEdgesSkipped": skipped_edge_count,
+      "parentOverrideErrors": len(parent_override_errors),
+      "multiComponentCards": len(multi_component_cards),
+      "unresolvedParentLinks": unresolved_parent_links + len(parent_override_errors),
     },
+    "confirmedParentOverrides": list(parent_overrides.values()),
+    "parentOverrideErrors": parent_override_errors,
     "duplicatePdfLabels": duplicate_labels,
     "unmatchedSourcePeople": unmatched_people,
+    "multiComponentCards": multi_component_cards,
     "sourceNodeMatches": source_node_matches,
     "sourceEdgeEvidence": source_edge_evidence,
+    "parentReviewRows": parent_review_rows,
+    "confirmedOverrideEdges": confirmed_override_edges,
+    "ambiguousSourceEdges": ambiguous_source_edges,
     "sourceEdgesNotInSameConnectorComponent": unsupported_edges,
     "connectorComponents": meaningful_components,
     "cards": [
@@ -487,6 +635,40 @@ def write_markdown(audit: dict[str, Any], path: Path) -> None:
       f"{item['parentPerson']} ({item['parentTitle']})"
     )
 
+  lines.extend(["", "## Confirmed Parent Overrides", ""])
+  if audit["confirmedOverrideEdges"]:
+    for item in audit["confirmedOverrideEdges"]:
+      lines.append(
+        f"- {item['childPerson']} ({item['childTitle']}) -> "
+        f"{item['parentPerson']} ({item['parentTitle']}); "
+        f"original parent id: `{item['originalParentId']}`; "
+        f"components: `{','.join(str(component) for component in item['matchingComponents'])}`"
+      )
+  else:
+    lines.append("- none")
+
+  lines.extend(["", "## Parent Review Table", ""])
+  lines.append("| Child | Parent | Status | Source | Confidence | Components | Candidate parents |")
+  lines.append("|---|---|---|---|---|---:|---:|")
+  for item in audit["parentReviewRows"]:
+    components = ",".join(str(component) for component in item["matchingComponents"]) or "-"
+    lines.append(
+      f"| {item['childPerson']} ({item['childTitle']}) "
+      f"| {item['parentPerson']} ({item['parentTitle']}) "
+      f"| `{item['status']}` "
+      f"| `{item['selectedParentSource']}` "
+      f"| `{item['selectedParentConfidence']}` "
+      f"| {components} "
+      f"| {item['candidateParentCount']} |"
+    )
+
+  lines.extend(["", "## Multi-Component PDF Cards", ""])
+  for item in audit["multiComponentCards"]:
+    components = ", ".join(
+      f"{component_id}:{','.join(sides)}" for component_id, sides in item["components"].items()
+    )
+    lines.append(f"- card {item['cardIndex']}: {item['label']} (`{components}`)")
+
   lines.extend(["", "## Duplicate PDF Labels", ""])
   for item in audit["duplicatePdfLabels"]:
     lines.append(f"- {item['label']} ({item['count']}x)")
@@ -515,12 +697,13 @@ def main() -> None:
   parser = argparse.ArgumentParser(description=__doc__)
   parser.add_argument("--pdf", type=Path, default=None)
   parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+  parser.add_argument("--parent-overrides", type=Path, default=DEFAULT_PARENT_OVERRIDES)
   parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
   parser.add_argument("--md-out", type=Path, default=DEFAULT_MD_OUT)
   args = parser.parse_args()
 
   pdf_path = args.pdf or find_default_pdf()
-  audit = build_audit(pdf_path, args.source)
+  audit = build_audit(pdf_path, args.source, args.parent_overrides)
 
   args.json_out.parent.mkdir(parents=True, exist_ok=True)
   args.md_out.parent.mkdir(parents=True, exist_ok=True)

@@ -8,7 +8,7 @@ Top-level objekt celého org. stromu. Definice v `src/domain/orgchart.ts`.
 
 ```typescript
 interface OrgChartDocument {
-  schemaVersion: 4;        // bumpne se pri breaking zmene schematu
+  schemaVersion: 5;        // bumpne se pri breaking zmene schematu
   name: string;            // human-readable název dokumentu
   updatedAt: string;       // ISO 8601 timestamp
   nodes: OrgNode[];        // všechny karty (flat list, hierarchie via parentId)
@@ -19,8 +19,16 @@ interface OrgChartDocument {
 - v1 → v2: `LEVEL_TYPES` přepsán z `['holding', 'group', 'country', 'regio', 'team', 'role', 'placeholder']` na `['B-0', 'B-1', 'B-2', 'B-3', 'B-4']`
 - v2 → v3: refresh content (nové parent-child, B-úrovně, doplnění karet)
 - v3 -> v4: PDF source positions, manual node positions, and source-hidden synthetic root
+- v4 -> v5: confirmed parent override layer for ambiguous PDF connector cases
 
 Při změně schemaVersion se localStorage automaticky invaliduje (`isChartDocument` v `chartValidation.ts` kontroluje pevnou hodnotu).
+
+## Confirmed parent overrides
+
+`src/data/sourceParentOverrides.json` obsahuje potvrzené opravy pro případy, kde PDF/VSD geometrie napojuje kartu do více connector komponent a automatická inference by mohla vybrat špatného parenta. `SOURCE_ORGCHART` aplikuje tyto overrides při exportu výchozího datasetu a audit je zapisuje jako `confirmedOverride`.
+
+Aktuální potvrzená oprava:
+- Jan Jarma (`hr-team-leader-jan-jarma`) → Martina Kahulová (`group-personnel-payroll-manager-martina-kahulova`)
 
 ## OrgNode
 

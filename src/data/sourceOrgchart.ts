@@ -1,8 +1,9 @@
 import type { OrgChartDocument } from '../domain/orgchart';
+import sourceParentOverrides from './sourceParentOverrides.json';
 import { SOURCE_POSITION_BY_ID } from './sourcePositions';
 
 const SOURCE_ORGCHART_BASE: OrgChartDocument = {
-  schemaVersion: 4,
+  schemaVersion: 5,
   name: 'Aures Holdings — organizační struktura',
   updatedAt: '2026-04-01T00:00:00.000Z',
   nodes: [
@@ -1472,14 +1473,21 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
   ],
 };
 
+const SOURCE_PARENT_OVERRIDE_BY_CHILD_ID = new Map(
+  sourceParentOverrides.map((override) => [override.childId, override.parentId] as const),
+);
+
 export const SOURCE_ORGCHART: OrgChartDocument = {
   ...SOURCE_ORGCHART_BASE,
   nodes: SOURCE_ORGCHART_BASE.nodes.map((node) => {
-    if (node.id === 'holding-aures') {
-      return { ...node, sourceHidden: true };
+    const confirmedParentId = SOURCE_PARENT_OVERRIDE_BY_CHILD_ID.get(node.id);
+    const nodeWithConfirmedParent = confirmedParentId ? { ...node, parentId: confirmedParentId } : node;
+
+    if (nodeWithConfirmedParent.id === 'holding-aures') {
+      return { ...nodeWithConfirmedParent, sourceHidden: true };
     }
 
-    const sourcePosition = SOURCE_POSITION_BY_ID[node.id];
-    return sourcePosition ? { ...node, sourcePosition } : node;
+    const sourcePosition = SOURCE_POSITION_BY_ID[nodeWithConfirmedParent.id];
+    return sourcePosition ? { ...nodeWithConfirmedParent, sourcePosition } : nodeWithConfirmedParent;
   }),
 };
