@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { LockKeyhole } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import { messages } from '../i18n/messages';
 
@@ -68,36 +68,35 @@ export function AuthGate({ passwordHash, onUnlock }: AuthGateProps) {
 
   return (
     <main className="auth-shell">
-      <section className="auth-panel" aria-labelledby="auth-title">
-        <div className="auth-icon" aria-hidden="true">
-          <LockKeyhole size={22} strokeWidth={2.2} />
-        </div>
-        <div className="auth-copy">
-          <p className="eyebrow">{messages.auth.eyebrow}</p>
-          <h1 id="auth-title">{messages.auth.heading}</h1>
-          <p>{messages.auth.description}</p>
-        </div>
-
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <label htmlFor="temporary-password">{messages.auth.passwordLabel}</label>
+      <form className="auth-form-minimal" onSubmit={handleSubmit}>
+        <label htmlFor="temporary-password" className="auth-form-minimal-label">
+          {messages.auth.passwordLabel}
+        </label>
+        <div className="auth-form-minimal-row">
           <input
             autoComplete="current-password"
             id="temporary-password"
             name="temporary-password"
+            autoFocus
             onChange={(event) => setPassword(event.target.value)}
             type="password"
             value={password}
           />
-          {error ? (
-            <p className="auth-error" role="alert">
-              {error}
-            </p>
-          ) : null}
-          <button disabled={isChecking} type="submit">
-            {isChecking ? messages.auth.submitting : messages.auth.submit}
+          <button
+            type="submit"
+            disabled={isChecking}
+            aria-label={messages.auth.submit}
+            title={messages.auth.submit}
+          >
+            <ArrowRight aria-hidden="true" size={18} strokeWidth={2.4} />
           </button>
-        </form>
-      </section>
+        </div>
+        {error ? (
+          <p className="auth-error" role="alert">
+            {error}
+          </p>
+        ) : null}
+      </form>
     </main>
   );
 }

@@ -6,12 +6,8 @@ export const messages = {
     brand: 'Organizační struktura',
   },
   auth: {
-    eyebrow: 'Soukromý pracovní prostor',
-    heading: 'Editor organizační struktury',
-    description:
-      'Zadejte dočasné heslo pro otevření pracovního prostoru. Toto je dočasná frontendová ochrana pro raný přístup, nikoli serverové ověření.',
-    passwordLabel: 'Dočasné heslo',
-    submit: 'Otevřít editor',
+    passwordLabel: 'Heslo:',
+    submit: 'Odemknout',
     submitting: 'Ověřuji…',
     errors: {
       notConfigured: 'Hash hesla není v tomto buildu nakonfigurován.',
