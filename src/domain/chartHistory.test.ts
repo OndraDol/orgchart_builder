@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { createHistory, pushHistory, undoHistory } from './chartHistory';
 
 const chart = (name: string): OrgChartDocument => ({
-  schemaVersion: 1,
+  schemaVersion: 2,
   name,
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -13,7 +13,7 @@ const chart = (name: string): OrgChartDocument => ({
       parentId: null,
       title: name,
       person: '',
-      levelType: 'holding',
+      levelType: 'B-0',
       country: '',
       regio: '',
       color: 'executive',

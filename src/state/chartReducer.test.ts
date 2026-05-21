@@ -9,7 +9,7 @@ describe('chartReducer', () => {
     const result = chartReducer(state, { type: 'add-child', parentId: SOURCE_ORGCHART.nodes[0].id });
 
     expect(result.history.current.nodes.length).toBe(SOURCE_ORGCHART.nodes.length + 1);
-    expect(result.selectedNodeId).toMatch(/^new-role-/);
+    expect(result.selectedNodeId).toMatch(/^nov-role-/);
   });
 
   it('updates selected node fields', () => {
@@ -84,7 +84,7 @@ describe('chartReducer', () => {
       ...createInitialChartState(SOURCE_ORGCHART),
       movingNodeId: 'country-payroll-manager-czsk-jitka-horejsi',
     };
-    const result = chartReducer(state, { type: 'delete', nodeId: 'group-personnel-payroll-manager-martina-kahounova' });
+    const result = chartReducer(state, { type: 'delete', nodeId: 'chief-hr-officer-marie-vorsilkova' });
 
     expect(result.movingNodeId).toBeNull();
   });

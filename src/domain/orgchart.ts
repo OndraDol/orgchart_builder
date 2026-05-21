@@ -1,4 +1,4 @@
-export const LEVEL_TYPES = ['holding', 'group', 'country', 'regio', 'team', 'role', 'placeholder'] as const;
+export const LEVEL_TYPES = ['B-0', 'B-1', 'B-2', 'B-3', 'B-4'] as const;
 
 export type OrgNodeLevelType = (typeof LEVEL_TYPES)[number];
 
@@ -84,7 +84,7 @@ export interface OrgNode {
 }
 
 export interface OrgChartDocument {
-  schemaVersion: 1;
+  schemaVersion: 2;
   name: string;
   updatedAt: string;
   nodes: OrgNode[];
@@ -95,7 +95,7 @@ export type SelectedNodePatch = Partial<Pick<OrgNode, 'title' | 'person' | 'leve
 export const EMPTY_NODE_PATCH: Required<SelectedNodePatch> = {
   title: '',
   person: '',
-  levelType: 'role',
+  levelType: 'B-2',
   country: '',
   regio: '',
   color: 'standard',

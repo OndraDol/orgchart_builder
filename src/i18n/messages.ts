@@ -70,13 +70,11 @@ export const messages = {
     label: 'Plátno organizační struktury',
   },
   levels: {
-    holding: 'Holding',
-    group: 'Skupina',
-    country: 'Země',
-    regio: 'Region',
-    team: 'Tým',
-    role: 'Role',
-    placeholder: 'Zástupný',
+    'B-0': 'B-0',
+    'B-1': 'B-1',
+    'B-2': 'B-2',
+    'B-3': 'B-3',
+    'B-4': 'B-4',
   } satisfies Record<OrgNodeLevelType, string>,
   statuses: {
     active: 'Aktivní',

@@ -47,7 +47,7 @@ export const isChartDocument = (value: unknown): value is OrgChartDocument => {
   }
 
   return (
-    value.schemaVersion === 1 &&
+    value.schemaVersion === 2 &&
     isString(value.name) &&
     isString(value.updatedAt) &&
     Array.isArray(value.nodes) &&

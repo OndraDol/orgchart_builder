@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { layoutChart } from './chartLayout';
 
 const chart: OrgChartDocument = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   name: 'Layout',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -13,7 +13,7 @@ const chart: OrgChartDocument = {
       parentId: null,
       title: 'Root',
       person: '',
-      levelType: 'holding',
+      levelType: 'B-0',
       country: '',
       regio: '',
       color: 'executive',
@@ -25,7 +25,7 @@ const chart: OrgChartDocument = {
       parentId: 'root',
       title: 'Child A',
       person: '',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
@@ -37,7 +37,7 @@ const chart: OrgChartDocument = {
       parentId: 'root',
       title: 'Child B',
       person: '',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',

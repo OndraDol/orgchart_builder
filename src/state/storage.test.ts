@@ -4,7 +4,7 @@ import type { OrgChartDocument } from '../domain/orgchart';
 import { clearLocalChart, loadLocalChart, saveLocalChart } from './storage';
 
 const validChart = (): OrgChartDocument => ({
-  schemaVersion: 1,
+  schemaVersion: 2,
   name: 'Stored chart',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -13,7 +13,7 @@ const validChart = (): OrgChartDocument => ({
       parentId: null,
       title: 'Root',
       person: '',
-      levelType: 'holding',
+      levelType: 'B-0',
       country: '',
       regio: '',
       color: 'executive',

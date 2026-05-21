@@ -4,7 +4,7 @@ import type { OrgChartDocument } from './orgchart';
 import { isChartDocument, parseChartDocument, validateChartDocument } from './chartValidation';
 
 const validChart = (): OrgChartDocument => ({
-  schemaVersion: 1,
+  schemaVersion: 2,
   name: 'Test',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -13,7 +13,7 @@ const validChart = (): OrgChartDocument => ({
       parentId: null,
       title: 'Root',
       person: 'A',
-      levelType: 'holding',
+      levelType: 'B-0',
       country: '',
       regio: '',
       color: 'executive',
@@ -25,7 +25,7 @@ const validChart = (): OrgChartDocument => ({
       parentId: 'root',
       title: 'Child',
       person: 'B',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',

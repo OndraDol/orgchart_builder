@@ -4,12 +4,12 @@ import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from '../domain/orgchart
 import { SOURCE_ORGCHART } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
-  it('uses schema version 1 and has source nodes', () => {
-    expect(SOURCE_ORGCHART.schemaVersion).toBe(1);
-    expect(SOURCE_ORGCHART.nodes.length).toBeGreaterThan(20);
+  it('uses schema version 2 and contains the full org chart', () => {
+    expect(SOURCE_ORGCHART.schemaVersion).toBe(2);
+    expect(SOURCE_ORGCHART.nodes.length).toBeGreaterThanOrEqual(100);
   });
 
-  it('contains required role and person pairs visible in the attachment', () => {
+  it('contains required role and person pairs from the source PDF', () => {
     const rolePeople = SOURCE_ORGCHART.nodes.map((node) => `${node.title} / ${node.person}`);
 
     expect(rolePeople).toEqual(
@@ -35,9 +35,11 @@ describe('SOURCE_ORGCHART', () => {
         'Group Call Centre Director / Petr Havel',
         'Group Business Development Director / David Čížek',
         'Group Office Operations Director / Michaela Kosinerová',
-        'Group Personnel & Payroll Manager / Martina Kahounová',
         'Country Payroll Manager CZ+SK / Jitka Hořejší',
         'Managing Director CZ/SK / Luboš Vorlík',
+        'Managing Director PL / Miroslav Vápeník',
+        'SWAP Manager / Michal Válka',
+        'Country Buying Manager / Ondrej Šuba',
       ]),
     );
   });
@@ -63,6 +65,11 @@ describe('SOURCE_ORGCHART', () => {
     expect(SOURCE_ORGCHART.nodes.every((node) => colors.has(node.color))).toBe(true);
     expect(SOURCE_ORGCHART.nodes.every((node) => levelTypes.has(node.levelType))).toBe(true);
     expect(SOURCE_ORGCHART.nodes.every((node) => statuses.has(node.status))).toBe(true);
+  });
+
+  it('uses the new B-level enum on every node', () => {
+    const bLevelPattern = /^B-[0-4]$/;
+    expect(SOURCE_ORGCHART.nodes.every((node) => bLevelPattern.test(node.levelType))).toBe(true);
   });
 
   it('does not contain parent cycles', () => {

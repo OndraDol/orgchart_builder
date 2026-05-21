@@ -63,18 +63,20 @@ const findAddedNodeId = (previous: OrgChartDocument, next: OrgChartDocument): st
   return next.nodes.find((node) => !previousIds.has(node.id))?.id ?? null;
 };
 
+const NEW_NODE_BASE_ID = 'nov-role';
+
 const ensureGeneratedNodeIdHasSuffix = (chart: OrgChartDocument, nodeId: string | null): OrgChartDocument => {
-  if (!nodeId || nodeId !== 'new-role') {
+  if (!nodeId || nodeId !== NEW_NODE_BASE_ID) {
     return chart;
   }
 
   const usedIds = new Set(chart.nodes.map((node) => node.id));
   let suffix = chart.nodes.length;
-  let nextId = `new-role-${suffix}`;
+  let nextId = `${NEW_NODE_BASE_ID}-${suffix}`;
 
   while (usedIds.has(nextId)) {
     suffix += 1;
-    nextId = `new-role-${suffix}`;
+    nextId = `${NEW_NODE_BASE_ID}-${suffix}`;
   }
 
   return {

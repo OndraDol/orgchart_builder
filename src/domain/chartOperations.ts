@@ -3,9 +3,9 @@ import type { OrgChartDocument, OrgNode, SelectedNodePatch } from './orgchart';
 type SiblingSide = 'left' | 'right';
 
 const DEFAULT_NEW_NODE: Omit<OrgNode, 'id' | 'parentId' | 'order'> = {
-  title: 'New role',
+  title: 'Nová role',
   person: '',
-  levelType: 'role',
+  levelType: 'B-2',
   country: '',
   regio: '',
   color: 'standard',

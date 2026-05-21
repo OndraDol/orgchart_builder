@@ -10,7 +10,7 @@ import {
 } from './chartOperations';
 
 const baseChart = (): OrgChartDocument => ({
-  schemaVersion: 1,
+  schemaVersion: 2,
   name: 'Test',
   updatedAt: '2026-05-21T00:00:00.000Z',
   nodes: [
@@ -19,7 +19,7 @@ const baseChart = (): OrgChartDocument => ({
       parentId: null,
       title: 'Root',
       person: 'A',
-      levelType: 'holding',
+      levelType: 'B-0',
       country: '',
       regio: '',
       color: 'executive',
@@ -31,7 +31,7 @@ const baseChart = (): OrgChartDocument => ({
       parentId: 'root',
       title: 'Child A',
       person: 'B',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
@@ -43,7 +43,7 @@ const baseChart = (): OrgChartDocument => ({
       parentId: 'root',
       title: 'Child B',
       person: 'C',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
@@ -55,7 +55,7 @@ const baseChart = (): OrgChartDocument => ({
       parentId: 'child-a',
       title: 'Grandchild',
       person: 'D',
-      levelType: 'role',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'standard',
@@ -68,9 +68,9 @@ const baseChart = (): OrgChartDocument => ({
 describe('chartOperations', () => {
   it('adds a child under a selected node', () => {
     const result = addChildNode(baseChart(), 'child-a');
-    const added = result.nodes.find((node) => node.parentId === 'child-a' && node.title === 'New role');
+    const added = result.nodes.find((node) => node.parentId === 'child-a' && node.title === 'Nová role');
 
-    expect(added).toMatchObject({ levelType: 'role', color: 'standard', status: 'active' });
+    expect(added).toMatchObject({ levelType: 'B-2', color: 'standard', status: 'active' });
   });
 
   it('updates editable node fields', () => {
