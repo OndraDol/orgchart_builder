@@ -67,6 +67,10 @@ describe('chartValidation', () => {
     expect(parseChartDocument(JSON.stringify(validChart()))).toEqual(validChart());
   });
 
+  it('throws a domain error for malformed JSON', () => {
+    expect(() => parseChartDocument('{')).toThrow('Imported file is not valid JSON.');
+  });
+
   it('rejects zero roots', () => {
     const chart = validChart();
     chart.nodes = chart.nodes.map((node) => ({ ...node, parentId: 'child' }));
@@ -89,6 +93,16 @@ describe('chartValidation', () => {
     } as unknown as OrgChartDocument;
 
     expect(validateChartDocument(importedChart)).toContain('Unknown color invalid for node child');
+  });
+
+  it('rejects unknown color tokens through the shape guard', () => {
+    const chart = validChart();
+    const importedChart = {
+      ...chart,
+      nodes: chart.nodes.map((node) => (node.id === 'child' ? { ...node, color: 'invalid' } : node)),
+    };
+
+    expect(isChartDocument(importedChart)).toBe(false);
   });
 
   it('rejects unknown level types through the shape guard', () => {

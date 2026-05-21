@@ -33,6 +33,7 @@ const isValidNode = (value: unknown): value is OrgNode => {
     isString(value.country) &&
     isString(value.regio) &&
     isString(value.color) &&
+    colorTokenIds.has(value.color as CardColorTokenId) &&
     isString(value.status) &&
     statusTypes.has(value.status as OrgNodeStatus) &&
     typeof value.order === 'number' &&
@@ -124,7 +125,13 @@ export const validateChartDocument = (chart: OrgChartDocument): string[] => {
 };
 
 export const parseChartDocument = (json: string): OrgChartDocument => {
-  const parsed: unknown = JSON.parse(json);
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(json);
+  } catch {
+    throw new Error('Imported file is not valid JSON.');
+  }
 
   if (!isChartDocument(parsed)) {
     throw new Error('Imported file is not an orgchart document.');

@@ -6,7 +6,13 @@ const STORAGE_KEY = 'orgchart-builder.chart.v1';
 export const chartToJson = (chart: OrgChartDocument): string => JSON.stringify(chart, null, 2);
 
 export const loadLocalChart = (): OrgChartDocument | null => {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  let stored: string | null;
+
+  try {
+    stored = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
 
   if (stored === null) {
     return null;

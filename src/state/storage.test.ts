@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { OrgChartDocument } from '../domain/orgchart';
 import { clearLocalChart, loadLocalChart, saveLocalChart } from './storage';
@@ -28,6 +28,10 @@ describe('storage', () => {
     localStorage.clear();
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('loads a saved local chart', () => {
     const chart = validChart();
 
@@ -42,6 +46,14 @@ describe('storage', () => {
 
   it('returns null when stored JSON is invalid', () => {
     localStorage.setItem('orgchart-builder.chart.v1', '{');
+
+    expect(loadLocalChart()).toBeNull();
+  });
+
+  it('returns null when local storage cannot be read', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('SecurityError');
+    });
 
     expect(loadLocalChart()).toBeNull();
   });
