@@ -18,6 +18,8 @@ import type { ChartOrientation, OrgChartDocument, OrgNode } from '../domain/orgc
 import { messages } from '../i18n/messages';
 import { OrgNodeCard } from './OrgNodeCard';
 
+type DropMode = 'child' | 'sibling-left' | 'sibling-right';
+
 interface OrgChartCanvasProps {
   chart: OrgChartDocument;
   orientation: ChartOrientation;
@@ -31,6 +33,7 @@ interface OrgChartCanvasProps {
   onMoveAsChild: (targetParentId: string) => void;
   onMoveAsSibling: (targetId: string, side: 'left' | 'right') => void;
   onDropAsChild: (sourceId: string, targetParentId: string) => void;
+  onDropAsSibling: (sourceId: string, targetId: string, side: 'left' | 'right') => void;
 }
 
 interface OrgFlowNodeData extends Record<string, unknown> {
@@ -41,6 +44,7 @@ interface OrgFlowNodeData extends Record<string, unknown> {
   moving: boolean;
   draft: boolean;
   dropTarget: boolean;
+  dropMode: DropMode | null;
   onSelect: (nodeId: string) => void;
   onAddChild: (nodeId: string) => void;
 }
@@ -61,6 +65,7 @@ function OrgFlowCard({ data }: NodeProps<OrgFlowNode>) {
         moving={data.moving}
         draft={data.draft}
         dropTarget={data.dropTarget}
+        dropMode={data.dropMode}
         onSelect={data.onSelect}
         onAddChild={data.onAddChild}
       />
@@ -86,10 +91,12 @@ function OrgChartFlow({
   onMoveAsChild,
   onMoveAsSibling,
   onDropAsChild,
+  onDropAsSibling,
 }: OrgChartCanvasProps) {
   const { fitView, getIntersectingNodes } = useReactFlow<OrgFlowNode, Edge>();
   const normalizedSearch = search.trim().toLocaleLowerCase();
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
+  const [dropMode, setDropMode] = useState<DropMode | null>(null);
   const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   void onMoveAsChild;
   void onMoveAsSibling;
@@ -115,6 +122,7 @@ function OrgChartFlow({
           moving: movingNodeId === id,
           draft: draftNodeId === id,
           dropTarget: dropTargetId === id && draggedNodeId !== null && draggedNodeId !== id,
+          dropMode: dropTargetId === id && draggedNodeId !== null && draggedNodeId !== id ? dropMode : null,
           onSelect: (nodeId) => onSelect(nodeId),
           onAddChild,
         },
@@ -142,6 +150,7 @@ function OrgChartFlow({
     movingNodeId,
     draftNodeId,
     dropTargetId,
+    dropMode,
     draggedNodeId,
     onSelect,
     onAddChild,
@@ -160,28 +169,66 @@ function OrgChartFlow({
   const handleNodeDragStart = useCallback((_event: unknown, node: OrgFlowNode) => {
     setDraggedNodeId(node.id);
     setDropTargetId(null);
+    setDropMode(null);
   }, []);
 
   const handleNodeDrag = useCallback(
     (_event: unknown, node: OrgFlowNode) => {
       const intersecting = getIntersectingNodes(node);
       const target = intersecting.find((candidate) => candidate.id !== node.id);
-      setDropTargetId(target?.id ?? null);
+      if (!target) {
+        setDropTargetId(null);
+        setDropMode(null);
+        return;
+      }
+
+      // Vypočti pozici tažené karty vůči cíli na ose souhlasné s orientací sourozenců.
+      // vertikální layout → siblingy se rozprostírají horizontálně (osa x)
+      // horizontální layout → siblingy svisle (osa y)
+      const isVertical = orientation === 'vertical';
+      const draggedCoord = isVertical ? node.position.x : node.position.y;
+      const targetCoord = isVertical ? target.position.x : target.position.y;
+      const dimension = isVertical
+        ? (target.width ?? target.measured?.width ?? 192)
+        : (target.height ?? target.measured?.height ?? 96);
+      const delta = draggedCoord - targetCoord;
+      const threshold = dimension * 0.35;
+
+      let mode: DropMode;
+      if (delta < -threshold) {
+        mode = 'sibling-left';
+      } else if (delta > threshold) {
+        mode = 'sibling-right';
+      } else {
+        mode = 'child';
+      }
+
+      setDropTargetId(target.id);
+      setDropMode(mode);
     },
-    [getIntersectingNodes],
+    [getIntersectingNodes, orientation],
   );
 
   const handleNodeDragStop = useCallback(
     (_event: unknown, node: OrgFlowNode) => {
       const sourceId = node.id;
       const targetId = dropTargetId;
+      const mode = dropMode;
       setDraggedNodeId(null);
       setDropTargetId(null);
-      if (targetId && targetId !== sourceId) {
+      setDropMode(null);
+      if (!targetId || targetId === sourceId) {
+        return;
+      }
+      if (mode === 'sibling-left') {
+        onDropAsSibling(sourceId, targetId, 'left');
+      } else if (mode === 'sibling-right') {
+        onDropAsSibling(sourceId, targetId, 'right');
+      } else {
         onDropAsChild(sourceId, targetId);
       }
     },
-    [dropTargetId, onDropAsChild],
+    [dropTargetId, dropMode, onDropAsChild, onDropAsSibling],
   );
 
   return (

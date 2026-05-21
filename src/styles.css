@@ -565,6 +565,26 @@ button:disabled {
   transform: scale(1.02);
 }
 
+.org-card.drop-sibling-left::after,
+.org-card.drop-sibling-right::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 5px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 6px 18px rgba(79, 70, 229, 0.45);
+}
+
+.org-card.drop-sibling-left::after {
+  left: -10px;
+}
+
+.org-card.drop-sibling-right::after {
+  right: -10px;
+}
+
 .org-card.draft {
   border-style: dashed !important;
   opacity: 0.85;

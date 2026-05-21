@@ -22,6 +22,7 @@ describe('OrgChartCanvas', () => {
         onMoveAsChild={vi.fn()}
         onMoveAsSibling={vi.fn()}
         onDropAsChild={vi.fn()}
+        onDropAsSibling={vi.fn()}
       />,
     );
 
@@ -46,6 +47,7 @@ describe('OrgChartCanvas', () => {
         onMoveAsChild={vi.fn()}
         onMoveAsSibling={vi.fn()}
         onDropAsChild={vi.fn()}
+        onDropAsSibling={vi.fn()}
       />,
     );
 

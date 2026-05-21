@@ -35,6 +35,7 @@ export type ChartAction =
   | { type: 'move-as-child'; targetParentId: string }
   | { type: 'move-as-sibling'; targetId: string; side: SiblingSide }
   | { type: 'drop-as-child'; sourceId: string; targetParentId: string }
+  | { type: 'drop-as-sibling'; sourceId: string; targetId: string; side: SiblingSide }
   | { type: 'save-draft' }
   | { type: 'undo' }
   | { type: 'replace-chart'; chart: OrgChartDocument }
@@ -199,6 +200,20 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
       try {
         return {
           ...withPushedChart(state, moveNodeAsChild(state.history.current, action.sourceId, action.targetParentId)),
+          movingNodeId: null,
+        };
+      } catch (error) {
+        return { ...state, warning: warningFromError(error) };
+      }
+    }
+
+    case 'drop-as-sibling': {
+      try {
+        return {
+          ...withPushedChart(
+            state,
+            moveNodeAsSibling(state.history.current, action.sourceId, action.targetId, action.side),
+          ),
           movingNodeId: null,
         };
       } catch (error) {

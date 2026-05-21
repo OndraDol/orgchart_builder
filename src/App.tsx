@@ -159,6 +159,9 @@ export function App() {
           onDropAsChild={(sourceId, targetParentId) =>
             dispatch({ type: 'drop-as-child', sourceId, targetParentId })
           }
+          onDropAsSibling={(sourceId, targetId, side) =>
+            dispatch({ type: 'drop-as-sibling', sourceId, targetId, side })
+          }
         />
 
         <EditorPanel
