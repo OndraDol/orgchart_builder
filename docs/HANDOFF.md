@@ -10,7 +10,7 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 ## Aktuální stav (2026-05-22)
 
 - **Live deploy:** https://ondradol.github.io/orgchart_builder/
-- **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
+- **Dataset:** 122 uzlů ve `src/data/sourceOrgchart.ts` včetně skrytého technického kořene, 121 viditelných PDF karet, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant), volitelné `countries`
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
 - **Testy:** 116/116 zelených
@@ -42,7 +42,7 @@ src/
 │   ├── EditorPanel.tsx          # pravý panel: form + Uložit (pro draft)
 │   └── StatusBar.tsx            # počet karet + save state + warning
 ├── data/
-│   ├── sourceOrgchart.ts        # 118 karet (root + 4 B-0 + 17 B-1 + ... + B-3 + B-4)
+│   ├── sourceOrgchart.ts        # 122 uzlů (skrytý root + 121 viditelných PDF karet)
 │   └── sourceParentOverrides.json # potvrzené parent opravy pro nejednoznačné PDF konektory
 └── utils/
     └── download.ts              # downloadJson helper
@@ -51,7 +51,7 @@ src/
 ## Co je hotovo
 
 - Doménový model B-0 až B-4 s validací
-- 118 karet podle PDF + audit z PDF connector geometry
+- 121 viditelných karet podle PDF + audit z PDF connector geometry
 - Audit gate: 0 unsupported source edges, 0 unresolved parent links; 4 skipped edges are synthetic root links
 - Confirmed override: Jan Jarma -> Martina Kahulová
 - Schema v5: `sourcePosition`, manual `position`, `sourceHidden`, confirmed parent override layer

@@ -4,5 +4,11 @@
     "parentId": "group-personnel-payroll-manager-martina-kahulova",
     "source": "user-confirmed",
     "reason": "Jan Jarma is a confirmed HR branch correction: the source geometry touches both the CZ/SK rail and the HR branch, but the intended reporting parent is Martina Kahulova."
+  },
+  {
+    "childId": "back-office-manager-pl-country-agnieszka-romanska",
+    "parentId": "managing-director-pl-miroslav-vapenik",
+    "source": "manual-pdf-review",
+    "reason": "The duplicate Back Office Manager_PL card is the PL country-row occurrence. The vector connector extraction only links the repeated card to the local office-operations country rail, so the row-level parent is recorded as a confirmed manual interpretation."
   }
 ]

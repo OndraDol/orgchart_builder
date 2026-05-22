@@ -357,7 +357,7 @@ def build_audit(pdf_path: Path, source_path: Path, parent_override_path: Path = 
           }
         )
 
-  person_to_card_indexes: dict[str, list[int]] = defaultdict(list)
+  person_to_card_indexes: dict[str, set[int]] = defaultdict(set)
   for node in source_nodes:
     person = node["person"]
     if not person:
@@ -366,7 +366,7 @@ def build_audit(pdf_path: Path, source_path: Path, parent_override_path: Path = 
     normalized_person = normalize_text(person)
     for card in cards:
       if normalized_person and normalized_person in card.normalized:
-        person_to_card_indexes[person].append(card.index)
+        person_to_card_indexes[person].add(card.index)
 
   cards_by_index = {card.index: card for card in cards}
   source_node_matches = [
@@ -380,7 +380,7 @@ def build_audit(pdf_path: Path, source_path: Path, parent_override_path: Path = 
           "label": cards_by_index[card_index].label,
           "rect": cards_by_index[card_index].rect.as_list(),
         }
-        for card_index in person_to_card_indexes.get(str(node["person"]), [])
+        for card_index in sorted(person_to_card_indexes.get(str(node["person"]), set()))
       ],
     }
     for node in source_nodes
@@ -410,7 +410,7 @@ def build_audit(pdf_path: Path, source_path: Path, parent_override_path: Path = 
       )
 
   def node_card_indexes(node: dict[str, str | None]) -> list[int]:
-    return person_to_card_indexes.get(str(node["person"]), []) if node["person"] else []
+    return sorted(person_to_card_indexes.get(str(node["person"]), set())) if node["person"] else []
 
   def component_ids_for_card_indexes(card_indexes: list[int]) -> set[int]:
     return set().union(*(card_components[index].keys() for index in card_indexes)) if card_indexes else set()

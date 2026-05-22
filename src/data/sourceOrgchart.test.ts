@@ -45,9 +45,9 @@ describe('SOURCE_ORGCHART', () => {
     ].sort());
 
     expect(childrenOf('chief-executive-officer-zdenek-demeter')).toEqual([
-      'Group IT Development Project Manager / Jakub Řehák',
       'Head of Analytics / David Tatár',
       'Head of BI / Petronela Hubočanová',
+      'Project Manager / Jakub Řehák',
     ].sort());
 
     expect(childrenOf('chief-information-officer-jiri-cabradek')).toEqual([
@@ -56,6 +56,68 @@ describe('SOURCE_ORGCHART', () => {
       'Group IT Project Manager / Martin Slabý',
       'Office Manager / Renata Lišková',
     ].sort());
+  });
+
+  it('keeps manually verified PDF parent corrections for shared connector rails', () => {
+    const nodeById = new Map(SOURCE_ORGCHART.nodes.map((node) => [node.id, node]));
+
+    expect(nodeById.get('group-car-sales-director-daniel-lunacek')?.parentId).toBe('coo-martin-hrudnik');
+    expect(nodeById.get('group-purchasing-director-zdenek-batek')?.parentId).toBe('coo-martin-hrudnik');
+    expect(nodeById.get('group-automotiveops-director-leos-pilnaj')?.parentId).toBe('coo-martin-hrudnik');
+    expect(nodeById.get('group-stock-service-director-pavel-pospisil')?.parentId).toBe('coo-martin-hrudnik');
+    expect(nodeById.get('group-internal-audit-director-lukas-chlup')?.parentId).toBe('coo-martin-hrudnik');
+    expect(nodeById.get('group-call-centre-director-petr-havel')?.parentId).toBe('co-ceo-karolina-topolova');
+    expect(nodeById.get('group-office-operations-director-michaela-kosinerova')?.parentId).toBe(
+      'co-ceo-karolina-topolova',
+    );
+    expect(nodeById.get('head-of-pmo-digital-transformation-daniel-farek')?.parentId).toBe(
+      'chief-innovation-officer-eldar-vagabov',
+    );
+    expect(nodeById.get('regional-marketing-manager-pl-marian-zielina')?.parentId).toBe(
+      'managing-director-pl-miroslav-vapenik',
+    );
+  });
+
+  it('keeps source-PDF duplicate cards as separate visible source nodes', () => {
+    const visibleNodes = SOURCE_ORGCHART.nodes.filter((node) => !(node as { sourceHidden?: boolean }).sourceHidden);
+    const nodeById = new Map(SOURCE_ORGCHART.nodes.map((node) => [node.id, node]));
+
+    expect(visibleNodes).toHaveLength(121);
+    expect(nodeById.get('group-it-development-project-manager-jakub-rehak')).toMatchObject({
+      title: 'Project Manager',
+      parentId: 'chief-executive-officer-zdenek-demeter',
+    });
+    expect(nodeById.get('group-buying-manager-martin-roudnicky')).toMatchObject({
+      parentId: 'group-purchasing-director-zdenek-batek',
+      country: '',
+    });
+    expect(nodeById.get('group-buying-manager-cz-martin-roudnicky')).toMatchObject({
+      parentId: 'managing-director-czsk-lubos-vorlik',
+      country: 'CZ',
+    });
+    expect(nodeById.get('group-stock-manager-josef-borovec')).toMatchObject({
+      parentId: 'group-stock-service-director-pavel-pospisil',
+      country: '',
+    });
+    expect(nodeById.get('group-stock-manager-cz-josef-borovec')).toMatchObject({
+      parentId: 'managing-director-czsk-lubos-vorlik',
+      country: 'CZ',
+    });
+    expect(nodeById.get('group-service-manager-miloslav-knap')).toMatchObject({
+      parentId: 'group-stock-service-director-pavel-pospisil',
+      country: '',
+    });
+    expect(nodeById.get('group-service-manager-cz-miloslav-knap')).toMatchObject({
+      parentId: 'managing-director-czsk-lubos-vorlik',
+      country: 'CZ',
+    });
+    expect(nodeById.get('back-office-manager-pl-agnieszka-romanska')).toMatchObject({
+      parentId: 'group-office-operations-director-michaela-kosinerova',
+    });
+    expect(nodeById.get('back-office-manager-pl-country-agnieszka-romanska')).toMatchObject({
+      parentId: 'managing-director-pl-miroslav-vapenik',
+      country: 'PL',
+    });
   });
 
   it('keeps Jan Jarma under Martina Kahulová as a confirmed HR branch correction', () => {

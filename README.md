@@ -1,6 +1,6 @@
 # Orgchart Builder
 
-Interaktivní webový editor organizační struktury **Aures Holdings** (118 karet, B-0 až B-4 úrovně, drag & drop reorganizace).
+Interaktivní webový editor organizační struktury **Aures Holdings** (121 viditelných karet, B-0 až B-4 úrovně, drag & drop reorganizace).
 
 **Live deploy:** https://ondradol.github.io/orgchart_builder/
 

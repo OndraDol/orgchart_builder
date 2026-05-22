@@ -43,6 +43,15 @@ describe('PDF source audit artifact', () => {
     ).toHaveLength(4);
   });
 
+  it('keeps card match candidates unique for each source node', () => {
+    expect(typedAudit.sourceNodeMatches).toBeDefined();
+
+    for (const match of typedAudit.sourceNodeMatches ?? []) {
+      const cardIndexes = match.cards.map((card) => card.cardIndex);
+      expect(new Set(cardIndexes).size).toBe(cardIndexes.length);
+    }
+  });
+
   it('records connector evidence for every source edge that can be checked against PDF geometry', () => {
     expect(typedAudit.sourceEdgeEvidence).toBeDefined();
     expect(
