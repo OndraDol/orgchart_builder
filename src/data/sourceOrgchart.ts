@@ -1,6 +1,839 @@
-import type { OrgChartDocument } from '../domain/orgchart';
+import type { OrgChartDocument, OrgNode } from '../domain/orgchart';
 import sourceParentOverrides from './sourceParentOverrides.json';
 import { SOURCE_POSITION_BY_ID } from './sourcePositions';
+
+type SourcePhonebookMetadata = Required<
+  Pick<OrgNode, 'phonebookPin' | 'employeeCountry' | 'companyId' | 'companyName' | 'phonebookManagerPin'>
+>;
+
+export const SOURCE_PHONEBOOK_METADATA_BY_ID: Record<string, SourcePhonebookMetadata> = {
+  "back-office-manager-pl-agnieszka-romanska": {
+    "phonebookPin": "27697",
+    "employeeCountry": "PL",
+    "companyId": "71",
+    "companyName": "AUTOCENTRUM AAA AUTO Spółka z o.o.",
+    "phonebookManagerPin": "5324"
+  },
+  "back-office-manager-pl-country-agnieszka-romanska": {
+    "phonebookPin": "27697",
+    "employeeCountry": "PL",
+    "companyId": "71",
+    "companyName": "AUTOCENTRUM AAA AUTO Spółka z o.o.",
+    "phonebookManagerPin": "5324"
+  },
+  "call-centre-manager-ostrava-jan-kovar": {
+    "phonebookPin": "4562",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27593"
+  },
+  "call-centre-manager-pl-kaminski-krystian": {
+    "phonebookPin": "23564",
+    "employeeCountry": "PL",
+    "companyId": "71",
+    "companyName": "AUTOCENTRUM AAA AUTO Spółka z o.o.",
+    "phonebookManagerPin": "27593"
+  },
+  "call-centre-manager-praha-petr-vik": {
+    "phonebookPin": "4269",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27593"
+  },
+  "cars-administration-manager-michaela-beckova": {
+    "phonebookPin": "30478",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "5324"
+  },
+  "cars-administration-manager-sk-katarina-nemcova": {
+    "phonebookPin": "5926",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "5324"
+  },
+  "cash-control-bank-operations-manager-martina-semradova": {
+    "phonebookPin": "27436",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "33816"
+  },
+  "cfo-marko-tapio-lehtonen": {
+    "phonebookPin": "32919",
+    "employeeCountry": "CZ",
+    "companyId": "87",
+    "companyName": "AURES Holdings",
+    "phonebookManagerPin": "1334"
+  },
+  "co-ceo-karolina-topolova": {
+    "phonebookPin": "1334",
+    "employeeCountry": "CZ",
+    "companyId": "87",
+    "companyName": "AURES Holdings",
+    "phonebookManagerPin": "1334"
+  },
+  "co-ceo-petr-vanecek": {
+    "phonebookPin": "1431",
+    "employeeCountry": "CZ",
+    "companyId": "87",
+    "companyName": "AURES Holdings",
+    "phonebookManagerPin": "1334"
+  },
+  "coo-martin-hrudnik": {
+    "phonebookPin": "1117",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1334"
+  },
+  "country-business-manager-sk-radoslav-skalos": {
+    "phonebookPin": "17398",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "3762"
+  },
+  "country-buying-manager-hu-ondrej-suba": {
+    "phonebookPin": "17837",
+    "employeeCountry": "HU",
+    "companyId": "97",
+    "companyName": "AAA Auto (SK externisti)",
+    "phonebookManagerPin": "1427"
+  },
+  "country-buying-manager-sk-robert-wiedner": {
+    "phonebookPin": "23234",
+    "employeeCountry": "SK",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "country-fi-manager-cz-david-hlavnicka": {
+    "phonebookPin": "2243",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "12414"
+  },
+  "country-fi-manager-sk-martin-bulicek": {
+    "phonebookPin": "13503",
+    "employeeCountry": "SK",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "12414"
+  },
+  "country-fi-relationship-manager-pl-pawel-molasy": {
+    "phonebookPin": "70055",
+    "employeeCountry": "PL",
+    "companyId": "98",
+    "companyName": "AAA Auto (PL externisti)",
+    "phonebookManagerPin": "12414"
+  },
+  "country-hq-manager-pl-michal-wlodarczyk": {
+    "phonebookPin": "25978",
+    "employeeCountry": "PL",
+    "companyId": "98",
+    "companyName": "AAA Auto (PL externisti)",
+    "phonebookManagerPin": "12336"
+  },
+  "country-ops-manager-jan-sokola": {
+    "phonebookPin": "9280",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "country-ops-manager-pl-lukas-jonsta": {
+    "phonebookPin": "3174",
+    "employeeCountry": "PL",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "country-payroll-manager-czsk-jitka-horejsi": {
+    "phonebookPin": "110197",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1152"
+  },
+  "country-personnel-staffing-manager-pl-barbara-wolska": {
+    "phonebookPin": "35309",
+    "employeeCountry": "PL",
+    "companyId": "71",
+    "companyName": "AUTOCENTRUM AAA AUTO Spółka z o.o.",
+    "phonebookManagerPin": "1152"
+  },
+  "country-personnel-staffing-manager-sk-kristina-drskova": {
+    "phonebookPin": "10410",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "1152"
+  },
+  "country-sales-manager-jiri-pokorak": {
+    "phonebookPin": "3004",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "country-sales-manager-pl-jiri-vavra": {
+    "phonebookPin": "7222",
+    "employeeCountry": "PL",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "country-sales-manager-sk-martin-medek": {
+    "phonebookPin": "12614",
+    "employeeCountry": "SK",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "country-service-manager-pl-filip-pavlovcin": {
+    "phonebookPin": "7240",
+    "employeeCountry": "PL",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "13243"
+  },
+  "country-service-manager-sk-michal-kossi": {
+    "phonebookPin": "18048",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "13243"
+  },
+  "country-stock-manager-pl-david-poncza": {
+    "phonebookPin": "2095",
+    "employeeCountry": "PL",
+    "companyId": "98",
+    "companyName": "AAA Auto (PL externisti)",
+    "phonebookManagerPin": "1588"
+  },
+  "country-stock-manager-sk-bronislav-kroneisl": {
+    "phonebookPin": "2902",
+    "employeeCountry": "SK",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "development-manager-pl-weronika-szmanda": {
+    "phonebookPin": "27732",
+    "employeeCountry": "PL",
+    "companyId": "98",
+    "companyName": "AAA Auto (PL externisti)",
+    "phonebookManagerPin": "32489"
+  },
+  "facility-construction-manager-sk-pavol-rodina": {
+    "phonebookPin": "18598",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "23912"
+  },
+  "financial-accounting-manager-cz-renata-havlova": {
+    "phonebookPin": "9076",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "33816"
+  },
+  "financial-accounting-manager-pl-cegiel-klemens": {
+    "phonebookPin": "34776",
+    "employeeCountry": "PL",
+    "companyId": "71",
+    "companyName": "AUTOCENTRUM AAA AUTO Spółka z o.o.",
+    "phonebookManagerPin": "33816"
+  },
+  "financial-accounting-manager-sk-danko-beran": {
+    "phonebookPin": "17256",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "33816"
+  },
+  "general-manager-export-robert-radler": {
+    "phonebookPin": "110709",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "7042"
+  },
+  "general-manager-mototechna-2-michal-gabrhel": {
+    "phonebookPin": "111056",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "11908"
+  },
+  "group-acquisition-manager-lukas-novotny": {
+    "phonebookPin": "6614",
+    "employeeCountry": "CZ",
+    "companyId": "96",
+    "companyName": "AURES Holdings (CZ externisti)",
+    "phonebookManagerPin": "25965"
+  },
+  "group-automotiveops-director-leos-pilnaj": {
+    "phonebookPin": "9362",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "group-b2b-development-manager-jan-vacha": {
+    "phonebookPin": "8185",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-back-office-manager-pavla-smrckova": {
+    "phonebookPin": "5324",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "110813"
+  },
+  "group-business-controlling-manager-jan-moravec": {
+    "phonebookPin": "110507",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "12414"
+  },
+  "group-business-development-director-david-cizek": {
+    "phonebookPin": "25965",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "25965"
+  },
+  "group-business-express-store-manager-petr-neckar": {
+    "phonebookPin": "13724",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "group-buying-manager-cz-martin-roudnicky": {
+    "phonebookPin": "4389",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-buying-manager-martin-roudnicky": {
+    "phonebookPin": "4389",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-call-centre-director-petr-havel": {
+    "phonebookPin": "27593",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27593"
+  },
+  "group-call-centre-manager-vojtech-torac": {
+    "phonebookPin": "3597",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27593"
+  },
+  "group-car-sales-director-daniel-lunacek": {
+    "phonebookPin": "2559",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "group-company-cars-manager-jan-vojtech": {
+    "phonebookPin": "12291",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "110813"
+  },
+  "group-consolidation-tax-director-vojtech-karban": {
+    "phonebookPin": "23275",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "32919"
+  },
+  "group-creative-director-jan-metelka": {
+    "phonebookPin": "13558",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-customer-care-manager-libor-muller": {
+    "phonebookPin": "11374",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "2559"
+  },
+  "group-customer-experience-manager-jan-preclik": {
+    "phonebookPin": "30679",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-development-manager-petr-havlik": {
+    "phonebookPin": "4160",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "group-export-import-director-dusan-prochazka": {
+    "phonebookPin": "7042",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1117"
+  },
+  "group-facility-construction-manager-petr-rinda": {
+    "phonebookPin": "23912",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "25965"
+  },
+  "group-fi-upsale-compliance-manager-lukas-faltus": {
+    "phonebookPin": "12001",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "12414"
+  },
+  "group-finance-operations-frantisek-klufa": {
+    "phonebookPin": "33816",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "32919"
+  },
+  "group-financial-services-director-milan-dedecek": {
+    "phonebookPin": "12414",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "12414"
+  },
+  "group-fleet-rent-manager-tomas-preus": {
+    "phonebookPin": "23574",
+    "employeeCountry": "CZ",
+    "companyId": "24",
+    "companyName": "Mototechna Drive s.r.o.",
+    "phonebookManagerPin": "11908"
+  },
+  "group-internal-audit-director-lukas-chlup": {
+    "phonebookPin": "34846",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1117"
+  },
+  "group-it-development-director-robert-smol": {
+    "phonebookPin": "30798",
+    "employeeCountry": "CZ",
+    "companyId": "92",
+    "companyName": "AURES ICT (CZ externisti)",
+    "phonebookManagerPin": "3968"
+  },
+  "group-it-development-project-manager-jakub-rehak": {
+    "phonebookPin": "23940",
+    "employeeCountry": "CZ",
+    "companyId": "93",
+    "companyName": "RESULMATIC (CZ externisti)",
+    "phonebookManagerPin": "30490"
+  },
+  "group-it-infrastructure-manager-ivo-baxant": {
+    "phonebookPin": "4255",
+    "employeeCountry": "CZ",
+    "companyId": "27",
+    "companyName": "AURES ICT s.r.o.",
+    "phonebookManagerPin": "3968"
+  },
+  "group-it-project-manager-martin-slaby": {
+    "phonebookPin": "23947",
+    "employeeCountry": "CZ",
+    "companyId": "27",
+    "companyName": "AURES ICT s.r.o.",
+    "phonebookManagerPin": "3968"
+  },
+  "group-logistics-manager-alexandr-jordanov": {
+    "phonebookPin": "13116",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-marketing-operations-manager-david-reich": {
+    "phonebookPin": "27487",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-mobile-buying-manager-michal-dyrsmid": {
+    "phonebookPin": "13263",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-office-operations-director-michaela-kosinerova": {
+    "phonebookPin": "110813",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "110813"
+  },
+  "group-personnel-payroll-manager-martina-kahulova": {
+    "phonebookPin": "1152",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "34488"
+  },
+  "group-pr-manager-lucie-brychtova": {
+    "phonebookPin": "14192",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-pricing-manager-pavel-kreibich": {
+    "phonebookPin": "1314",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-procurement-cost-control-manager-martin-leipner": {
+    "phonebookPin": "31036",
+    "employeeCountry": "CZ",
+    "companyId": "96",
+    "companyName": "AURES Holdings (CZ externisti)",
+    "phonebookManagerPin": "110813"
+  },
+  "group-product-brand-manager-jakub-matuska": {
+    "phonebookPin": "12381",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-purchasing-director-zdenek-batek": {
+    "phonebookPin": "9934",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-security-manager-alan-dobes": {
+    "phonebookPin": "9278",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "25965"
+  },
+  "group-segment-manager-czskpl-stanislav-otcenasek": {
+    "phonebookPin": "11887",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "group-segment-manager-david-chvojka": {
+    "phonebookPin": "110651",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "11908"
+  },
+  "group-service-manager-cz-miloslav-knap": {
+    "phonebookPin": "13243",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-service-manager-miloslav-knap": {
+    "phonebookPin": "13243",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-staffing-manager-zuzana-vobornikova": {
+    "phonebookPin": "2488",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "34488"
+  },
+  "group-stock-manager-cz-josef-borovec": {
+    "phonebookPin": "1032",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-stock-manager-josef-borovec": {
+    "phonebookPin": "1032",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-stock-service-director-pavel-pospisil": {
+    "phonebookPin": "1588",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-training-development-manager-michal-mestek": {
+    "phonebookPin": "9259",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "34488"
+  },
+  "group-warehouse-archive-manager-ludvik-zawora": {
+    "phonebookPin": "26142",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "110813"
+  },
+  "group-warehouse-manager-lubos-stangler": {
+    "phonebookPin": "110165",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1588"
+  },
+  "group-web-direct-marketing-manager-martin-tampir": {
+    "phonebookPin": "3391",
+    "employeeCountry": "CZ",
+    "companyId": "27",
+    "companyName": "AURES ICT s.r.o.",
+    "phonebookManagerPin": "27487"
+  },
+  "group-web-manager-czskplhu-ondrej-bober": {
+    "phonebookPin": "32489",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "25965"
+  },
+  "group-web-photo-manager-frantisek-kudrna": {
+    "phonebookPin": "12184",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "head-of-analytics-david-tatar": {
+    "phonebookPin": "110091",
+    "employeeCountry": "CZ",
+    "companyId": "26",
+    "companyName": "RESULMATIC s.r.o.",
+    "phonebookManagerPin": "30490"
+  },
+  "head-of-bi-petronela-hubocanova": {
+    "phonebookPin": "28426",
+    "employeeCountry": "CZ",
+    "companyId": "26",
+    "companyName": "RESULMATIC s.r.o.",
+    "phonebookManagerPin": "30490"
+  },
+  "head-of-pmo-digital-transformation-daniel-farek": {
+    "phonebookPin": "28493",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "28021"
+  },
+  "hr-project-manager-katerina-kvapilova": {
+    "phonebookPin": "12604",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "34488"
+  },
+  "hr-team-leader-jan-jarma": {
+    "phonebookPin": "110859",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1152"
+  },
+  "chief-digital-officer-milan-jezek": {
+    "phonebookPin": "35240",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "35240"
+  },
+  "chief-executive-officer-zdenek-demeter": {
+    "phonebookPin": "30490",
+    "employeeCountry": "CZ",
+    "companyId": "26",
+    "companyName": "RESULMATIC s.r.o.",
+    "phonebookManagerPin": "30490"
+  },
+  "chief-hr-officer-marie-vorsilkova": {
+    "phonebookPin": "34488",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "34488"
+  },
+  "chief-information-officer-jiri-cabradek": {
+    "phonebookPin": "3968",
+    "employeeCountry": "CZ",
+    "companyId": "27",
+    "companyName": "AURES ICT s.r.o.",
+    "phonebookManagerPin": "3968"
+  },
+  "chief-innovation-officer-eldar-vagabov": {
+    "phonebookPin": "28021",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "28021"
+  },
+  "chief-legal-officer-lenka-zajickova": {
+    "phonebookPin": "12336",
+    "employeeCountry": "CZ",
+    "companyId": "96",
+    "companyName": "AURES Holdings (CZ externisti)",
+    "phonebookManagerPin": "12336"
+  },
+  "chief-performance-officer-jiri-trnka": {
+    "phonebookPin": "5142",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1334"
+  },
+  "import-manager-filip-kvarda": {
+    "phonebookPin": "110963",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "7042"
+  },
+  "legal-manager-sk-emilia-kosibova": {
+    "phonebookPin": "9824",
+    "employeeCountry": "SK",
+    "companyId": "97",
+    "companyName": "AAA Auto (SK externisti)",
+    "phonebookManagerPin": "12336"
+  },
+  "managing-director-czsk-lubos-vorlik": {
+    "phonebookPin": "3762",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1431"
+  },
+  "managing-director-mototechna-drive-jan-hruby": {
+    "phonebookPin": "11908",
+    "employeeCountry": "CZ",
+    "companyId": "24",
+    "companyName": "Mototechna Drive s.r.o.",
+    "phonebookManagerPin": "11908"
+  },
+  "managing-director-pl-miroslav-vapenik": {
+    "phonebookPin": "8850",
+    "employeeCountry": "PL",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "1431"
+  },
+  "office-manager-renata-liskova": {
+    "phonebookPin": "110657",
+    "employeeCountry": "CZ",
+    "companyId": "27",
+    "companyName": "AURES ICT s.r.o.",
+    "phonebookManagerPin": "3968"
+  },
+  "regional-marketing-manager-michal-krulis": {
+    "phonebookPin": "111033",
+    "employeeCountry": "CZ",
+    "companyId": "96",
+    "companyName": "AURES Holdings (CZ externisti)",
+    "phonebookManagerPin": "27487"
+  },
+  "regional-marketing-manager-pl-marian-zielina": {
+    "phonebookPin": "27266",
+    "employeeCountry": "PL",
+    "companyId": "98",
+    "companyName": "AAA Auto (PL externisti)",
+    "phonebookManagerPin": "27487"
+  },
+  "regional-mototechna-manager-sk-jan-tichy": {
+    "phonebookPin": "17830",
+    "employeeCountry": "SK",
+    "companyId": "46",
+    "companyName": "Mototechna Group s.r.o. – organizační zložka",
+    "phonebookManagerPin": "11908"
+  },
+  "regional-ops-manager-sk-juraj-chrast": {
+    "phonebookPin": "17695",
+    "employeeCountry": "SK",
+    "companyId": "97",
+    "companyName": "AAA Auto (SK externisti)",
+    "phonebookManagerPin": "9362"
+  },
+  "regional-ops-manager-sk-michal-ledvenyi": {
+    "phonebookPin": "5658",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "regional-ops-manager-sk-milos-vitko": {
+    "phonebookPin": "20167",
+    "employeeCountry": "SK",
+    "companyId": "44",
+    "companyName": "AUTOCENTRUM AAA AUTO a. s.",
+    "phonebookManagerPin": "9362"
+  },
+  "senior-analyst-jindrich-topol": {
+    "phonebookPin": "7556",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "9934"
+  },
+  "swap-manager-de-michal-valka": {
+    "phonebookPin": "1427",
+    "employeeCountry": "CZ",
+    "companyId": "23",
+    "companyName": "AURES Holdings a. s.",
+    "phonebookManagerPin": "7042"
+  }
+};
 
 const SOURCE_ORGCHART_BASE: OrgChartDocument = {
   schemaVersion: 5,
@@ -551,7 +1384,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-call-centre-director-petr-havel',
       title: 'Call Centre Manager Praha',
       person: 'Petr Vik',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: 'CZ',
       regio: 'Praha',
       color: 'standard',
@@ -563,7 +1396,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-call-centre-director-petr-havel',
       title: 'Call Centre Manager Ostrava',
       person: 'Jan Kovář',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: 'CZ',
       regio: 'Ostrava',
       color: 'standard',
@@ -577,7 +1410,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'coo-martin-hrudnik',
       title: 'Group Export & Import Director',
       person: 'Dušan Procházka',
-      levelType: 'B-1',
+      levelType: 'B-2',
       country: '',
       regio: '',
       color: 'manager',
@@ -589,7 +1422,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-export-import-director-dusan-prochazka',
       title: 'Import Manager',
       person: 'Filip Kvarda',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -601,7 +1434,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-export-import-director-dusan-prochazka',
       title: 'General Manager_Export',
       person: 'Robert Radler',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -615,7 +1448,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-personnel-payroll-manager-martina-kahulova',
       title: 'Country Payroll Manager CZ+SK',
       person: 'Jitka Hořejší',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: 'CZ/SK',
       regio: '',
       color: 'standard',
@@ -639,7 +1472,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'HR Team Leader',
       person: 'Jan Jarma',
-      levelType: 'B-2',
+      levelType: 'B-4',
       country: 'CZ',
       regio: '',
       color: 'standard',
@@ -703,7 +1536,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-mototechna-drive-jan-hruby',
       title: 'General Manager Mototechna 2.0',
       person: 'Michal Gabrhel',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -741,7 +1574,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'chief-executive-officer-zdenek-demeter',
       title: 'Head of BI',
       person: 'Petronela Hubočanová',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -765,7 +1598,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'chief-information-officer-jiri-cabradek',
       title: 'Office Manager',
       person: 'Renata Lišková',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -817,7 +1650,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-business-development-director-david-cizek',
       title: 'Group Marketing Operations Manager',
       person: 'David Reich',
-      levelType: 'B-2',
+      levelType: 'B-1',
       country: '',
       regio: '',
       color: 'standard',
@@ -865,7 +1698,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-marketing-operations-manager-david-reich',
       title: 'Group PR Manager',
       person: 'Lucie Brychtová',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -889,7 +1722,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-business-development-director-david-cizek',
       title: 'Development Operations Manager CZ/SK/PL/HU',
       person: 'Ondrej Bober',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: 'CZ/SK/PL/HU',
       regio: '',
       color: 'standard',
@@ -901,7 +1734,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-mototechna-drive-jan-hruby',
       title: 'Group Segment Manager',
       person: 'David Chvojka',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -913,7 +1746,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Regional Marketing Manager',
       person: 'Michal Kruliš',
-      levelType: 'B-2',
+      levelType: 'BXX',
       country: 'CZ',
       regio: '',
       color: 'standard',
@@ -939,7 +1772,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'back-office-manager-pl-agnieszka-romanska',
       title: 'Cars Administration Manager',
       person: 'Michaela Bečková',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: 'CZ',
       regio: '',
       color: 'standard',
@@ -975,7 +1808,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-office-operations-director-michaela-kosinerova',
       title: 'Group Back Office Manager',
       person: 'Pavla Smrčková',
-      levelType: 'B-2',
+      levelType: 'B-3',
       country: '',
       regio: '',
       color: 'standard',
@@ -999,7 +1832,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-office-operations-director-michaela-kosinerova',
       title: 'Back Office Manager_PL',
       person: 'Agnieszka Romańska',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1143,7 +1976,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       order: 30,
     },
 
-    // B-3 pod Luboš Vorlík (Managing Director CZ/SK) — SK pozice
+    // SK role-scope positions under Luboš Vorlík (Managing Director CZ/SK); B levels come from Phonebook.
     {
       id: 'country-business-manager-sk-radoslav-skalos',
       parentId: 'managing-director-czsk-lubos-vorlik',
@@ -1161,7 +1994,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country Sales Manager',
       person: 'Martin Medek',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1173,7 +2006,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country Buying Manager',
       person: 'Robert Wiedner',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1221,7 +2054,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country Stock Manager',
       person: 'Bronislav Kroneisl',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1233,7 +2066,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country Service Manager',
       person: 'Michal Kóssi',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1245,7 +2078,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Country F&I Manager',
       person: 'Martin Bulíček',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1281,7 +2114,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-business-development-director-david-cizek',
       title: 'Facility & Construction Manager',
       person: 'Pavol Rodina',
-      levelType: 'B-3',
+      levelType: 'BXX',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1317,7 +2150,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-czsk-lubos-vorlik',
       title: 'Financial Accounting Manager',
       person: 'Danko Beran',
-      levelType: 'B-3',
+      levelType: 'B-2',
       country: 'SK',
       regio: '',
       color: 'manager',
@@ -1325,7 +2158,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       order: 150,
     },
 
-    // B-4 / Specialist — PL pod Miroslav Vápeník (MD PL) + DE + HU
+    // PL + DE + HU role-scope positions under Miroslav Vápeník (MD PL); B levels come from Phonebook.
     {
       id: 'managing-director-pl-miroslav-vapenik',
       parentId: 'co-ceo-petr-vanecek',
@@ -1343,7 +2176,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country Sales Manager',
       person: 'Jiří Vávra',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1367,7 +2200,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country OPS Manager',
       person: 'Lukáš Jonšta',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1379,7 +2212,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country Stock Manager',
       person: 'David Poncza',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1391,7 +2224,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country Service Manager',
       person: 'Filip Pavlovčin',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1403,7 +2236,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Call Centre Manager',
       person: 'Kamiński Krystian',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1415,7 +2248,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country HQ Manager',
       person: 'Michał Włodarczyk',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1427,7 +2260,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country F&I and Relationship Manager',
       person: 'Pawel Molasy',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1439,7 +2272,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Regional Marketing Manager',
       person: 'Marian Zielina',
-      levelType: 'B-4',
+      levelType: 'BXX',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1451,7 +2284,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-business-development-director-david-cizek',
       title: 'Development Manager',
       person: 'Weronika Szmańda',
-      levelType: 'B-4',
+      levelType: 'BXX',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1463,7 +2296,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Country Personnel & Staffing Manager',
       person: 'Barbara Wolska',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1475,7 +2308,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Financial Accounting Manager',
       person: 'Cegiel Klemens',
-      levelType: 'B-4',
+      levelType: 'B-2',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1487,7 +2320,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'managing-director-pl-miroslav-vapenik',
       title: 'Back Office Manager_PL',
       person: 'Agnieszka Romańska',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'PL',
       regio: '',
       color: 'country',
@@ -1499,7 +2332,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'group-export-import-director-dusan-prochazka',
       title: 'SWAP Manager',
       person: 'Michal Válka',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'DE',
       regio: '',
       color: 'country',
@@ -1511,7 +2344,7 @@ const SOURCE_ORGCHART_BASE: OrgChartDocument = {
       parentId: 'swap-manager-de-michal-valka',
       title: 'Country Buying Manager',
       person: 'Ondrej Šuba',
-      levelType: 'B-4',
+      levelType: 'B-3',
       country: 'HU',
       regio: '',
       color: 'country',
@@ -1531,11 +2364,16 @@ export const SOURCE_ORGCHART: OrgChartDocument = {
     const confirmedParentId = SOURCE_PARENT_OVERRIDE_BY_CHILD_ID.get(node.id);
     const nodeWithConfirmedParent = confirmedParentId ? { ...node, parentId: confirmedParentId } : node;
 
-    if (nodeWithConfirmedParent.id === 'holding-aures') {
-      return { ...nodeWithConfirmedParent, sourceHidden: true };
+    const phonebookMetadata = SOURCE_PHONEBOOK_METADATA_BY_ID[nodeWithConfirmedParent.id];
+    const nodeWithPhonebookMetadata = phonebookMetadata
+      ? { ...nodeWithConfirmedParent, ...phonebookMetadata }
+      : nodeWithConfirmedParent;
+
+    if (nodeWithPhonebookMetadata.id === 'holding-aures') {
+      return { ...nodeWithPhonebookMetadata, sourceHidden: true };
     }
 
-    const sourcePosition = SOURCE_POSITION_BY_ID[nodeWithConfirmedParent.id];
-    return sourcePosition ? { ...nodeWithConfirmedParent, sourcePosition } : nodeWithConfirmedParent;
+    const sourcePosition = SOURCE_POSITION_BY_ID[nodeWithPhonebookMetadata.id];
+    return sourcePosition ? { ...nodeWithPhonebookMetadata, sourcePosition } : nodeWithPhonebookMetadata;
   }),
 };

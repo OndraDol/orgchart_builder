@@ -10,10 +10,10 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 ## Aktuální stav (2026-05-22)
 
 - **Live deploy:** https://ondradol.github.io/orgchart_builder/
-- **Dataset:** 122 uzlů ve `src/data/sourceOrgchart.ts` včetně skrytého technického kořene, 121 viditelných PDF karet, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
-- **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant), volitelné `countries`
+- **Dataset:** 122 uzlů ve `src/data/sourceOrgchart.ts` včetně skrytého technického kořene, 121 viditelných PDF karet, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`, Phonebook metadata (`phonebookPin`, `employeeCountry`, `companyId`, `companyName`, `phonebookManagerPin`)
+- **Doménový model:** B-0 .. B-4 + BXX úrovně, 7 barevných tokenů, status (active/planned/vacant), volitelné `countries`, Phonebook metadata
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 116/116 zelených
+- **Testy:** 132/132 zelených
 
 ## Architektura
 
@@ -50,14 +50,18 @@ src/
 
 ## Co je hotovo
 
-- Doménový model B-0 až B-4 s validací
+- Doménový model B-0 až B-4 + BXX s validací
 - 121 viditelných karet podle PDF + audit z PDF connector geometry
 - Audit gate: 0 unsupported source edges, 0 unresolved parent links; 4 skipped edges are synthetic root links
-- Confirmed override: Jan Jarma -> Martina Kahulová
+- Confirmed overrides:
+  - Jan Jarma (`hr-team-leader-jan-jarma`) -> Martina Kahulová (`group-personnel-payroll-manager-martina-kahulova`)
+  - Agnieszka Romańska duplicate PL country row (`back-office-manager-pl-country-agnieszka-romanska`) -> Miroslav Vápeník (`managing-director-pl-miroslav-vapenik`)
 - Schema v5: `sourcePosition`, manual `position`, `sourceHidden`, confirmed parent override layer
 - Default/fallback zobrazeni `Auto strom`; posledni volba `PDF zdroj` / `Auto strom` se pamatuje v localStorage
 - View-only country filtr `All/CZ/SK/PL`; filtrovaný pohled ukazuje matching karty plus ancestor path a nijak neřeže uložený/exportovaný dataset
 - Multi-country editace v pravém panelu (`CZ/SK/PL/DE/HU`), `countries` je autoritativní hodnota a legacy `country` string se drží synchronizovaný
+- `country` / `countries` jsou role scope pro filtraci; Phonebook employee metadata (`employeeCountry`, `companyId`, `companyName`, `phonebookPin`, `phonebookManagerPin`) je uložené odděleně
+- Phonebook manager relationships and PDF/source parent links differ. The source `parentId` still represents the current app tree. `phonebookManagerPin` records the authoritative Phonebook manager for future migration or a dedicated Phonebook hierarchy view.
 - Nová karta vytvořená ve filtrovaném CZ/SK/PL pohledu automaticky dostane odpovídající country flag
 - Modern indigo theme, glass toolbar, level stripes
 - Plně česká lokalizace + plurály
@@ -76,7 +80,7 @@ src/
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 116 testů
+- 132 testů
 
 ## Co NENÍ hotovo
 
@@ -91,11 +95,14 @@ src/
 ## Doporučené další kroky
 
 ### Priority 1 — Datový audit
-1. **B-úrovně z AAAUTO Phonebook** — projít každou kartu, ověřit B-úroveň proti internímu phonebooku.
+1. **Zbývající Phonebook audit** — B-úrovně z Phonebooku jsou aplikované a otestované; ručně dořešit jen unmatched/manual položky. Ve zdroji zatím nebyli nalezeni mezi active Phonebook osobami:
+   - Radek Němeček
+   - Jiří Gross
+   - Aleš Doudlebský
 2. **Parent-child napojení** — některé karty mají interpretované parent vztahy z PDF/JPG vizuálu (např. country managers funkčně vs. country MD). Sporné jsou:
-   - Petr Vik, Jan Kovář, Petr Rinda (CZ B-2) — funkční pod Group X, nebo country pod Vorlík?
+   - Petr Vik, Jan Kovář (CZ B-3), Petr Rinda (CZ B-2) — funkční pod Group X, nebo country pod Vorlík?
    - Robert Šmol, Vojtěch Karban (Director-level B-2) — možná by měli být B-1
-3. **Doplnit chybějící osoby** — pokud Phonebook ukáže, že tam ještě někdo není (Phonebook auth-gated, vyžaduje uživatele)
+3. **Doplnit chybějící osoby** — pokud navazující audit ukáže další osoby mimo active Phonebook dataset (Phonebook auth-gated, vyžaduje uživatele)
 
 ### Priority 2 — UX
 1. **Redo tlačítko** v toolbaru

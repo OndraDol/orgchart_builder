@@ -40,6 +40,7 @@ export function EditorPanel({
   onSaveDraft,
 }: EditorPanelProps) {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const roleScopeLabel = 'Role scope';
 
   useEffect(() => {
     if (isDraft && titleInputRef.current) {
@@ -133,14 +134,14 @@ export function EditorPanel({
           </select>
         </label>
         <fieldset className="country-checks">
-          <legend>{messages.editor.country}</legend>
+          <legend>{roleScopeLabel}</legend>
           <div>
             {COUNTRY_CODES.map((country) => (
               <label key={country}>
                 <input
                   type="checkbox"
                   checked={selectedCountries.includes(country)}
-                  aria-label={messages.editor.countryAria(country)}
+                  aria-label={`${roleScopeLabel} ${country}`}
                   onChange={updateCountry(country)}
                 />
                 <span>{country}</span>

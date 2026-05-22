@@ -31,8 +31,9 @@ Chart JSON a layout preference se ukládají odděleně. `orgchart-builder.chart
 
 `src/data/sourceParentOverrides.json` obsahuje potvrzené opravy pro případy, kde PDF/VSD geometrie napojuje kartu do více connector komponent a automatická inference by mohla vybrat špatného parenta. `SOURCE_ORGCHART` aplikuje tyto overrides při exportu výchozího datasetu a audit je zapisuje jako `confirmedOverride`.
 
-Aktuální potvrzená oprava:
+Aktuální potvrzené opravy:
 - Jan Jarma (`hr-team-leader-jan-jarma`) → Martina Kahulová (`group-personnel-payroll-manager-martina-kahulova`)
+- Agnieszka Romańska duplicate PL country row (`back-office-manager-pl-country-agnieszka-romanska`) → Miroslav Vápeník (`managing-director-pl-miroslav-vapenik`)
 
 ## OrgNode
 
@@ -44,8 +45,14 @@ interface OrgNode {
   parentId: string | null;                 // ID rodiče, null = root
   title: string;                           // pracovní titul (např. "Group Car Sales Director")
   person: string;                          // jméno osoby ("Daniel Luňáček"), prázdné = vacant
-  levelType: 'B-0' | 'B-1' | 'B-2' | 'B-3' | 'B-4';  // org úroveň
-  country: string;                         // 'CZ', 'SK', 'PL', 'DE', 'HU', 'CZ/SK', 'CZ/SK/PL', 'CZ/SK/PL/HU', nebo ''
+  levelType: 'B-0' | 'B-1' | 'B-2' | 'B-3' | 'B-4' | 'BXX';  // Phonebook B-level
+  country: string;                         // role scope: 'CZ', 'SK', 'PL', 'DE', 'HU', 'CZ/SK', 'CZ/SK/PL', 'CZ/SK/PL/HU', nebo ''
+  countries?: CountryCode[];               // normalizovaný role scope pro filtraci
+  phonebookPin?: string;                   // Phonebook employee PIN
+  employeeCountry?: CountryCode;           // Phonebook legal-entity country
+  companyId?: string;                      // Phonebook company ID
+  companyName?: string;                    // Phonebook company name
+  phonebookManagerPin?: string;            // Phonebook manager PIN
   regio: string;                           // region v rámci země (např. 'Praha', 'Ostrava'), volitelné
   color: CardColorTokenId;                 // 'executive' | 'manager' | 'standard' | 'planned' | 'country' | 'regio' | 'neutral'
   status: 'active' | 'planned' | 'vacant'; // stav obsazení
@@ -56,20 +63,30 @@ interface OrgNode {
 }
 ```
 
-## LEVEL_TYPES (B-úrovně)
+`country` / `countries` represent role scope used by app filtering. They do not represent employee legal-entity country.
 
-```typescript
-const LEVEL_TYPES = ['B-0', 'B-1', 'B-2', 'B-3', 'B-4'] as const;
-```
+Phonebook employee metadata is stored separately:
+- `employeeCountry`
+- `companyId`
+- `companyName`
+- `phonebookPin`
+- `phonebookManagerPin`
 
-Sémantika (per AAAUTO interní codebook):
-- **B-0** — Top management (CO-CEOs, COO, CFO, Aures Holdings root)
-- **B-1** — Chief Officers, Managing Directors, Group Directors
-- **B-2** — Group Managers, Country-level senior pozice (Managing Director country level)
-- **B-3** — SK country management (Country X Manager SK)
-- **B-4** — PL country management + DE/HU manageři (Specialist level)
+## LEVEL_TYPES (B-levels)
 
-**Vizuálně:** každá karta má levý pásek v barvě své úrovně (B-0 indigo, B-1 cyan, B-2 green, B-3 amber, B-4 pink) + badge v meta řádce.
+`levelType` is the B level used by Phonebook. Phonebook fields `str21_dop` / `OData__x0053_TR21` are authoritative for seeded source data.
+
+Allowed values:
+- `B-0`
+- `B-1`
+- `B-2`
+- `B-3`
+- `B-4`
+- `BXX`
+
+Do not infer B level from country rows. SK and PL country roles can be `B-2`, `B-3`, or `BXX` depending on Phonebook.
+
+**Vizuálně:** B-0 až B-4 mají explicitní barvu levého pásku (B-0 indigo, B-1 cyan, B-2 green, B-3 amber, B-4 pink). `BXX` je validní hodnota a zobrazuje se jako badge/default styling, dokud nebude přidán samostatný vizuální styl.
 
 ## CARD_COLOR_TOKENS
 
@@ -125,7 +142,7 @@ Pro update karty v editoru:
 
 ```typescript
 type SelectedNodePatch = Partial<Pick<OrgNode,
-  'title' | 'person' | 'levelType' | 'country' | 'regio' | 'color' | 'status'
+  'title' | 'person' | 'levelType' | 'country' | 'countries' | 'regio' | 'color' | 'status'
 >>;
 ```
 
@@ -135,7 +152,7 @@ type SelectedNodePatch = Partial<Pick<OrgNode,
 
 `chartValidation.ts:validateChartDocument` kontroluje:
 
-1. **Schema version** — musí být `3`
+1. **Schema version** — musí být `5`
 2. **Single root** — přesně jeden node s `parentId === null`
 3. **Unique IDs** — žádné duplicity
 4. **Valid parent references** — všechny `parentId` musí ukazovat na existující ID
@@ -200,14 +217,14 @@ type SelectedNodePatch = Partial<Pick<OrgNode,
 }
 ```
 
-**B-3 Country (SK):**
+**B-2 Country scope (SK, Phonebook level):**
 ```typescript
 {
   id: 'country-sales-manager-sk-martin-medek',
   parentId: 'managing-director-czsk-lubos-vorlik',
   title: 'Country Sales Manager',
   person: 'Martin Medek',
-  levelType: 'B-3',
+  levelType: 'B-2',
   country: 'SK',
   regio: '',
   color: 'manager',
@@ -216,14 +233,14 @@ type SelectedNodePatch = Partial<Pick<OrgNode,
 }
 ```
 
-**B-4 Specialist (PL):**
+**B-2 Country scope (PL, Phonebook level):**
 ```typescript
 {
   id: 'country-sales-manager-pl-jiri-vavra',
   parentId: 'managing-director-pl-miroslav-vapenik',
   title: 'Country Sales Manager',
   person: 'Jiří Vávra',
-  levelType: 'B-4',
+  levelType: 'B-2',
   country: 'PL',
   regio: '',
   color: 'country',

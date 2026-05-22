@@ -46,6 +46,12 @@ const isValidNode = (value: unknown): value is OrgNode => {
     levelTypes.has(value.levelType as OrgNodeLevelType) &&
     isString(value.country) &&
     (value.countries === undefined || isCountryCodeArray(value.countries)) &&
+    (value.phonebookPin === undefined || isString(value.phonebookPin)) &&
+    (value.employeeCountry === undefined ||
+      (isString(value.employeeCountry) && countryCodes.has(value.employeeCountry as CountryCode))) &&
+    (value.companyId === undefined || isString(value.companyId)) &&
+    (value.companyName === undefined || isString(value.companyName)) &&
+    (value.phonebookManagerPin === undefined || isString(value.phonebookManagerPin)) &&
     isString(value.regio) &&
     isString(value.color) &&
     colorTokenIds.has(value.color as CardColorTokenId) &&
@@ -103,6 +109,10 @@ export const validateChartDocument = (chart: OrgChartDocument): string[] => {
           errors.push(`Unknown country ${country} for node ${node.id}`);
         }
       }
+    }
+
+    if (node.employeeCountry !== undefined && !countryCodes.has(node.employeeCountry)) {
+      errors.push(`Node ${node.id} has invalid employee country ${node.employeeCountry}.`);
     }
   }
 

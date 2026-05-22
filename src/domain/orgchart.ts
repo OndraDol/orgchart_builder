@@ -1,4 +1,4 @@
-export const LEVEL_TYPES = ['B-0', 'B-1', 'B-2', 'B-3', 'B-4'] as const;
+export const LEVEL_TYPES = ['B-0', 'B-1', 'B-2', 'B-3', 'B-4', 'BXX'] as const;
 
 export type OrgNodeLevelType = (typeof LEVEL_TYPES)[number];
 
@@ -98,6 +98,11 @@ export interface OrgNode {
   levelType: OrgNodeLevelType;
   country: string;
   countries?: CountryCode[];
+  phonebookPin?: string;
+  employeeCountry?: CountryCode;
+  companyId?: string;
+  companyName?: string;
+  phonebookManagerPin?: string;
   regio: string;
   color: CardColorTokenId;
   status: OrgNodeStatus;

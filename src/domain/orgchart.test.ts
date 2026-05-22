@@ -5,7 +5,7 @@ import type { CardColorTokenId, OrgNode } from './orgchart';
 
 describe('orgchart constants', () => {
   it('defines required level types', () => {
-    expect(LEVEL_TYPES).toEqual(['B-0', 'B-1', 'B-2', 'B-3', 'B-4']);
+    expect(LEVEL_TYPES).toEqual(['B-0', 'B-1', 'B-2', 'B-3', 'B-4', 'BXX']);
   });
 
   it('defines required statuses', () => {

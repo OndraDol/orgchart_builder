@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import type { OrgNode } from '../domain/orgchart';
-import { messages } from '../i18n/messages';
 import { EditorPanel } from './EditorPanel';
 
 const selectedNode = (overrides: Partial<OrgNode> = {}): OrgNode => ({
@@ -39,9 +38,10 @@ describe('EditorPanel', () => {
       />,
     );
 
-    expect(screen.getByRole('checkbox', { name: messages.editor.countryAria('CZ') })).toBeChecked();
+    expect(screen.getByRole('group', { name: 'Role scope' })).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: 'Role scope CZ' })).toBeChecked();
 
-    await userEvent.click(screen.getByRole('checkbox', { name: messages.editor.countryAria('SK') }));
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Role scope SK' }));
 
     expect(onChange).toHaveBeenLastCalledWith({
       country: 'CZ/SK',

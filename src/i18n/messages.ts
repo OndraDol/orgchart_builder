@@ -84,6 +84,7 @@ export const messages = {
     'B-2': 'B-2',
     'B-3': 'B-3',
     'B-4': 'B-4',
+    BXX: 'BXX',
   } satisfies Record<OrgNodeLevelType, string>,
   statuses: {
     active: 'Aktivní',

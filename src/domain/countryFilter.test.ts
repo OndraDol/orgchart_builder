@@ -49,6 +49,24 @@ describe('countryFilter', () => {
     expect(filterChartByCountry(chart(), 'all')).toEqual(chart());
   });
 
+  it('filters by role scope, not employee country metadata', () => {
+    const root = node('root', null);
+    const deRoleWithCzEmployee = {
+      ...node('swap', 'root', 'DE'),
+      employeeCountry: 'CZ' as const,
+    };
+
+    const chart = {
+      schemaVersion: 5 as const,
+      name: 'test',
+      updatedAt: new Date().toISOString(),
+      nodes: [root, deRoleWithCzEmployee],
+    };
+
+    expect(filterChartByCountry(chart, 'CZ').nodes.map((item) => item.id)).toEqual([]);
+    expect(filterChartByCountry(chart, 'all').nodes.map((item) => item.id)).toContain('swap');
+  });
+
   it('keeps matching country nodes and their ancestor path', () => {
     const filtered = filterChartByCountry(chart(), 'SK');
 

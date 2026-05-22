@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { CARD_COLOR_TOKENS, LEVEL_TYPES, STATUS_TYPES } from '../domain/orgchart';
-import { SOURCE_ORGCHART } from './sourceOrgchart';
+import { SOURCE_ORGCHART, SOURCE_PHONEBOOK_METADATA_BY_ID } from './sourceOrgchart';
 
 describe('SOURCE_ORGCHART', () => {
   it('uses schema version 5 and contains the full org chart', () => {
@@ -130,6 +130,58 @@ describe('SOURCE_ORGCHART', () => {
     });
   });
 
+  it('keeps role scope separate from employee country metadata', () => {
+    const nodeById = new Map(SOURCE_ORGCHART.nodes.map((node) => [node.id, node]));
+
+    expect(nodeById.get('swap-manager-de-michal-valka')).toMatchObject({
+      country: 'DE',
+      employeeCountry: 'CZ',
+      companyId: '23',
+    });
+
+    expect(nodeById.get('group-web-manager-czskplhu-ondrej-bober')).toMatchObject({
+      country: 'CZ/SK/PL/HU',
+      employeeCountry: 'SK',
+    });
+  });
+
+  it('records Phonebook manager pins without changing the PDF parent tree', () => {
+    const janJarma = SOURCE_ORGCHART.nodes.find((node) => node.id === 'hr-team-leader-jan-jarma');
+
+    expect(janJarma).toMatchObject({
+      parentId: 'group-personnel-payroll-manager-martina-kahulova',
+      phonebookManagerPin: '1152',
+    });
+  });
+
+  it('keeps Phonebook metadata keys aligned with source nodes', () => {
+    const sourceIds = new Set(SOURCE_ORGCHART.nodes.map((node) => node.id));
+
+    expect(Object.keys(SOURCE_PHONEBOOK_METADATA_BY_ID)).toHaveLength(118);
+    expect(Object.keys(SOURCE_PHONEBOOK_METADATA_BY_ID).sort()).toEqual(
+      Object.keys(SOURCE_PHONEBOOK_METADATA_BY_ID)
+        .filter((id) => sourceIds.has(id))
+        .sort(),
+    );
+  });
+
+  it('annotates every Phonebook-matched source person and leaves unmatched people unannotated', () => {
+    const unmatchedIds = new Set([
+      'mergers-acquisitions-ir-manager-radek-nemecek',
+      'group-finance-controlling-manager-jiri-gross',
+      'country-buying-manager-pl-ales-doudlebsky',
+    ]);
+    const visiblePeople = SOURCE_ORGCHART.nodes.filter((node) => !node.sourceHidden && node.person.trim());
+    const annotatedPeople = visiblePeople.filter((node) => node.phonebookPin !== undefined);
+
+    expect(visiblePeople).toHaveLength(121);
+    expect(annotatedPeople).toHaveLength(118);
+
+    for (const id of unmatchedIds) {
+      expect(SOURCE_ORGCHART.nodes.find((node) => node.id === id)?.phonebookPin).toBeUndefined();
+    }
+  });
+
   it('contains required role and person pairs from the source PDF', () => {
     const rolePeople = SOURCE_ORGCHART.nodes.map((node) => `${node.title} / ${node.person}`);
 
@@ -188,8 +240,56 @@ describe('SOURCE_ORGCHART', () => {
     expect(SOURCE_ORGCHART.nodes.every((node) => statuses.has(node.status))).toBe(true);
   });
 
+  it('uses Phonebook B levels for verified rows', () => {
+    const expectedLevels = new Map([
+      ['call-centre-manager-praha-petr-vik', 'B-3'],
+      ['call-centre-manager-ostrava-jan-kovar', 'B-3'],
+      ['group-export-import-director-dusan-prochazka', 'B-2'],
+      ['import-manager-filip-kvarda', 'B-3'],
+      ['general-manager-export-robert-radler', 'B-3'],
+      ['country-payroll-manager-czsk-jitka-horejsi', 'B-3'],
+      ['hr-team-leader-jan-jarma', 'B-4'],
+      ['general-manager-mototechna-2-michal-gabrhel', 'B-3'],
+      ['head-of-bi-petronela-hubocanova', 'B-3'],
+      ['office-manager-renata-liskova', 'B-3'],
+      ['group-marketing-operations-manager-david-reich', 'B-1'],
+      ['group-pr-manager-lucie-brychtova', 'B-3'],
+      ['group-web-manager-czskplhu-ondrej-bober', 'B-3'],
+      ['group-segment-manager-david-chvojka', 'B-3'],
+      ['regional-marketing-manager-michal-krulis', 'BXX'],
+      ['cars-administration-manager-michaela-beckova', 'B-3'],
+      ['group-back-office-manager-pavla-smrckova', 'B-3'],
+      ['back-office-manager-pl-agnieszka-romanska', 'B-3'],
+      ['country-sales-manager-sk-martin-medek', 'B-2'],
+      ['country-buying-manager-sk-robert-wiedner', 'B-2'],
+      ['country-stock-manager-sk-bronislav-kroneisl', 'B-2'],
+      ['country-service-manager-sk-michal-kossi', 'B-2'],
+      ['country-fi-manager-sk-martin-bulicek', 'B-2'],
+      ['facility-construction-manager-sk-pavol-rodina', 'BXX'],
+      ['financial-accounting-manager-sk-danko-beran', 'B-2'],
+      ['country-sales-manager-pl-jiri-vavra', 'B-2'],
+      ['country-ops-manager-pl-lukas-jonsta', 'B-2'],
+      ['country-stock-manager-pl-david-poncza', 'B-2'],
+      ['country-service-manager-pl-filip-pavlovcin', 'B-2'],
+      ['call-centre-manager-pl-kaminski-krystian', 'B-3'],
+      ['country-hq-manager-pl-michal-wlodarczyk', 'B-3'],
+      ['country-fi-relationship-manager-pl-pawel-molasy', 'B-2'],
+      ['regional-marketing-manager-pl-marian-zielina', 'BXX'],
+      ['development-manager-pl-weronika-szmanda', 'BXX'],
+      ['country-personnel-staffing-manager-pl-barbara-wolska', 'B-3'],
+      ['financial-accounting-manager-pl-cegiel-klemens', 'B-2'],
+      ['back-office-manager-pl-country-agnieszka-romanska', 'B-3'],
+      ['swap-manager-de-michal-valka', 'B-3'],
+      ['country-buying-manager-hu-ondrej-suba', 'B-3'],
+    ]);
+
+    for (const [id, levelType] of expectedLevels) {
+      expect(SOURCE_ORGCHART.nodes.find((node) => node.id === id)?.levelType).toBe(levelType);
+    }
+  });
+
   it('uses the new B-level enum on every node', () => {
-    const bLevelPattern = /^B-[0-4]$/;
+    const bLevelPattern = /^(B-[0-4]|BXX)$/;
     expect(SOURCE_ORGCHART.nodes.every((node) => bLevelPattern.test(node.levelType))).toBe(true);
   });
 

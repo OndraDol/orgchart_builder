@@ -126,6 +126,52 @@ describe('chartValidation', () => {
     );
   });
 
+  it('accepts BXX as a valid level type', () => {
+    const chart = validChart();
+
+    const importedChart = {
+      ...chart,
+      nodes: chart.nodes.map((node) => (node.id === 'child' ? { ...node, levelType: 'BXX' } : node)),
+    };
+
+    expect(isChartDocument(importedChart)).toBe(true);
+    expect(parseChartDocument(JSON.stringify(importedChart))).toEqual(importedChart);
+  });
+
+  it('accepts optional Phonebook employee metadata', () => {
+    const chart = validChart();
+
+    chart.nodes = chart.nodes.map((node) =>
+      node.id === 'child'
+        ? {
+            ...node,
+            phonebookPin: '110859',
+            employeeCountry: 'CZ',
+            companyId: '23',
+            companyName: 'AURES Holdings a. s.',
+            phonebookManagerPin: '1152',
+          }
+        : node,
+    );
+
+    expect(isChartDocument(chart)).toBe(true);
+    expect(validateChartDocument(chart)).toEqual([]);
+  });
+
+  it('rejects invalid Phonebook employee country metadata', () => {
+    const chart = validChart();
+
+    const importedChart = {
+      ...chart,
+      nodes: chart.nodes.map((node) => (node.id === 'child' ? { ...node, employeeCountry: 'AT' as never } : node)),
+    };
+
+    expect(isChartDocument(importedChart)).toBe(false);
+    expect(validateChartDocument(importedChart as OrgChartDocument)).toContain(
+      'Node child has invalid employee country AT.',
+    );
+  });
+
   it('rejects unknown statuses through the shape guard', () => {
     const chart = validChart();
     const importedChart = {
