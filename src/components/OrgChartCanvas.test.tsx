@@ -69,6 +69,37 @@ describe('OrgChartCanvas', () => {
     });
   });
 
+  it('uses the dragged card rectangle, not only the cursor, when resolving David Hlavnicka under Jan Sokola', () => {
+    const nodes = [
+      {
+        id: 'country-fi-manager-cz-david-hlavnicka',
+        position: { x: 1000, y: 1160 },
+        width: 192,
+        height: 96,
+      },
+      {
+        id: 'country-ops-manager-jan-sokola',
+        position: { x: 1000, y: 1000 },
+        width: 192,
+        height: 96,
+      },
+    ];
+
+    expect(
+      resolveDropIntent({
+        chart: SOURCE_ORGCHART,
+        orientation: 'vertical',
+        sourceId: 'country-fi-manager-cz-david-hlavnicka',
+        cursor: { x: 1000, y: 1160 },
+        nodes,
+        edges: [],
+      }),
+    ).toEqual({
+      mode: 'child',
+      targetId: 'country-ops-manager-jan-sokola',
+    });
+  });
+
   it('resolves dropping a node on an existing edge as an insert-between parent drop', () => {
     const nodes = [
       { id: 'chief-executive-officer-zdenek-demeter', position: { x: 0, y: 0 }, width: 192, height: 96 },

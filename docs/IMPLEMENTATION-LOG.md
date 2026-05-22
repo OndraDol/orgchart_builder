@@ -27,6 +27,9 @@ Primary priority: the source orgchart tree must match the provided source files.
 - [x] Task 11: Add failing functional DnD tests
 - [x] Task 12: Implement Auto strom preference and deterministic DnD intent resolution
 - [x] Task 13: Verify functional DnD workflow
+- [x] Task 14: Add failing DnD card-geometry regression test
+- [x] Task 15: Implement card-geometry DnD intent resolution
+- [x] Task 16: Final DnD verification and handoff update
 
 ## Checkpoints
 
@@ -276,3 +279,64 @@ Browser smoke:
 
 Next task:
 - Commit and push when ready for GitHub Pages deployment.
+
+### Task 14: Add failing DnD card-geometry regression test
+
+Status: complete
+
+Changed files:
+- `src/components/OrgChartCanvas.test.tsx`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- RED: `npm run test:run -- src/components/OrgChartCanvas.test.tsx`
+- Expected result observed: 1 failure. `resolveDropIntent` returns `null` when `David Hlavnicka` is visually below `Jan Sokola` but the cursor is outside Jan's old inflated cursor-only zone.
+
+Next task:
+- Implement DnD intent resolution from the dragged card rectangle, not only the cursor.
+
+### Task 15: Implement card-geometry DnD intent resolution
+
+Status: complete
+
+Changed files:
+- `src/components/OrgChartCanvas.tsx`
+- `src/components/OrgChartCanvas.test.tsx`
+- `src/state/chartReducer.test.ts`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- GREEN: `npm run test:run -- src/components/OrgChartCanvas.test.tsx src/state/chartReducer.test.ts`
+- Result: 2 test files passed, 26 tests passed.
+
+Implementation notes:
+- `resolveDropIntent` now scores candidates from the dragged card rectangle and keeps cursor-only detection only as a secondary signal.
+- Active drag/drag-stop calls merge the live React Flow node position into the resolver input before computing preview or committing the drop.
+- Added exact regression coverage for `David Hlavnicka` under `Jan Sokola`, including state persistence after drop.
+
+Next task:
+- Run full test/build verification and update handoff docs.
+
+### Task 16: Final DnD verification and handoff update
+
+Status: complete
+
+Changed files:
+- `docs/IMPLEMENTATION-LOG.md`
+- `docs/HANDOFF.md`
+
+Verification:
+- `npm run test:run`
+- Result: 15 test files passed, 100 tests passed.
+- `npm run build`
+- Result: TypeScript and Vite production build completed successfully.
+- Playwright smoke through local Vite preview passed with hard assertions:
+  - preview edge appears while dragging `David Hlavnicka` below `Jan Sokola`
+  - `Jan Sokola` receives the child-drop highlight
+  - after mouse up, localStorage chart stores `country-fi-manager-cz-david-hlavnicka.parentId = country-ops-manager-jan-sokola`
+
+Environment note:
+- The sandbox blocks Vite dev/preview startup via esbuild `spawn EPERM`; the browser smoke was run outside the sandbox with explicit approval and the preview job was stopped afterward.
+
+Next task:
+- Commit and push the DnD fix for GitHub Pages deployment.

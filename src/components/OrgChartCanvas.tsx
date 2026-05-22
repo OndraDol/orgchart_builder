@@ -108,6 +108,20 @@ export function mergeDraggedNodePosition<TNode extends PositionedFlowNode>(
   return nextNodes.map((node) => (node.id === draggedNodeId ? { ...node, position: draggedNode.position } : node));
 }
 
+function mergeActiveDropNode(nodes: DropIntentNode[], activeNode: DropIntentNode): DropIntentNode[] {
+  let foundActiveNode = false;
+  const mergedNodes = nodes.map((node) => {
+    if (node.id !== activeNode.id) {
+      return node;
+    }
+
+    foundActiveNode = true;
+    return { ...node, ...activeNode };
+  });
+
+  return foundActiveNode ? mergedNodes : [...mergedNodes, activeNode];
+}
+
 interface DropModeInput {
   orientation: ChartOrientation;
   cursorX: number;
@@ -163,12 +177,98 @@ export function getDropModeForCursor({
 
 const NODE_W = 192;
 const NODE_H = 96;
-const INFLATE = 60;
+const CURSOR_HIT_PADDING = 60;
+const CARD_HIT_PADDING = 96;
 const EDGE_HIT_DISTANCE = 32;
 
 const getNodeWidth = (node: DropIntentNode): number => node.width ?? node.measured?.width ?? NODE_W;
 
 const getNodeHeight = (node: DropIntentNode): number => node.height ?? node.measured?.height ?? NODE_H;
+
+interface DropRect {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+  width: number;
+  height: number;
+  center: NodePosition;
+}
+
+const rectFromCenter = (center: NodePosition, width: number, height: number): DropRect => ({
+  left: center.x - width / 2,
+  right: center.x + width / 2,
+  top: center.y - height / 2,
+  bottom: center.y + height / 2,
+  width,
+  height,
+  center,
+});
+
+const getNodeRect = (node: DropIntentNode): DropRect => rectFromCenter(node.position, getNodeWidth(node), getNodeHeight(node));
+
+const inflateRect = (rect: DropRect, padding: number): DropRect => ({
+  left: rect.left - padding,
+  right: rect.right + padding,
+  top: rect.top - padding,
+  bottom: rect.bottom + padding,
+  width: rect.width + padding * 2,
+  height: rect.height + padding * 2,
+  center: rect.center,
+});
+
+const isPointInRect = (point: NodePosition, rect: DropRect): boolean =>
+  point.x >= rect.left && point.x <= rect.right && point.y >= rect.top && point.y <= rect.bottom;
+
+const distanceBetweenRects = (left: DropRect, right: DropRect): number => {
+  const dx = Math.max(0, Math.max(right.left - left.right, left.left - right.right));
+  const dy = Math.max(0, Math.max(right.top - left.bottom, left.top - right.bottom));
+
+  return Math.hypot(dx, dy);
+};
+
+const squaredDistance = (left: NodePosition, right: NodePosition): number => {
+  const dx = left.x - right.x;
+  const dy = left.y - right.y;
+
+  return dx * dx + dy * dy;
+};
+
+function getDropModeForDraggedRect(
+  orientation: ChartOrientation,
+  draggedRect: DropRect,
+  targetRect: DropRect,
+): DropMode {
+  if (orientation === 'horizontal') {
+    if (draggedRect.center.x < targetRect.left || draggedRect.right < targetRect.center.x) {
+      return 'parent';
+    }
+
+    if (draggedRect.center.x > targetRect.right || draggedRect.left > targetRect.center.x) {
+      return 'child';
+    }
+
+    return draggedRect.center.y < targetRect.center.y ? 'sibling-left' : 'sibling-right';
+  }
+
+  if (draggedRect.center.y < targetRect.top || draggedRect.bottom < targetRect.center.y) {
+    return 'parent';
+  }
+
+  if (draggedRect.center.y > targetRect.bottom || draggedRect.top > targetRect.center.y) {
+    return 'child';
+  }
+
+  if (draggedRect.center.x < targetRect.center.x - targetRect.width * 0.2) {
+    return 'sibling-left';
+  }
+
+  if (draggedRect.center.x > targetRect.center.x + targetRect.width * 0.2) {
+    return 'sibling-right';
+  }
+
+  return 'child';
+}
 
 function isChartDescendant(chart: OrgChartDocument, sourceId: string, candidateId: string): boolean {
   const queue = [sourceId];
@@ -244,53 +344,8 @@ export function resolveDropIntent({
   nodes,
   edges,
 }: ResolveDropIntentInput): DropIntent | null {
-  let bestNodeIntent: DropIntent | null = null;
-  let bestNodeDist = Infinity;
-
-  for (const candidate of nodes) {
-    if (candidate.id === sourceId) {
-      continue;
-    }
-
-    const targetWidth = getNodeWidth(candidate);
-    const targetHeight = getNodeHeight(candidate);
-    const left = candidate.position.x - targetWidth / 2 - INFLATE;
-    const right = candidate.position.x + targetWidth / 2 + INFLATE;
-    const top = candidate.position.y - targetHeight / 2 - INFLATE;
-    const bottom = candidate.position.y + targetHeight / 2 + INFLATE;
-
-    if (cursor.x < left || cursor.x > right || cursor.y < top || cursor.y > bottom) {
-      continue;
-    }
-
-    const mode = getDropModeForCursor({
-      orientation,
-      cursorX: cursor.x,
-      cursorY: cursor.y,
-      targetX: candidate.position.x,
-      targetY: candidate.position.y,
-      targetWidth,
-      targetHeight,
-    });
-
-    if (!isDropModeValid(chart, sourceId, candidate.id, mode)) {
-      continue;
-    }
-
-    const dx = cursor.x - candidate.position.x;
-    const dy = cursor.y - candidate.position.y;
-    const dist = dx * dx + dy * dy;
-
-    if (dist < bestNodeDist) {
-      bestNodeDist = dist;
-      bestNodeIntent = { mode, targetId: candidate.id };
-    }
-  }
-
-  if (bestNodeIntent) {
-    return bestNodeIntent;
-  }
-
+  const sourceNode = nodes.find((node) => node.id === sourceId);
+  const draggedRect = sourceNode ? getNodeRect(sourceNode) : rectFromCenter(cursor, NODE_W, NODE_H);
   const nodeById = new Map(nodes.map((node) => [node.id, node]));
   let bestEdgeIntent: DropIntent | null = null;
   let bestEdgeDist = EDGE_HIT_DISTANCE;
@@ -300,9 +355,9 @@ export function resolveDropIntent({
       continue;
     }
 
-    const sourceNode = nodeById.get(edge.source);
-    const targetNode = nodeById.get(edge.target);
-    if (!sourceNode || !targetNode) {
+    const sourceNodeForEdge = nodeById.get(edge.source);
+    const targetNodeForEdge = nodeById.get(edge.target);
+    if (!sourceNodeForEdge || !targetNodeForEdge) {
       continue;
     }
 
@@ -310,14 +365,63 @@ export function resolveDropIntent({
       continue;
     }
 
-    const dist = distanceToLineSegment(cursor, sourceNode.position, targetNode.position);
+    const dist = distanceToLineSegment(cursor, sourceNodeForEdge.position, targetNodeForEdge.position);
     if (dist <= bestEdgeDist) {
       bestEdgeDist = dist;
       bestEdgeIntent = { mode: 'parent', targetId: edge.target, edgeSourceId: edge.source };
     }
   }
 
-  return bestEdgeIntent;
+  const cursorOverActualNode = nodes.some((candidate) => candidate.id !== sourceId && isPointInRect(cursor, getNodeRect(candidate)));
+
+  if (bestEdgeIntent && !cursorOverActualNode) {
+    return bestEdgeIntent;
+  }
+
+  let bestNodeIntent: DropIntent | null = null;
+  let bestNodeDist = Infinity;
+
+  for (const candidate of nodes) {
+    if (candidate.id === sourceId) {
+      continue;
+    }
+
+    const targetRect = getNodeRect(candidate);
+    const cursorHitRect = inflateRect(targetRect, CURSOR_HIT_PADDING);
+    const cardDistance = distanceBetweenRects(draggedRect, targetRect);
+    const cardInRange = cardDistance <= CARD_HIT_PADDING;
+    const cursorInActualTarget = isPointInRect(cursor, targetRect);
+    const cursorInRange = isPointInRect(cursor, cursorHitRect);
+
+    if (!cardInRange && !cursorInRange) {
+      continue;
+    }
+
+    const mode = cursorInActualTarget
+      ? getDropModeForCursor({
+          orientation,
+          cursorX: cursor.x,
+          cursorY: cursor.y,
+          targetX: candidate.position.x,
+          targetY: candidate.position.y,
+          targetWidth: targetRect.width,
+          targetHeight: targetRect.height,
+        })
+      : getDropModeForDraggedRect(orientation, draggedRect, targetRect);
+
+    if (!isDropModeValid(chart, sourceId, candidate.id, mode)) {
+      continue;
+    }
+
+    const dist = cardDistance * 100000 + squaredDistance(draggedRect.center, targetRect.center);
+
+    if (dist < bestNodeDist) {
+      bestNodeDist = dist;
+      bestNodeIntent = { mode, targetId: candidate.id };
+    }
+  }
+
+  return bestNodeIntent ?? bestEdgeIntent;
 }
 
 function getClientPositionFromEvent(event: unknown): NodePosition | null {
@@ -507,7 +611,7 @@ function OrgChartFlow({
         orientation,
         sourceId: node.id,
         cursor,
-        nodes: getNodes(),
+        nodes: mergeActiveDropNode(getNodes(), node),
         edges,
       });
 
@@ -535,7 +639,7 @@ function OrgChartFlow({
             orientation,
             sourceId,
             cursor,
-            nodes: getNodes(),
+            nodes: mergeActiveDropNode(getNodes(), node),
             edges,
           })
         : null;

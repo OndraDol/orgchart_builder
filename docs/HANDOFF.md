@@ -13,7 +13,7 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 - **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant)
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 98/98 zelených
+- **Testy:** 100/100 zelených
 
 ## Architektura
 
@@ -66,11 +66,12 @@ src/
   - drop na existující hranu vloží taženou kartu jako mezičlánek mezi parenta a child
   - tažená karta = grayscale ghost s subtle scale-down + glow pulse když je nad valid drop místem
   - **viewport zůstává na stejném místě po dropu** (žádný auto-fit; user může kliknout „Přizpůsobit pohled" v toolbaru)
+  - regression fixed: drop intent is resolved from the dragged card rectangle, so placing `David Hlavnička` below `Jan Sokola` previews and persists `Jan Sokola -> David Hlavnička`
 - Draft flow pro novou kartu (dashed, NOVÁ badge, Uložit)
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 98 testů
+- 100 testů
 
 ## Co NENÍ hotovo
 
@@ -78,7 +79,7 @@ src/
 - **Cross-tree move / make root** — single-root invariant nelze obejít UI.
 - **Redo button** — historie ho podporuje, ale UI nemá tlačítko.
 - **Validace v UI** — chybové stavy zobrazují warning ve status baru, ale není modal/toast.
-- **Full browser D&D smoke** — helper/reducer testy existují, ale Playwright drag flow není zatím automatizovaný.
+- **Full browser D&D smoke coverage** — current smoke covers the `David Hlavnička -> Jan Sokola` drag/drop path; broader scripted coverage for sibling and insert-between moves is still missing.
 - **OCR z JPG** pro auto-audit — vyžadovalo by Tesseract nebo cloud OCR.
 - **Spolehlivý SVG parser** — Visio export má geometricky složité konektory, parser najde jen ~25 % relací reliable (`tmp/svg-audit.py` je proof-of-concept).
 

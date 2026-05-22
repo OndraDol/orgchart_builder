@@ -161,6 +161,22 @@ describe('chartReducer', () => {
     });
   });
 
+  it('stores David Hlavnicka as child of Jan Sokola after a DnD child drop', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART, 'tree');
+    const result = chartReducer(state, {
+      type: 'drop-as-child',
+      sourceId: 'country-fi-manager-cz-david-hlavnicka',
+      targetParentId: 'country-ops-manager-jan-sokola',
+      position: { x: 1000, y: 1160 },
+    } as never);
+
+    expect(result.layoutMode).toBe('tree');
+    expect(result.history.current.nodes.find((node) => node.id === 'country-fi-manager-cz-david-hlavnicka')).toMatchObject({
+      parentId: 'country-ops-manager-jan-sokola',
+      position: { x: 1000, y: 1160 },
+    });
+  });
+
   it('clears warning when canceling move', () => {
     const state = {
       ...createInitialChartState(SOURCE_ORGCHART),
