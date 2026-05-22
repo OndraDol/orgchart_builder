@@ -7,13 +7,13 @@ Update that file after every completed implementation task before moving on.
 
 Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro pokračování (jiný nástroj/člověk).
 
-## Aktuální stav (2026-05-21)
+## Aktuální stav (2026-05-22)
 
 - **Live deploy:** https://ondradol.github.io/orgchart_builder/
 - **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
-- **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant)
+- **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant), volitelné `countries`
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 100/100 zelených
+- **Testy:** 112/112 zelených
 
 ## Architektura
 
@@ -28,6 +28,7 @@ src/
 │   ├── orgchart.ts              # OrgNode, OrgChartDocument, LEVEL_TYPES, CARD_COLOR_TOKENS
 │   ├── chartOperations.ts       # addChildNode, moveNodeAsChild, moveNodeAsSibling (cycle/root validace)
 │   ├── chartValidation.ts       # parseChartDocument, isChartDocument, validateChartDocument
+│   ├── countryFilter.ts         # All/CZ/SK/PL view-only filtr + country normalizace
 │   ├── chartHistory.ts          # undo/redo stack
 │   └── chartLayout.ts           # d3-hierarchy tree(), separation tuning
 ├── state/
@@ -55,6 +56,9 @@ src/
 - Confirmed override: Jan Jarma -> Martina Kahulová
 - Schema v5: `sourcePosition`, manual `position`, `sourceHidden`, confirmed parent override layer
 - Default/fallback zobrazeni `Auto strom`; posledni volba `PDF zdroj` / `Auto strom` se pamatuje v localStorage
+- View-only country filtr `All/CZ/SK/PL`; filtrovaný pohled ukazuje matching karty plus ancestor path a nijak neřeže uložený/exportovaný dataset
+- Multi-country editace v pravém panelu (`CZ/SK/PL/DE/HU`), `countries` je autoritativní hodnota a legacy `country` string se drží synchronizovaný
+- Nová karta vytvořená ve filtrovaném CZ/SK/PL pohledu automaticky dostane odpovídající country flag
 - Modern indigo theme, glass toolbar, level stripes
 - Plně česká lokalizace + plurály
 - Drag & drop:
@@ -71,7 +75,7 @@ src/
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 100 testů
+- 112 testů
 
 ## Co NENÍ hotovo
 

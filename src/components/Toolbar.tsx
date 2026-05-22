@@ -1,16 +1,18 @@
 import { Download, Maximize2, RotateCcw, Search, Undo2, Upload, Workflow } from 'lucide-react';
 
-import type { ChartLayoutMode, ChartOrientation } from '../domain/orgchart';
+import { COUNTRY_FILTERS, type ChartLayoutMode, type ChartOrientation, type CountryFilter } from '../domain/orgchart';
 import { messages } from '../i18n/messages';
 
 interface ToolbarProps {
   search: string;
   orientation: ChartOrientation;
   layoutMode: ChartLayoutMode;
+  countryFilter: CountryFilter;
   canUndo: boolean;
   onSearchChange: (value: string) => void;
   onOrientationChange: (orientation: ChartOrientation) => void;
   onLayoutModeChange: (layoutMode: ChartLayoutMode) => void;
+  onCountryFilterChange: (countryFilter: CountryFilter) => void;
   onUndo: () => void;
   onReset: () => void;
   onExport: () => void;
@@ -22,10 +24,12 @@ export function Toolbar({
   search,
   orientation,
   layoutMode,
+  countryFilter,
   canUndo,
   onSearchChange,
   onOrientationChange,
   onLayoutModeChange,
+  onCountryFilterChange,
   onUndo,
   onReset,
   onExport,
@@ -69,6 +73,20 @@ export function Toolbar({
         >
           {messages.toolbar.layoutTree}
         </button>
+      </div>
+
+      <div className="segmented country-filter" role="group" aria-label={messages.toolbar.countryFilterLabel}>
+        {COUNTRY_FILTERS.map((filter) => (
+          <button
+            key={filter}
+            className={countryFilter === filter ? 'active' : undefined}
+            type="button"
+            aria-pressed={countryFilter === filter}
+            onClick={() => onCountryFilterChange(filter)}
+          >
+            {filter === 'all' ? messages.toolbar.countryAll : filter}
+          </button>
+        ))}
       </div>
 
       <div className="segmented" role="group" aria-label={messages.toolbar.orientationLabel}>

@@ -1,8 +1,10 @@
 import {
   CARD_COLOR_TOKENS,
+  COUNTRY_CODES,
   LEVEL_TYPES,
   STATUS_TYPES,
   type CardColorTokenId,
+  type CountryCode,
   type OrgChartDocument,
   type OrgNode,
   type OrgNodeLevelType,
@@ -10,6 +12,7 @@ import {
 } from './orgchart';
 
 const colorTokenIds = new Set<CardColorTokenId>(CARD_COLOR_TOKENS.map((token) => token.id));
+const countryCodes = new Set<CountryCode>(COUNTRY_CODES);
 const levelTypes = new Set<OrgNodeLevelType>(LEVEL_TYPES);
 const statusTypes = new Set<OrgNodeStatus>(STATUS_TYPES);
 
@@ -26,6 +29,9 @@ const isNodePosition = (value: unknown): boolean =>
 const isNodeSourcePosition = (value: unknown): boolean =>
   isNodePosition(value) && isRecord(value) && isFiniteNumber(value.width) && isFiniteNumber(value.height);
 
+const isCountryCodeArray = (value: unknown): value is CountryCode[] =>
+  Array.isArray(value) && value.every((item) => isString(item) && countryCodes.has(item as CountryCode));
+
 const isValidNode = (value: unknown): value is OrgNode => {
   if (!isRecord(value)) {
     return false;
@@ -39,6 +45,7 @@ const isValidNode = (value: unknown): value is OrgNode => {
     isString(value.levelType) &&
     levelTypes.has(value.levelType as OrgNodeLevelType) &&
     isString(value.country) &&
+    (value.countries === undefined || isCountryCodeArray(value.countries)) &&
     isString(value.regio) &&
     isString(value.color) &&
     colorTokenIds.has(value.color as CardColorTokenId) &&
@@ -88,6 +95,14 @@ export const validateChartDocument = (chart: OrgChartDocument): string[] => {
 
     if (!colorTokenIds.has(node.color)) {
       errors.push(`Unknown color ${node.color} for node ${node.id}`);
+    }
+
+    if (node.countries !== undefined) {
+      for (const country of node.countries) {
+        if (!countryCodes.has(country)) {
+          errors.push(`Unknown country ${country} for node ${node.id}`);
+        }
+      }
     }
   }
 

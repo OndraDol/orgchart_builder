@@ -106,11 +106,16 @@ const nextSiblingOrder = (nodes: OrgNode[], parentId: string | null): number => 
   return siblingOrders.length === 0 ? 10 : Math.max(...siblingOrders) + 10;
 };
 
-export const addChildNode = (chart: OrgChartDocument, parentId: string): OrgChartDocument => {
+export const addChildNode = (
+  chart: OrgChartDocument,
+  parentId: string,
+  defaults: Partial<Pick<OrgNode, 'country' | 'countries'>> = {},
+): OrgChartDocument => {
   findNode(chart, parentId);
 
   const newNode: OrgNode = {
     ...DEFAULT_NEW_NODE,
+    ...defaults,
     id: createUniqueId(chart.nodes, DEFAULT_NEW_NODE.title),
     parentId,
     order: nextSiblingOrder(chart.nodes, parentId),

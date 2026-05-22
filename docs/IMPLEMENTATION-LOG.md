@@ -1,6 +1,6 @@
 # Implementation Log
 
-Last updated: 2026-05-21
+Last updated: 2026-05-22
 
 ## Rule
 
@@ -30,6 +30,10 @@ Primary priority: the source orgchart tree must match the provided source files.
 - [x] Task 14: Add failing DnD card-geometry regression test
 - [x] Task 15: Implement card-geometry DnD intent resolution
 - [x] Task 16: Final DnD verification and handoff update
+- [x] Task 17: Add failing country-filter tests
+- [x] Task 18: Implement country model, helper functions, reducer state
+- [x] Task 19: Wire country filter into toolbar, editor, and app view
+- [x] Task 20: Verify country filter and update handoff
 
 ## Checkpoints
 
@@ -340,3 +344,97 @@ Environment note:
 
 Next task:
 - Commit and push the DnD fix for GitHub Pages deployment.
+
+### Task 17: Add failing country-filter tests
+
+Status: complete
+
+Changed files:
+- `src/domain/countryFilter.test.ts`
+- `src/domain/chartValidation.test.ts`
+- `src/state/chartReducer.test.ts`
+- `src/components/Toolbar.test.tsx`
+- `src/components/EditorPanel.test.tsx`
+- `src/App.test.tsx`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- RED: `npm run test:run -- src/domain/countryFilter.test.ts src/state/chartReducer.test.ts src/components/Toolbar.test.tsx src/components/EditorPanel.test.tsx src/App.test.tsx src/domain/chartValidation.test.ts`
+- Expected result observed: failures cover missing country helper module, optional `countries` validation, `countryFilter` reducer state/action, toolbar country controls, editor multi-country checkboxes, filtered app view, and filtered add-child defaults.
+
+Next task:
+- Implement country model types, filtering helpers, validation, reducer state, and add-child country defaults.
+
+### Task 18: Implement country model, helper functions, reducer state
+
+Status: complete
+
+Changed files:
+- `src/domain/orgchart.ts`
+- `src/domain/countryFilter.ts`
+- `src/domain/chartValidation.ts`
+- `src/domain/chartOperations.ts`
+- `src/state/chartReducer.ts`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- `npm run test:run -- src/domain/countryFilter.test.ts src/domain/chartValidation.test.ts src/state/chartReducer.test.ts`
+- Result: 3 test files passed, 40 tests passed.
+
+Implementation notes:
+- Added `CountryCode`, `CountryFilter`, optional `countries`, and strict validation for country arrays.
+- Added helper functions that parse legacy slash-separated `country`, prefer explicit `countries`, and filter the visible chart to matching nodes plus ancestor path.
+- `countryFilter` is view state only; chart data is not mutated by switching All/CZ/SK/PL.
+- Adding a child in a filtered CZ/SK/PL view initializes the new node with matching `country` and `countries`.
+
+Next task:
+- Wire country filter into toolbar, app rendering, status count, and editor multi-country controls.
+
+### Task 19: Wire country filter into toolbar, editor, and app view
+
+Status: complete
+
+Changed files:
+- `src/components/Toolbar.tsx`
+- `src/components/EditorPanel.tsx`
+- `src/components/OrgNodeCard.tsx`
+- `src/App.tsx`
+- `src/i18n/messages.ts`
+- `src/styles.css`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- `npm run test:run -- src/components/Toolbar.test.tsx src/components/EditorPanel.test.tsx src/App.test.tsx`
+- Result: 3 test files passed, 6 tests passed.
+
+Implementation notes:
+- Toolbar now exposes a compact `All/CZ/SK/PL` segmented filter.
+- `App` renders `filterChartByCountry(currentChart, countryFilter)` into the canvas and status count, while save/export/import keep the full chart.
+- Editor country editing is now a multi-select checkbox control for `CZ/SK/PL/DE/HU` and keeps legacy `country` synchronized.
+- Cards display normalized country metadata from explicit `countries` when present, otherwise from the legacy `country` string.
+
+Next task:
+- Run full test/build verification and update handoff docs.
+
+### Task 20: Verify country filter and update handoff
+
+Status: complete
+
+Changed files:
+- `docs/IMPLEMENTATION-LOG.md`
+- `docs/HANDOFF.md`
+
+Verification:
+- `npm run test:run`
+- Result: 17 test files passed, 112 tests passed.
+- `npm run build`
+- Result: TypeScript and Vite production build completed successfully.
+
+Implementation notes:
+- Country filtering is view-only: All/CZ/SK/PL changes the visible chart and status count, but the persisted/exported chart stays complete.
+- Filtered country views include matching nodes plus their ancestor path to preserve context.
+- `countries` is optional, schema remains v5, and legacy `country` strings continue to work.
+- New cards created while filtered to CZ/SK/PL are initialized with that country flag.
+
+Next task:
+- Commit and push when the country filter should be deployed to GitHub Pages.

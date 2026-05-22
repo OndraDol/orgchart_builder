@@ -12,6 +12,17 @@ describe('chartReducer', () => {
     expect(result.selectedNodeId).toMatch(/^nov-role-/);
   });
 
+  it('adds a child with the active country when working in a filtered country view', () => {
+    const state = { ...createInitialChartState(SOURCE_ORGCHART), countryFilter: 'CZ' as const };
+    const result = chartReducer(state, { type: 'add-child', parentId: 'country-ops-manager-jan-sokola' });
+    const addedNode = result.history.current.nodes.find((node) => node.id === result.selectedNodeId);
+
+    expect(addedNode).toMatchObject({
+      country: 'CZ',
+      countries: ['CZ'],
+    });
+  });
+
   it('starts in Auto strom layout mode and switches layout mode without mutating chart data', () => {
     const state = createInitialChartState(SOURCE_ORGCHART);
     expect(state.layoutMode).toBe('tree');
@@ -19,6 +30,17 @@ describe('chartReducer', () => {
     const result = chartReducer(state, { type: 'set-layout-mode', layoutMode: 'source' } as never);
 
     expect(result.layoutMode).toBe('source');
+    expect(result.history.current).toBe(state.history.current);
+  });
+
+  it('starts with the All country filter and switches country filter without mutating chart data', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART);
+
+    expect(state.countryFilter).toBe('all');
+
+    const result = chartReducer(state, { type: 'set-country-filter', countryFilter: 'SK' } as never);
+
+    expect(result.countryFilter).toBe('SK');
     expect(result.history.current).toBe(state.history.current);
   });
 

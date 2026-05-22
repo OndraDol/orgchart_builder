@@ -40,6 +40,14 @@ describe('chartValidation', () => {
     expect(validateChartDocument(validChart())).toEqual([]);
   });
 
+  it('accepts optional country arrays on nodes', () => {
+    const chart = validChart();
+    chart.nodes = chart.nodes.map((node) => (node.id === 'child' ? { ...node, countries: ['CZ', 'SK'] } : node));
+
+    expect(isChartDocument(chart)).toBe(true);
+    expect(validateChartDocument(chart)).toEqual([]);
+  });
+
   it('rejects duplicate ids', () => {
     const chart = validChart();
     chart.nodes = [...chart.nodes, { ...chart.nodes[1], id: 'root' }];
@@ -129,5 +137,15 @@ describe('chartValidation', () => {
     expect(() => parseChartDocument(JSON.stringify(importedChart))).toThrow(
       'Imported file is not an orgchart document.',
     );
+  });
+
+  it('rejects unknown country codes through the shape guard', () => {
+    const chart = validChart();
+    const importedChart = {
+      ...chart,
+      nodes: chart.nodes.map((node) => (node.id === 'child' ? { ...node, countries: ['CZ', 'AT'] } : node)),
+    };
+
+    expect(isChartDocument(importedChart)).toBe(false);
   });
 });

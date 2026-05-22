@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type ChangeEvent } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState, type ChangeEvent } from 'react';
 
 import { AuthGate } from './components/AuthGate';
 import { EditorPanel } from './components/EditorPanel';
@@ -7,6 +7,7 @@ import { StatusBar } from './components/StatusBar';
 import { Toolbar } from './components/Toolbar';
 import { SOURCE_ORGCHART } from './data/sourceOrgchart';
 import { parseChartDocument } from './domain/chartValidation';
+import { filterChartByCountry } from './domain/countryFilter';
 import { messages } from './i18n/messages';
 import { chartReducer, createInitialChartState } from './state/chartReducer';
 import { loadLocalChart, loadLocalLayoutMode, saveLocalChart, saveLocalLayoutMode } from './state/storage';
@@ -44,8 +45,15 @@ export function App() {
   const passwordHash =
     (import.meta as ViteImportMeta).env?.VITE_APP_PASSWORD_HASH ?? '';
   const currentChart = state.history.current;
+  const visibleChart = useMemo(
+    () => filterChartByCountry(currentChart, state.countryFilter),
+    [currentChart, state.countryFilter],
+  );
+  const visibleNodeIds = useMemo(() => new Set(visibleChart.nodes.map((node) => node.id)), [visibleChart]);
   const selectedNode =
-    currentChart.nodes.find((node) => node.id === state.selectedNodeId) ?? null;
+    state.selectedNodeId !== null && visibleNodeIds.has(state.selectedNodeId)
+      ? currentChart.nodes.find((node) => node.id === state.selectedNodeId) ?? null
+      : null;
 
   useEffect(() => {
     if (!isUnlocked) {
@@ -136,12 +144,14 @@ export function App() {
           search={state.search}
           orientation={state.orientation}
           layoutMode={state.layoutMode}
+          countryFilter={state.countryFilter}
           canUndo={state.history.past.length > 0}
           onSearchChange={(search) => dispatch({ type: 'set-search', search })}
           onOrientationChange={(orientation) =>
             dispatch({ type: 'set-orientation', orientation })
           }
           onLayoutModeChange={(layoutMode) => dispatch({ type: 'set-layout-mode', layoutMode })}
+          onCountryFilterChange={(countryFilter) => dispatch({ type: 'set-country-filter', countryFilter })}
           onUndo={() => dispatch({ type: 'undo' })}
           onReset={handleReset}
           onExport={handleExport}
@@ -160,7 +170,7 @@ export function App() {
         />
 
         <OrgChartCanvas
-          chart={currentChart}
+          chart={visibleChart}
           orientation={state.orientation}
           layoutMode={state.layoutMode}
           selectedNodeId={state.selectedNodeId}
@@ -196,7 +206,7 @@ export function App() {
         />
 
         <StatusBar
-          nodeCount={currentChart.nodes.length}
+          nodeCount={visibleChart.nodes.length}
           warning={state.warning}
           saveState={state.saveState}
         />

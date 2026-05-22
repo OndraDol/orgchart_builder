@@ -6,6 +6,14 @@ export const STATUS_TYPES = ['active', 'planned', 'vacant'] as const;
 
 export type OrgNodeStatus = (typeof STATUS_TYPES)[number];
 
+export const COUNTRY_CODES = ['CZ', 'SK', 'PL', 'DE', 'HU'] as const;
+
+export type CountryCode = (typeof COUNTRY_CODES)[number];
+
+export const COUNTRY_FILTERS = ['all', 'CZ', 'SK', 'PL'] as const;
+
+export type CountryFilter = (typeof COUNTRY_FILTERS)[number];
+
 export type ChartOrientation = 'vertical' | 'horizontal';
 
 export type ChartLayoutMode = 'source' | 'tree';
@@ -89,6 +97,7 @@ export interface OrgNode {
   person: string;
   levelType: OrgNodeLevelType;
   country: string;
+  countries?: CountryCode[];
   regio: string;
   color: CardColorTokenId;
   status: OrgNodeStatus;
@@ -105,13 +114,16 @@ export interface OrgChartDocument {
   nodes: OrgNode[];
 }
 
-export type SelectedNodePatch = Partial<Pick<OrgNode, 'title' | 'person' | 'levelType' | 'country' | 'regio' | 'color' | 'status'>>;
+export type SelectedNodePatch = Partial<
+  Pick<OrgNode, 'title' | 'person' | 'levelType' | 'country' | 'countries' | 'regio' | 'color' | 'status'>
+>;
 
 export const EMPTY_NODE_PATCH: Required<SelectedNodePatch> = {
   title: '',
   person: '',
   levelType: 'B-2',
   country: '',
+  countries: [],
   regio: '',
   color: 'standard',
   status: 'active',

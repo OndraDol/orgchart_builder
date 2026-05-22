@@ -37,4 +37,16 @@ describe('App editor actions', () => {
       screen.getByText(pluralizeCards(SOURCE_ORGCHART.nodes.length)),
     ).toBeInTheDocument();
   });
+
+  it('filters the visible orgchart to a selected country plus ancestor path', async () => {
+    sessionStorage.setItem('orgchart-builder.unlocked', 'true');
+
+    render(<App />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'SK' }));
+
+    expect(screen.getByText('Country Business Manager SK')).toBeInTheDocument();
+    expect(screen.getByText('Managing Director CZ/SK')).toBeInTheDocument();
+    expect(screen.queryByText('Country OPS Manager')).not.toBeInTheDocument();
+  });
 });

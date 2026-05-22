@@ -3,14 +3,17 @@ import { CheckCircle2, X } from 'lucide-react';
 
 import {
   CARD_COLOR_TOKENS,
+  COUNTRY_CODES,
   LEVEL_TYPES,
   STATUS_TYPES,
   type CardColorTokenId,
+  type CountryCode,
   type OrgNode,
   type OrgNodeLevelType,
   type OrgNodeStatus,
   type SelectedNodePatch,
 } from '../domain/orgchart';
+import { countryStringFromCodes, getNodeCountries, normalizeCountryCodes } from '../domain/countryFilter';
 import { colorLabel, levelLabel, messages, statusLabel } from '../i18n/messages';
 
 interface EditorPanelProps {
@@ -53,10 +56,30 @@ export function EditorPanel({
     );
   }
 
+  const selectedCountries = getNodeCountries(node);
+
   const updateTextField =
-    (field: 'title' | 'person' | 'country' | 'regio') =>
+    (field: 'title' | 'person' | 'regio') =>
     (event: ChangeEvent<HTMLInputElement>) => {
       onChange({ [field]: event.currentTarget.value });
+    };
+
+  const updateCountry =
+    (country: CountryCode) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const selected = new Set(selectedCountries);
+
+      if (event.currentTarget.checked) {
+        selected.add(country);
+      } else {
+        selected.delete(country);
+      }
+
+      const countries = normalizeCountryCodes(Array.from(selected));
+      onChange({
+        country: countryStringFromCodes(countries),
+        countries,
+      });
     };
 
   return (
@@ -109,10 +132,22 @@ export function EditorPanel({
             ))}
           </select>
         </label>
-        <label>
-          <span>{messages.editor.country}</span>
-          <input value={node.country} onChange={updateTextField('country')} />
-        </label>
+        <fieldset className="country-checks">
+          <legend>{messages.editor.country}</legend>
+          <div>
+            {COUNTRY_CODES.map((country) => (
+              <label key={country}>
+                <input
+                  type="checkbox"
+                  checked={selectedCountries.includes(country)}
+                  aria-label={messages.editor.countryAria(country)}
+                  onChange={updateCountry(country)}
+                />
+                <span>{country}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
         <label>
           <span>{messages.editor.regio}</span>
           <input value={node.regio} onChange={updateTextField('regio')} />

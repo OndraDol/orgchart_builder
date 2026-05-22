@@ -25,6 +25,8 @@ export const messages = {
     layoutLabel: 'Zobrazení diagramu',
     layoutSource: 'PDF zdroj',
     layoutTree: 'Auto strom',
+    countryFilterLabel: 'Země orgchartu',
+    countryAll: 'All',
     fitView: 'Přizpůsobit pohled',
     undo: 'Zpět',
     importJson: 'Importovat JSON',
@@ -53,6 +55,7 @@ export const messages = {
     draftBadge: 'NOVÁ',
     addChildAria: (title: string) => `Přidat podřízenou kartu pod „${title}"`,
     colorAria: (label: string) => `Barva ${label}`,
+    countryAria: (country: string) => `Země ${country}`,
     cardMetadataAria: 'Metadata karty',
   },
   status: {

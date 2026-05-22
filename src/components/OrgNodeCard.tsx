@@ -2,6 +2,7 @@ import { Plus } from 'lucide-react';
 import clsx from 'clsx';
 
 import { CARD_COLOR_TOKENS, type OrgNode } from '../domain/orgchart';
+import { countryStringFromCodes, getNodeCountries } from '../domain/countryFilter';
 import { messages, statusLabel } from '../i18n/messages';
 
 type DropMode = 'parent' | 'child' | 'sibling-left' | 'sibling-right';
@@ -32,7 +33,8 @@ export function OrgNodeCard({
   onAddChild,
 }: OrgNodeCardProps) {
   const colorToken = CARD_COLOR_TOKENS.find((token) => token.id === node.color) ?? CARD_COLOR_TOKENS[2];
-  const metadata = [node.country, node.regio].filter(Boolean);
+  const countryMetadata = countryStringFromCodes(getNodeCountries(node));
+  const metadata = [countryMetadata, node.regio].filter(Boolean);
   const levelClass = `level-${node.levelType.toLowerCase().replace('-', '')}`;
   const personDisplay = node.person || (draft ? '—' : statusLabel(node.status));
 

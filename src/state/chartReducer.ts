@@ -7,7 +7,15 @@ import {
   updateNode,
 } from '../domain/chartOperations';
 import { createHistory, pushHistory, undoHistory, type ChartHistory } from '../domain/chartHistory';
-import type { ChartLayoutMode, ChartOrientation, NodePosition, OrgChartDocument, SelectedNodePatch } from '../domain/orgchart';
+import { countryStringFromCodes } from '../domain/countryFilter';
+import type {
+  ChartLayoutMode,
+  ChartOrientation,
+  CountryFilter,
+  NodePosition,
+  OrgChartDocument,
+  SelectedNodePatch,
+} from '../domain/orgchart';
 
 type SiblingSide = 'left' | 'right';
 
@@ -20,6 +28,7 @@ export interface ChartState {
   draftNodeId: string | null;
   orientation: ChartOrientation;
   layoutMode: ChartLayoutMode;
+  countryFilter: CountryFilter;
   search: string;
   warning: string;
   saveState: SaveState;
@@ -30,6 +39,7 @@ export type ChartAction =
   | { type: 'set-search'; search: string }
   | { type: 'set-orientation'; orientation: ChartOrientation }
   | { type: 'set-layout-mode'; layoutMode: ChartLayoutMode }
+  | { type: 'set-country-filter'; countryFilter: CountryFilter }
   | { type: 'add-child'; parentId: string }
   | { type: 'update-selected'; patch: SelectedNodePatch }
   | { type: 'delete'; nodeId: string }
@@ -53,6 +63,7 @@ export const createInitialChartState = (chart: OrgChartDocument, layoutMode: Cha
   draftNodeId: null,
   orientation: 'vertical',
   layoutMode,
+  countryFilter: 'all',
   search: '',
   warning: '',
   saveState: 'idle',
@@ -109,9 +120,19 @@ export const chartReducer = (state: ChartState, action: ChartAction): ChartState
     case 'set-layout-mode':
       return { ...state, layoutMode: action.layoutMode, warning: '' };
 
+    case 'set-country-filter':
+      return { ...state, countryFilter: action.countryFilter, selectedNodeId: null, movingNodeId: null, warning: '' };
+
     case 'add-child': {
       try {
-        const addedChart = addChildNode(state.history.current, action.parentId);
+        const countryDefaults =
+          state.countryFilter === 'all'
+            ? undefined
+            : {
+                country: countryStringFromCodes([state.countryFilter]),
+                countries: [state.countryFilter],
+              };
+        const addedChart = addChildNode(state.history.current, action.parentId, countryDefaults);
         const originalAddedNodeId = findAddedNodeId(state.history.current, addedChart);
         const nextChart = ensureGeneratedNodeIdHasSuffix(addedChart, originalAddedNodeId);
         const selectedNodeId = findAddedNodeId(state.history.current, nextChart);
