@@ -34,6 +34,9 @@ Primary priority: the source orgchart tree must match the provided source files.
 - [x] Task 18: Implement country model, helper functions, reducer state
 - [x] Task 19: Wire country filter into toolbar, editor, and app view
 - [x] Task 20: Verify country filter and update handoff
+- [x] Task 21: Add failing ancestor-to-descendant DnD tests
+- [x] Task 22: Implement ancestor-to-descendant child drop
+- [x] Task 23: Final ancestor-to-descendant DnD verification
 
 ## Checkpoints
 
@@ -438,3 +441,71 @@ Implementation notes:
 
 Next task:
 - Commit and push when the country filter should be deployed to GitHub Pages.
+
+### Task 21: Add failing ancestor-to-descendant DnD tests
+
+Status: complete
+
+Changed files:
+- `src/domain/chartOperations.test.ts`
+- `src/state/chartReducer.test.ts`
+- `src/components/OrgChartCanvas.test.tsx`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- RED: `npm run test:run -- src/domain/chartOperations.test.ts src/state/chartReducer.test.ts src/components/OrgChartCanvas.test.tsx`
+- Expected result observed: 5 failures. Current code blocks `Luboš Vorlík -> Renata Havlová` as “Cannot move a node into its own descendant”, reducer keeps the old layout because the operation fails, and `resolveDropIntent` returns `null`.
+
+Next task:
+- Implement safe child-drop semantics for moving a non-root node under its own descendant.
+
+### Task 22: Implement ancestor-to-descendant child drop
+
+Status: complete
+
+Changed files:
+- `src/domain/chartOperations.ts`
+- `src/components/OrgChartCanvas.tsx`
+- `src/domain/chartOperations.test.ts`
+- `src/state/chartReducer.test.ts`
+- `src/components/OrgChartCanvas.test.tsx`
+- `docs/IMPLEMENTATION-LOG.md`
+
+Verification:
+- GREEN: `npm run test:run -- src/domain/chartOperations.test.ts src/state/chartReducer.test.ts src/components/OrgChartCanvas.test.tsx`
+- Result: 3 test files passed, 45 tests passed.
+
+Implementation notes:
+- `moveNodeAsChild` now supports moving a non-root node under its own descendant by promoting all original direct children of the moved node to its original parent first.
+- For `Luboš Vorlík -> Renata Havlová`, Renata and the other original direct reports of Luboš become direct reports of `Petr Vaněček`; Luboš becomes child of Renata.
+- Root moves are still blocked.
+- `resolveDropIntent` now permits child-drop preview for this exact safe restructuring path while keeping parent/sibling drops onto descendants blocked.
+
+Next task:
+- Run full test/build verification and update handoff docs.
+
+### Task 23: Final ancestor-to-descendant DnD verification
+
+Status: complete
+
+Changed files:
+- `docs/IMPLEMENTATION-LOG.md`
+- `docs/HANDOFF.md`
+
+Verification:
+- `npm run test:run`
+- Result: 17 test files passed, 116 tests passed.
+- `npm run build`
+- Result: TypeScript and Vite production build completed successfully.
+
+Browser smoke:
+- Local Vite page on `http://127.0.0.1:5176/index.html` responded with HTTP 200.
+- Playwright drag smoke passed:
+  - dragging `Luboš Vorlík` below `Renata Havlová` produced 1 preview edge;
+  - `Renata Havlová` received the `drop-target` highlight;
+  - after mouse up, localStorage stored `managing-director-czsk-lubos-vorlik.parentId = financial-accounting-manager-cz-renata-havlova`;
+  - `financial-accounting-manager-cz-renata-havlova.parentId = co-ceo-petr-vanecek`;
+  - sampled former Luboš direct reports were promoted to `co-ceo-petr-vanecek`.
+
+Next task:
+- Commit and push the DnD flexibility fix when ready.

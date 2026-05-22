@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { SOURCE_ORGCHART } from '../data/sourceOrgchart';
+import { validateChartDocument } from './chartValidation';
 import type { OrgChartDocument } from './orgchart';
 import {
   addChildNode,
@@ -109,10 +111,43 @@ describe('chartOperations', () => {
     });
   });
 
-  it('blocks moving a node into its descendant', () => {
-    expect(() => moveNodeAsChild(baseChart(), 'child-a', 'grandchild')).toThrow(
-      'Cannot move a node into its own descendant.',
-    );
+  it('promotes a direct child and moves the source under it when dropping a node under its own descendant', () => {
+    const result = moveNodeAsChild(baseChart(), 'child-a', 'grandchild');
+
+    expect(result.nodes.find((node) => node.id === 'grandchild')).toMatchObject({ parentId: 'root' });
+    expect(result.nodes.find((node) => node.id === 'child-a')).toMatchObject({ parentId: 'grandchild' });
+    expect(validateChartDocument(result)).toEqual([]);
+  });
+
+  it('promotes Lubos Vorlik direct reports when moving him under Renata Havlova', () => {
+    const sourceId = 'managing-director-czsk-lubos-vorlik';
+    const targetId = 'financial-accounting-manager-cz-renata-havlova';
+    const source = SOURCE_ORGCHART.nodes.find((node) => node.id === sourceId);
+    const originalDirectChildIds = SOURCE_ORGCHART.nodes
+      .filter((node) => node.parentId === sourceId)
+      .map((node) => node.id);
+
+    expect(source?.parentId).toBe('co-ceo-petr-vanecek');
+    expect(originalDirectChildIds).toContain(targetId);
+
+    const result = moveNodeAsChild(SOURCE_ORGCHART, sourceId, targetId, { x: 123, y: 456 });
+
+    expect(result.nodes.find((node) => node.id === sourceId)).toMatchObject({
+      parentId: targetId,
+      position: { x: 123, y: 456 },
+    });
+
+    for (const childId of originalDirectChildIds) {
+      expect(result.nodes.find((node) => node.id === childId)).toMatchObject({
+        parentId: 'co-ceo-petr-vanecek',
+      });
+    }
+
+    expect(validateChartDocument(result)).toEqual([]);
+  });
+
+  it('still blocks moving the root node under its own descendant', () => {
+    expect(() => moveNodeAsChild(baseChart(), 'root', 'grandchild')).toThrow('Cannot move the root node.');
   });
 
   it('detects cycles while traversing descendants', () => {

@@ -100,6 +100,37 @@ describe('OrgChartCanvas', () => {
     });
   });
 
+  it('allows resolving a child drop when moving Lubos Vorlik under his own descendant Renata Havlova', () => {
+    const nodes = [
+      {
+        id: 'managing-director-czsk-lubos-vorlik',
+        position: { x: 1600, y: 1040 },
+        width: 192,
+        height: 96,
+      },
+      {
+        id: 'financial-accounting-manager-cz-renata-havlova',
+        position: { x: 1600, y: 900 },
+        width: 192,
+        height: 96,
+      },
+    ];
+
+    expect(
+      resolveDropIntent({
+        chart: SOURCE_ORGCHART,
+        orientation: 'vertical',
+        sourceId: 'managing-director-czsk-lubos-vorlik',
+        cursor: { x: 1600, y: 1040 },
+        nodes,
+        edges: [],
+      }),
+    ).toEqual({
+      mode: 'child',
+      targetId: 'financial-accounting-manager-cz-renata-havlova',
+    });
+  });
+
   it('resolves dropping a node on an existing edge as an insert-between parent drop', () => {
     const nodes = [
       { id: 'chief-executive-officer-zdenek-demeter', position: { x: 0, y: 0 }, width: 192, height: 96 },

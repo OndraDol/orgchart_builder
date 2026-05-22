@@ -315,7 +315,7 @@ function isDropModeValid(chart: OrgChartDocument, sourceId: string, targetId: st
     return target.parentId !== null && !isChartDescendant(chart, sourceId, targetId);
   }
 
-  return !isChartDescendant(chart, sourceId, targetId);
+  return source.parentId !== null;
 }
 
 function distanceToLineSegment(point: NodePosition, start: NodePosition, end: NodePosition): number {

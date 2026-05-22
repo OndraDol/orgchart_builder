@@ -106,6 +106,32 @@ const nextSiblingOrder = (nodes: OrgNode[], parentId: string | null): number => 
   return siblingOrders.length === 0 ? 10 : Math.max(...siblingOrders) + 10;
 };
 
+const orderSiblingsWithInsertedNodes = (
+  nodes: OrgNode[],
+  parentId: string | null,
+  replacedNodeId: string,
+  insertedNodeIds: string[],
+): Map<string, number> => {
+  const currentSiblings = nodes
+    .filter((node) => node.parentId === parentId)
+    .slice()
+    .sort((left, right) => left.order - right.order || left.id.localeCompare(right.id));
+  const replacementIndex = Math.max(
+    0,
+    currentSiblings.findIndex((node) => node.id === replacedNodeId),
+  );
+  const siblingIdsWithoutReplaced = currentSiblings
+    .filter((node) => node.id !== replacedNodeId)
+    .map((node) => node.id);
+  const orderedIds = [
+    ...siblingIdsWithoutReplaced.slice(0, replacementIndex),
+    ...insertedNodeIds,
+    ...siblingIdsWithoutReplaced.slice(replacementIndex),
+  ];
+
+  return new Map(orderedIds.map((id, index) => [id, (index + 1) * 10]));
+};
+
 export const addChildNode = (
   chart: OrgChartDocument,
   parentId: string,
@@ -165,8 +191,50 @@ export const moveNodeAsChild = (
     throw new Error('Cannot move a node into itself.');
   }
 
-  if (getDescendantIds(chart.nodes, sourceId).has(targetParentId)) {
-    throw new Error('Cannot move a node into its own descendant.');
+  if (source.parentId === null) {
+    throw new Error('Cannot move the root node.');
+  }
+
+  const descendantIds = getDescendantIds(chart.nodes, sourceId);
+
+  if (descendantIds.has(targetParentId)) {
+    const originalParentId = source.parentId;
+    const promotedChildren = chart.nodes
+      .filter((node) => node.parentId === sourceId)
+      .slice()
+      .sort((left, right) => left.order - right.order || left.id.localeCompare(right.id));
+    const promotedChildIds = promotedChildren.map((node) => node.id);
+    const promotedChildIdSet = new Set(promotedChildIds);
+    const originalParentOrders = orderSiblingsWithInsertedNodes(
+      chart.nodes,
+      originalParentId,
+      sourceId,
+      promotedChildIds,
+    );
+    const sourceOrderUnderTarget = nextSiblingOrder(chart.nodes, targetParentId);
+    const movedNodes = chart.nodes.map((node) => {
+      if (node.id === sourceId) {
+        return {
+          ...node,
+          parentId: targetParentId,
+          order: sourceOrderUnderTarget,
+          ...(position ? { position } : {}),
+        };
+      }
+
+      if (promotedChildIdSet.has(node.id)) {
+        return {
+          ...node,
+          parentId: originalParentId,
+          order: originalParentOrders.get(node.id) ?? node.order,
+        };
+      }
+
+      const originalParentOrder = originalParentOrders.get(node.id);
+      return originalParentOrder === undefined ? node : { ...node, order: originalParentOrder };
+    });
+
+    return withUpdatedAt(chart, normalizeAllSiblingOrders(movedNodes));
   }
 
   const movedNodes = chart.nodes.map((node) =>

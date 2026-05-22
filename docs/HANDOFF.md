@@ -13,7 +13,7 @@ Stav projektu, architektura, hotovo / nehotovo, doporučené další kroky pro p
 - **Dataset:** 118 karet ve `src/data/sourceOrgchart.ts`, schema verze 5, PDF source positions v `src/data/sourcePositions.ts`, confirmed parent overrides v `src/data/sourceParentOverrides.json`
 - **Doménový model:** B-0 .. B-4 úrovně, 7 barevných tokenů, status (active/planned/vacant), volitelné `countries`
 - **Heslo:** `AURES12345` (hash secret `VITE_APP_PASSWORD_HASH` v GitHub repo)
-- **Testy:** 112/112 zelených
+- **Testy:** 116/116 zelených
 
 ## Architektura
 
@@ -68,6 +68,7 @@ src/
   - validní strukturální drop vždy přepne pracovní plochu do `Auto strom`, aby nový parent/order byl okamžitě vidět
   - drag preview i drag stop používají stejný `resolveDropIntent`, takže validní preview se po puštění commitne stejně
   - drop na existující hranu vloží taženou kartu jako mezičlánek mezi parenta a child
+  - child-drop nadřízeného pod vlastního potomka je povolený přes bezpečný přepočet: původní přímí podřízení taženého uzlu se zvednou pod jeho původního nadřízeného a tažený uzel se vloží pod cílového potomka
   - tažená karta = grayscale ghost s subtle scale-down + glow pulse když je nad valid drop místem
   - **viewport zůstává na stejném místě po dropu** (žádný auto-fit; user může kliknout „Přizpůsobit pohled" v toolbaru)
   - regression fixed: drop intent is resolved from the dragged card rectangle, so placing `David Hlavnička` below `Jan Sokola` previews and persists `Jan Sokola -> David Hlavnička`
@@ -75,7 +76,7 @@ src/
 - Import / Export JSON (validace přes `parseChartDocument`)
 - Reset, Undo, Search, Orientation switch
 - GitHub Pages deploy přes Actions
-- 112 testů
+- 116 testů
 
 ## Co NENÍ hotovo
 

@@ -199,6 +199,34 @@ describe('chartReducer', () => {
     });
   });
 
+  it('promotes Lubos Vorlik direct reports after dropping him under Renata Havlova', () => {
+    const state = createInitialChartState(SOURCE_ORGCHART, 'source');
+    const sourceId = 'managing-director-czsk-lubos-vorlik';
+    const targetId = 'financial-accounting-manager-cz-renata-havlova';
+    const originalDirectChildIds = SOURCE_ORGCHART.nodes
+      .filter((node) => node.parentId === sourceId)
+      .map((node) => node.id);
+
+    const result = chartReducer(state, {
+      type: 'drop-as-child',
+      sourceId,
+      targetParentId: targetId,
+      position: { x: 1600, y: 1040 },
+    } as never);
+
+    expect(result.layoutMode).toBe('tree');
+    expect(result.history.current.nodes.find((node) => node.id === sourceId)).toMatchObject({
+      parentId: targetId,
+      position: { x: 1600, y: 1040 },
+    });
+
+    for (const childId of originalDirectChildIds) {
+      expect(result.history.current.nodes.find((node) => node.id === childId)).toMatchObject({
+        parentId: 'co-ceo-petr-vanecek',
+      });
+    }
+  });
+
   it('clears warning when canceling move', () => {
     const state = {
       ...createInitialChartState(SOURCE_ORGCHART),
